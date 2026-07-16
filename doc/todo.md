@@ -39,14 +39,14 @@
   - [x] 頭目防禦/等級參與計算定案(Q-D3 結案):指定頭目用其種族值換算,未指定時防禦為常數
 
 ### [T-4] 資料庫模型與遷移
-- 狀態:Todo
+- 狀態:Done(2026-07-16)
 - 優先級:高
 - 對應需求:FR-1
 - 相依:T-1
 - 描述:依 doc/data-model.md 建立全部 SQLAlchemy 模型與 Alembic 初始遷移(partner_skill 加成欄位先依暫定方案,T-2 定案後如需調整走新遷移)
 - 驗收條件:
-  - [ ] 遷移可在 SQLite 執行成功且可回滾
-  - [ ] 模型與 data-model.md 第 2 節逐實體一致(暫定欄位已標註)
+  - [x] 遷移可在 SQLite 執行成功且可回滾(upgrade head → downgrade base → upgrade head 驗證通過)
+  - [x] 模型與 data-model.md 第 2 節逐實體一致(12 表;partner_skill buff_* 暫定欄位已於模型 docstring 標註)
 
 ### [T-5] 開發用最小種子資料
 - 狀態:Todo

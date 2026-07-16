@@ -53,6 +53,7 @@
 | 2026-07-16 | 介面一律繁體中文,以電腦瀏覽器為主,不投入手機版面優化 | 需求訪談確認 | 前端 |
 | 2026-07-16 | 本地 SQLite 與正式 PostgreSQL 行為有差異,一律經 ORM 存取、禁用專有 SQL | 避免「本地正常、上線壞掉」 | 後端全部資料存取 |
 | 2026-07-16 | 機密資訊(連線字串等)僅存於環境變數;`.env` 已入 `.gitignore` | AGENTS.md 硬性規定 | 全專案 |
+| 2026-07-16 | `backend/alembic.ini` 只能寫 ASCII(英文)——Python configparser 以系統地區編碼(本機為 cp950)讀取該檔,中文註解會使 alembic 全部指令崩潰 | T-4 實作時踩到 UnicodeDecodeError | backend/alembic.ini(其餘 .py 檔不受影響,仍可寫中文) |
 
 ## 已確認的業務規則
 

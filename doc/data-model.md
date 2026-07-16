@@ -37,9 +37,10 @@ erDiagram
 
     PAL {
         int id PK
-        varchar paldex_no "圖鑑編號含變種尾碼"
+        varchar dev_name "資料集內部識別名(Q-D1)"
         varchar name_zh
-        int attack_stat
+        int shot_attack_stat
+        int melee_attack_stat
     }
     ELEMENT_TYPE {
         int id PK
@@ -237,8 +238,8 @@ erDiagram
 
 | 實體.欄位 | 規則 | 來源 |
 |-----------|------|------|
-| pal.paldex_no | 唯一、非空 | FR-1 |
-| pal.attack_stat / defense_stat / hp_stat | > 0 | FR-1 |
+| pal.dev_name | 唯一、非空(2026-07-16 Q-D1:取代原 paldex_no) | FR-1 |
+| pal.shot_attack_stat / melee_attack_stat / defense_stat / hp_stat | > 0 | FR-1 |
 | pal_element | 每隻帕魯 1~2 筆,slot ∈ {1,2} | 遊戲規則 |
 | type_matchup | 81 筆完整(9×9),multiplier > 0 | FR-4 |
 | active_skill.power | ≥ 0 | FR-1 |
@@ -256,7 +257,7 @@ erDiagram
 
 | 索引 | 支援的查詢 |
 |------|-----------|
-| pal.paldex_no(唯一索引,隨唯一約束建立) | 匯入時的 upsert 比對 |
+| pal.dev_name(唯一索引,隨唯一約束建立) | 匯入時的比對(2026-07-16 Q-D1:取代原 paldex_no) |
 | pal.name_zh(一般索引) | 前端搜尋(`GET /api/pals?search=`);注意 SQLite 與 PostgreSQL 的 LIKE 大小寫行為不同,中文搜尋不受影響,英文搜尋統一在應用層轉小寫比對 |
 | pal_element.element_id | 屬性篩選(`GET /api/pals?element=`) |
 | 各中介表的複合主鍵 | 隨主鍵自動建立,涵蓋 join 查詢 |
