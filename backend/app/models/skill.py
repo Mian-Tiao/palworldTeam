@@ -26,6 +26,8 @@ class ActiveSkill(Base):
     )
     power: Mapped[int]
     cooldown_seconds: Mapped[Decimal] = mapped_column(Numeric(5, 2))
+    # Shot / Melee:傷害公式依此選用 shot_attack_stat 或 melee_attack_stat(Q-6 結案)
+    category: Mapped[str] = mapped_column(String(10))
 
     element: Mapped["ElementType"] = relationship()
 

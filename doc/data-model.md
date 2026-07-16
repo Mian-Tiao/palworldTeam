@@ -142,6 +142,7 @@ erDiagram
 | element_id | INTEGER | 是 | 外鍵 → element_type.id,技能屬性 |
 | power | INTEGER | 是 | 技能威力,≥ 0 |
 | cooldown_seconds | DECIMAL(5,2) | 是 | 冷卻秒數,> 0(DPS 計算用) |
+| category | VARCHAR(10) | 是 | `Shot` / `Melee`;傷害公式依此選用遠程或近戰攻擊種族值(2026-07-16 補欄位:Q-6 公式定案後發現缺漏) |
 
 - 主鍵:`id`;唯一約束:`name_en`
 - 外鍵:`element_id`(`ON DELETE RESTRICT`——屬性不應在技能仍引用時被刪)
@@ -244,6 +245,7 @@ erDiagram
 | type_matchup | 81 筆完整(9×9),multiplier > 0 | FR-4 |
 | active_skill.power | ≥ 0 | FR-1 |
 | active_skill.cooldown_seconds | > 0 | FR-1(DPS 計算除數不可為 0) |
+| active_skill.category | ∈ {Shot, Melee} | 已確認決策(傷害公式 Q-6) |
 | pal_active_skill.learned_level | ≥ 1 | 已確認決策(等級選擇) |
 | partner_skill.effect_type | ∈ {team_buff, riding, other} | 已確認決策(夥伴技能範圍) |
 | partner_skill(effect_type=team_buff) | buff_target、buff_value 必填 | FR-4(暫定,見 Q-D2) |
