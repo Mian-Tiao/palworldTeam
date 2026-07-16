@@ -1,0 +1,30 @@
+# 機密設定 — 絕對不得移除此條目(見 AGENTS.md 機密資訊管理)
+.env
+.env.*
+!.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+*.egg-info/
+
+# Node / React
+node_modules/
+frontend/dist/
+
+# 本地資料庫
+*.db
+*.sqlite
+*.sqlite3
+
+# 編輯器與作業系統
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Claude Code 本機個人設定
+.claude/settings.local.json
