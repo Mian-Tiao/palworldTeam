@@ -78,16 +78,17 @@ erDiagram
 | 欄位 | 資料型別(SQL 建議) | 必填 | 說明 |
 |------|---------------------|------|------|
 | id | INTEGER | 是 | 主鍵,自增 |
-| paldex_no | VARCHAR(10) | 是 | 圖鑑編號,含變種尾碼(如 `5B` 代表異種),唯一 |
+| dev_name | VARCHAR(50) | 是 | 資料集內部識別名(如 `SheepBall`),唯一(2026-07-16 Q-D1 結案:取代原 paldex_no 設計,資料集無穩定圖鑑編號) |
 | name_zh | VARCHAR(50) | 是 | 繁體中文名稱 |
-| name_en | VARCHAR(50) | 是 | 英文名稱,匯入腳本比對資料源用 |
-| attack_stat | INTEGER | 是 | 攻擊種族值(傷害計算核心) |
+| shot_attack_stat | INTEGER | 是 | 遠程攻擊種族值(傷害計算主用;2026-07-16 依資料源格式拆分) |
+| melee_attack_stat | INTEGER | 是 | 近戰攻擊種族值(技能 category=Melee 時使用) |
 | defense_stat | INTEGER | 是 | 防禦種族值(資料源既有,一併存入備未來使用) |
 | hp_stat | INTEGER | 是 | 生命種族值(同上) |
 
 - 主鍵:`id`
-- 唯一約束:`paldex_no`(中文名稱可能因翻譯版本變動,不作唯一鍵,見 Q-D1)
+- 唯一約束:`dev_name`(中文名稱可能因翻譯版本變動,不作唯一鍵)
 - 外鍵:無
+- 匯入範圍(Q-D1 結案):僅一般帕魯(`is_pal` 且 `is_available_ingame` 且非 `is_boss`);塔主條目另供 boss 資料表使用
 
 ### 2.2 element_type(屬性)
 
@@ -280,8 +281,7 @@ erDiagram
 
 | 編號 | 事項 | 影響的實體/欄位 | 暫定方案 |
 |------|------|------------------|----------|
-| Q-D1 | 變種帕魯(異種/亞種)的識別方式,及中文譯名以哪個版本為準 | pal.paldex_no、pal.name_zh | 暫定以「編號+尾碼」(如 `5B`)識別,譯名以資料源(Q-3)為準 |
-| Q-D2 | 夥伴技能加成的結構化格式——取決於資料源(架構 Q-3)如何表達效果 | partner_skill.buff_target / buff_value | 暫定三欄位(target/element/value)+ effect_raw 保底;資料源確認後定案,無法結構化的先標 `other` 不納入計算 |
-| Q-D3 | 傷害公式(架構 Q-6)是否需要頭目防禦與等級參與計算 | boss.level、boss.defense_stat | 暫定保留兩個可空欄位;公式定案後決定必填與否 |
 | Q-D4 | 工作適性等級上限(濃縮可使部分達 5?) | pal_work_suitability.rank | 暫定 1~4,第二階段(Q-7)訪談時一併確認 |
-| — | 承架構文件:Q-1(隊伍上限)、Q-2(頭目範圍)、Q-4b(等級範圍)影響 API 驗證值;Q-3(資料源)影響匯入腳本與 Q-D1/Q-D2 | 見第 4 節驗證規則 | 開發前定案 |
+| — | 承架構文件:Q-1(隊伍上限)、Q-2(頭目範圍)、Q-4b(等級範圍)影響 API 驗證值 | 見第 4 節驗證規則 | 開發前定案 |
+
+> 已結案(2026-07-16,詳見 project-memory):Q-D1(以 `pal_dev_name` 為唯一識別,僅匯入一般帕魯)、Q-D2(克制表由匯入腳本內建;夥伴技能加成值以人工 overlay 檔補充,無法結構化者標 `other` 不納入計算)、Q-D3(指定頭目時防禦與等級參與計算,取自資料集塔主條目;未指定時防禦為常數)。
