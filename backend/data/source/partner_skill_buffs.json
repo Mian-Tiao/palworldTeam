@@ -1,0 +1,60 @@
+{
+  "_note": "加成型(team_buff)夥伴技能人工 overlay(Q-D2)。buff_value 0.10 為暫定值,待社群考據後人工修正;不在本檔者由匯入腳本依描述判為 riding 或 other。",
+  "buffs": {
+    "LittleBriarRose": {
+      "buff_target": "pal_attack",
+      "buff_element": "leaf",
+      "buff_value": 0.1
+    },
+    "SharkKid": {
+      "buff_target": "player_attack",
+      "buff_element": null,
+      "buff_value": 0.1
+    },
+    "SharkKid_Fire": {
+      "buff_target": "player_attack",
+      "buff_element": null,
+      "buff_value": 0.1
+    },
+    "ElecCat": {
+      "buff_target": "pal_attack",
+      "buff_element": "electricity",
+      "buff_value": 0.1
+    },
+    "WizardOwl": {
+      "buff_target": "pal_attack",
+      "buff_element": "dark",
+      "buff_value": 0.1
+    },
+    "Kelpie": {
+      "buff_target": "pal_attack",
+      "buff_element": "water",
+      "buff_value": 0.1
+    },
+    "Kelpie_Fire": {
+      "buff_target": "pal_attack",
+      "buff_element": "fire",
+      "buff_value": 0.1
+    },
+    "IceFox": {
+      "buff_target": "pal_attack",
+      "buff_element": "ice",
+      "buff_value": 0.1
+    },
+    "PinkRabbit": {
+      "buff_target": "pal_attack",
+      "buff_element": "normal",
+      "buff_value": 0.1
+    },
+    "WoolFox": {
+      "buff_target": "pal_attack",
+      "buff_element": "normal",
+      "buff_value": 0.1
+    },
+    "FlameBambi": {
+      "buff_target": "pal_attack",
+      "buff_element": "fire",
+      "buff_value": 0.1
+    }
+  }
+}

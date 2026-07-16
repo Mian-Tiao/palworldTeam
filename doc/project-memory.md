@@ -26,6 +26,7 @@
 | 2026-07-16 | 資料來源採 blaynem/paldex 的 baked-data zh-Hant(2024/01 版)起步;之後於安裝遊戲的電腦跑產生器解包最新檔案更新(Q-3 結案) | 繁中內建、格式完整(含技能習得等級、工作適性);現成資料雖舊但不擋第一版驗證;使用者確認「先用現成,回家再抓最新」 | 匯入腳本、backend/data/source/ |
 | 2026-07-16 | 帕魯唯一識別採資料集的 `pal_dev_name`(如 SheepBall、BOSS_Alpaca);變種與頭目以 dev_name 前綴與 is_boss/is_tower_boss 旗標區分;第一版僅匯入一般帕魯(非 BOSS 條目)(Q-D1 結案) | 資料集無穩定圖鑑編號(頭目為 -1/-2);捕捉到的 Alpha 與一般個體種族值相同 | pal 資料表(dev_name 取代 paldex_no 作唯一鍵)、匯入腳本 |
 | 2026-07-16 | 屬性克制表(9×9=81 筆)由匯入腳本內建,考據自 palworld.wiki.gg;夥伴技能加成值由人工整理的 overlay 檔補充(Q-D2 結案) | 所有資料集皆無克制倍率與結構化夥伴技能資料;克制是穩定遊戲規則、加成型夥伴技能數量少 | type_matchup、partner_skill、匯入腳本 |
+| 2026-07-16 | 匯入排除規則:中文名佔位(zh_Hant_Text)或無可用技能的條目不匯入(2024-01 資料集 154 隻一般帕魯中排除 18 筆,實際匯入 136);夥伴技能分類:overlay 檔列 team_buff、描述含騎乘字樣判 riding、其餘 other | 佔位條目無法顯示、無技能者無法參與傷害計算;分類規則使解包更新後重跑即可 | scripts/import_data.py、partner_skill_buffs.json |
 | 2026-07-16 | element_type.code 與 work_type.code 一律採資料集鍵名(小寫 dev_name):`normal/fire/water/leaf/electricity/ice/earth/dark/dragon`、`collection/deforest/emit_flame/...`;active_skill 補 `category`(Shot/Melee)欄位 | 與資料源比對零轉換;傷害公式(Q-6)依 category 選用遠/近戰攻擊種族值,原 data-model 缺此欄(T-5 時發現並補遷移) | element_type、work_type、active_skill、匯入腳本、前端色塊樣式 |
 
 ## 已確認的業務規則(傷害公式,2026-07-16,Q-6/Q-D3 結案)
