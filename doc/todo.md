@@ -59,14 +59,14 @@
   - [x] 涵蓋:雙屬性帕魯 3 隻、team_buff 7 隻與 riding 2 隻夥伴技能、技能習得等級 1~50(12 帕魯、48 技能、81 筆克制表)
 
 ### [T-6] 帕魯資料 API
-- 狀態:Todo
+- 狀態:Done(2026-07-16)
 - 優先級:高
 - 對應需求:FR-1、FR-2
 - 相依:T-4、T-5
 - 描述:`GET /api/pals`(search/element 篩選)、`GET /api/pals/{id}`、`GET /api/elements`、`GET /api/health`;啟動時記憶體快取;統一回應與錯誤格式
 - 驗收條件:
-  - [ ] 各端點回傳符合 AGENTS.md 格式,錯誤訊息為繁中
-  - [ ] 搜尋與屬性篩選正確;pytest 覆蓋成功/404/422 情境
+  - [x] 各端點回傳符合 AGENTS.md 格式,錯誤訊息為繁中(統一 exception handler,500 不洩漏堆疊)
+  - [x] 搜尋與屬性篩選正確;pytest 15 例通過,覆蓋成功/404/422/空結果(TC-001~004、TC-022);本地 uvicorn 實測通過
 
 ### [T-7] 前端基礎與帕魯選擇頁
 - 狀態:Todo

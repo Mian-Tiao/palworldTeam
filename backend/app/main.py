@@ -1,11 +1,31 @@
+from contextlib import asynccontextmanager
 from pathlib import Path
 
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
 
 from app.api import api_router
+from app.core.cache import load_cache
+from app.core.db import SessionLocal
+from app.core.errors import register_error_handlers
 
-app = FastAPI(title="幻獸帕魯隊伍與打工最佳化系統", docs_url="/api/docs", openapi_url="/api/openapi.json")
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    # 啟動時全量載入唯讀資料至記憶體(architecture.md 快取決策)
+    with SessionLocal() as session:
+        app.state.data_cache = load_cache(session)
+    yield
+
+
+app = FastAPI(
+    title="幻獸帕魯隊伍與打工最佳化系統",
+    docs_url="/api/docs",
+    openapi_url="/api/openapi.json",
+    lifespan=lifespan,
+)
+
+register_error_handlers(app)
 
 app.include_router(api_router, prefix="/api")
 
