@@ -98,6 +98,16 @@
   - [x] 一鍵匯入 136 隻(排除佔位/無技能 18 筆),data-model 第 4 節驗證通過;前端實測顯示 136 隻
   - [x] import_log 記錄來源與版本;pytest 15 例全數通過(seed 改走同一匯入邏輯)
 
+### [P-2] 傷害計算器
+- 狀態:Done(2026-07-16)
+- 優先級:高
+- 對應需求:FR-4、FR-5
+- 相依:T-3(公式定案;2026-07-16 由「待確認後才可開發」解鎖轉入)
+- 描述:services/damage.py 純函式實作 project-memory「已確認的業務規則(傷害公式)」全部規格:攻擊值、克制/STAB 倍率、習得等級過濾、加權 DPS 取前 3、team_buff 加成、頭目/通用防禦;輸出含逐技能拆解(P-6 透明可驗證的基礎)
+- 驗收條件:
+  - [x] 全部公式項有單元測試(24 例),含完整公式手算對照(1513.16)
+  - [x] 不依賴 FastAPI 與資料庫,輸入輸出皆為 dataclass(AGENTS.md services 規範)
+
 ### [T-9] 部署設定(Render)
 - 狀態:Todo
 - 優先級:中
@@ -122,7 +132,7 @@
 | 編號 | 項目 | 待確認事項 | 來源 | 解鎖方式 |
 |------|------|-----------|------|----------|
 | P-1 | 正式資料匯入腳本(全量替換+import_log) | **已完成(2026-07-16)**,見上方 [P-1] 條目 | requirements / data-model | — |
-| P-2 | 傷害計算器(services/,含單元測試) | **已解鎖(2026-07-16)**:公式定案,見 project-memory | requirements / architecture | 可直接開發 |
+| P-2 | 傷害計算器(services/,含單元測試) | **已完成(2026-07-16)**,見上方 [P-2] 條目 | requirements / architecture | — |
 | P-3 | 推薦引擎與 `POST /api/team-recommendations` | Q-1(隊伍上限)+ 依賴 P-2 | requirements | 使用者確認 Q-1;P-2 完成 |
 | P-4 | 頭目清單資料與頭目選擇 UI | Q-2(初版收錄範圍;資料集含塔主條目可直接取用) | requirements / architecture | 使用者確認收錄清單 |
 | P-5 | 等級選擇元件 | Q-4b(預設值與範圍;建議預設 Lv50、範圍 1~60) | requirements | 使用者一句話確認即可 |
