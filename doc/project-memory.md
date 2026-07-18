@@ -48,6 +48,9 @@
 | 2026-07-16 | 資料更新採半自動:CLI 匯入腳本、整批替換(單一交易),不做公開寫入 API、不做自動爬蟲 | 資料為靜態遊戲數值,改版才需更新;公開寫入路徑有安全風險 | 匯入腳本、資料生命週期 |
 | 2026-07-16 | 帕魯資料於 API 啟動後全量快取於記憶體 | 唯讀靜態資料;支撐「數秒出結果」驗收條件 | 後端 core/、推薦引擎 |
 
+| 2026-07-18 | 已從本機 Steam 版遊戲檔(1.0 版,2026-07-15 更新)唯讀解包最新資料至 backend/data/source/raw_v1/;工具與重跑方式見 backend/scripts/extract/README.md | 使用者同意下載解析工具(CUE4Parse + 社群 Mappings.usmap + 局部 .NET 10 SDK);2024-01 舊資料的夥伴技能與種族值已過時(波魯傑克斯案例) | 資料更新流程、後續轉換腳本 |
+| 2026-07-18 | 新版夥伴技能為結構化被動(各專注階獨立數值),含 StackBuff 等新效果型態;現行 partner_skill schema 需擴充才能表達 | 解包 DT_PartnerSkillParameter / DT_PassiveSkill_Main 證實 | data-model、匯入腳本、傷害計算器(見 todo P-8) |
+
 ## 重要限制
 
 | 日期 | 限制 | 原因 | 影響範圍 |
