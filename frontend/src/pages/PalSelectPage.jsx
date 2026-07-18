@@ -1,8 +1,11 @@
 import { useState } from 'react'
 
 import { useElements, usePals } from '../api/pals'
+import { useRecommendTeams } from '../api/recommendations'
+import ConditionPanel from '../components/ConditionPanel'
 import ElementBadge from '../components/ElementBadge'
-import { FIXED_MEMBER_LIMIT } from '../constants'
+import TeamResults from '../components/TeamResults'
+import { FIXED_MEMBER_LIMIT, LEVEL_DEFAULT } from '../constants'
 
 // 載入/錯誤狀態的統一畫面(AGENTS.md:每個 API 呼叫都要有對應畫面)
 function LoadingBox({ text = '載入中…' }) {
@@ -161,6 +164,9 @@ export default function PalSelectPage() {
   const [search, setSearch] = useState('')
   const [element, setElement] = useState(null)
   const [selected, setSelected] = useState([])
+  const [targetElements, setTargetElements] = useState([])
+  const [level, setLevel] = useState(LEVEL_DEFAULT)
+  const recommend = useRecommendTeams()
 
   function toggle(pal) {
     setSelected((prev) => {
@@ -170,9 +176,32 @@ export default function PalSelectPage() {
     })
   }
 
+  function submit() {
+    recommend.mutate({
+      fixedPalIds: selected.map((p) => p.id),
+      level,
+      targetElements,
+    })
+  }
+
   return (
     <div className="mx-auto max-w-5xl space-y-4 p-6">
       <SelectedPanel selected={selected} onRemove={toggle} />
+
+      <ConditionPanel
+        targetElements={targetElements}
+        onTargetElementsChange={setTargetElements}
+        level={level}
+        onLevelChange={setLevel}
+        onSubmit={submit}
+        canSubmit={selected.length >= 1}
+        isPending={recommend.isPending}
+      />
+
+      {recommend.isError && (
+        <ErrorBox error={recommend.error} onRetry={submit} />
+      )}
+      {recommend.isSuccess && <TeamResults result={recommend.data} />}
 
       <section className="space-y-3 rounded-xl border border-gray-200 bg-white p-4">
         <input
