@@ -40,6 +40,7 @@ from app.models import (  # noqa: E402
     PalElement,
     PalWorkSuitability,
     PartnerSkill,
+    PartnerSkillBuffTier,
     TypeMatchup,
     WorkType,
 )
@@ -48,12 +49,10 @@ SOURCE_DIR = BACKEND_ROOT / "data" / "source"
 SOURCE_LABEL = "本機解包 raw_v1 經 convert_raw.py 轉換(Pal-Windows.pak 2026-07-15)"
 GAME_VERSION = "1.0(2026-07)"
 
-# 疊層型夥伴技能(如波魯傑克斯命中疊攻)的期望層數近似。
-# 效果值為「每層 %」,實戰層數隨命中/擊殺變動且會衰退,無法精確模擬;
-# 統一以「實際上限 × 維持係數」估期望值(取半,代表延長戰鬥的典型維持度),
-# 至少 1 層。上限未知時退回 STACK_FALLBACK_CAP。詳見 doc/project-memory。
-STACK_SUSTAIN_FRACTION = 0.5
-STACK_FALLBACK_CAP = 10
+# 疊層型夥伴技能(如波魯傑克斯命中疊攻)以「滿疊理論值」計:每層 % × 最大層數。
+# 對應遊戲內顯示的滿星 150% 等描述。實戰維持度會低於此上限,呈現時明確標註為
+# 「滿疊」;若未來要打折,調整此處與前端標籤即可。上限未知時退回 STACK_FALLBACK_CAP。
+STACK_FALLBACK_CAP = 30
 
 # 9 屬性:code 取資料集 dev_name 小寫,name_zh 取資料集中文名去掉「屬性」
 ELEMENTS = [
@@ -150,15 +149,21 @@ def load_buff_overlay() -> dict:
         return json.load(f)["buffs"]
 
 
+STAR_LEVELS = 5  # 專注 0~4 星
+
+
 def classify_partner_skill(
     dev_name: str, description: str, overlay: dict, partner_buff: dict | None
 ) -> dict:
     """夥伴技能分類,優先序:
-    1. overlay(人工修正檔)→ team_buff
+    1. overlay(人工修正檔)→ team_buff(單一值,五星同值)
     2. 來源結構化 partner_buff(convert_raw.py 自遊戲被動表萃取)→ team_buff
-       - stack 型:每層值 × 期望層數(實際上限 × 維持係數,取半;上限不受此估值超過)
+       - flat:各星有效加成即 values_by_star
+       - stack:各星有效加成 = 每層值 × 最大層數(滿疊理論值,對應遊戲「滿星 150%」)
     3. 描述含騎乘字樣 → riding
     4. 其餘 → other
+
+    回傳的 team_buff 含 buff_tiers(長度 STAR_LEVELS 的有效加成分數清單)。
     """
     if dev_name in overlay:
         entry = overlay[dev_name]
@@ -166,19 +171,26 @@ def classify_partner_skill(
             "effect_type": "team_buff",
             "buff_target": entry["buff_target"],
             "buff_element": entry["buff_element"],
-            "buff_value": entry["buff_value"],
+            "buff_mechanic": "flat",
+            "buff_max_stacks": None,
+            "buff_tiers": [round(entry["buff_value"], 4)] * STAR_LEVELS,
         }
     if partner_buff is not None:
-        value = partner_buff["value"]
-        if partner_buff.get("mechanic") == "stack":
-            cap = partner_buff.get("max_stacks") or STACK_FALLBACK_CAP
-            expected_stacks = max(1, round(cap * STACK_SUSTAIN_FRACTION))
-            value = round(value * expected_stacks, 4)
+        mechanic = partner_buff.get("mechanic", "flat")
+        per_star = partner_buff["values_by_star"]
+        max_stacks = partner_buff.get("max_stacks")
+        if mechanic == "stack":
+            cap = max_stacks or STACK_FALLBACK_CAP
+            tiers = [round(v * cap, 4) for v in per_star]
+        else:
+            tiers = [round(v, 4) for v in per_star]
         return {
             "effect_type": "team_buff",
             "buff_target": partner_buff["target"],
             "buff_element": partner_buff.get("element"),
-            "buff_value": value,
+            "buff_mechanic": mechanic,
+            "buff_max_stacks": max_stacks,
+            "buff_tiers": tiers,
         }
     if _RIDING_PATTERN.search(description):
         return {"effect_type": "riding"}
@@ -276,7 +288,7 @@ def run_import(
             classified = classify_partner_skill(
                 dev_name, description, overlay, src.get("partner_buff")
             )
-            session.add(PartnerSkill(
+            partner = PartnerSkill(
                 pal_id=pal.id,
                 name_zh=src["partner_skill_title"],
                 effect_type=classified["effect_type"],
@@ -285,12 +297,15 @@ def run_import(
                     elements[classified["buff_element"]].id
                     if classified.get("buff_element") else None
                 ),
-                buff_value=(
-                    Decimal(str(classified["buff_value"]))
-                    if classified.get("buff_value") is not None else None
-                ),
+                buff_mechanic=classified.get("buff_mechanic"),
+                buff_max_stacks=classified.get("buff_max_stacks"),
                 effect_raw=description,
-            ))
+            )
+            partner.buff_tiers = [
+                PartnerSkillBuffTier(star_level=star, buff_value=Decimal(str(value)))
+                for star, value in enumerate(classified.get("buff_tiers", []))
+            ]
+            session.add(partner)
 
             for work_code, _ in WORK_TYPES:
                 rank = src["work_suitability"].get(work_code, 0)
@@ -333,8 +348,8 @@ def _validate(session) -> None:
     for ps in session.scalars(select(PartnerSkill)):
         assert ps.effect_type in ("team_buff", "riding", "other")
         if ps.effect_type == "team_buff":
-            assert ps.buff_target and ps.buff_value is not None, (
-                f"team_buff 缺加成欄位:pal_id={ps.pal_id}"
+            assert ps.buff_target and len(ps.buff_tiers) == STAR_LEVELS, (
+                f"team_buff 缺加成欄位或星級數不足:pal_id={ps.pal_id}"
             )
 
 

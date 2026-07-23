@@ -1,18 +1,30 @@
 import { useElements } from '../api/pals'
 import ElementBadge from './ElementBadge'
-import { LEVEL_MAX, LEVEL_MIN, TARGET_ELEMENT_LIMIT } from '../constants'
+import {
+  LEVEL_MAX,
+  LEVEL_MIN,
+  STAR_MAX,
+  STAR_MIN,
+  TARGET_ELEMENT_LIMIT,
+} from '../constants'
 
 const LEVEL_OPTIONS = Array.from(
   { length: LEVEL_MAX - LEVEL_MIN + 1 },
   (_, i) => LEVEL_MIN + i,
 )
+const STAR_OPTIONS = Array.from(
+  { length: STAR_MAX - STAR_MIN + 1 },
+  (_, i) => STAR_MIN + i,
+)
 
-/** 條件設定(T-8):目標敵人屬性組合(0~2 個,可留空=通用計算)與計算等級。 */
+/** 條件設定(T-8):目標敵人屬性組合、計算等級、專注星級(影響夥伴技能加成)。 */
 export default function ConditionPanel({
   targetElements,
   onTargetElementsChange,
   level,
   onLevelChange,
+  starLevel,
+  onStarLevelChange,
   onSubmit,
   canSubmit,
   isPending,
@@ -76,6 +88,22 @@ export default function ConditionPanel({
             {LEVEL_OPTIONS.map((lv) => (
               <option key={lv} value={lv}>
                 Lv {lv}
+              </option>
+            ))}
+          </select>
+        </label>
+
+        <label className="flex items-center gap-2 text-sm text-sky-900">
+          專注星級
+          <select
+            value={starLevel}
+            onChange={(e) => onStarLevelChange(Number(e.target.value))}
+            className="rounded-lg border border-gray-300 bg-white px-2 py-1"
+            title="濃縮星級,影響夥伴技能加成強度(全隊套用)"
+          >
+            {STAR_OPTIONS.map((s) => (
+              <option key={s} value={s}>
+                {s === 0 ? '無星(未濃縮)' : `${'★'.repeat(s)} ${s} 星`}
               </option>
             ))}
           </select>

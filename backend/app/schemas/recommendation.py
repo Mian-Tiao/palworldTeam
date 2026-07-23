@@ -8,6 +8,11 @@ from app.services.recommend import TEAM_SIZE
 LEVEL_MIN = 1
 LEVEL_MAX = 60
 
+# 專注(濃縮)星級:0~4 星,影響夥伴技能加成強度;預設滿星(對應玩家練滿的實戰)
+STAR_MIN = 0
+STAR_MAX = 4
+STAR_DEFAULT = 4
+
 
 class TargetIn(BaseModel):
     """目標敵人:屬性組合模式(頭目模式待 P-4/Q-2)。"""
@@ -22,4 +27,8 @@ class RecommendationRequest(BaseModel):
         min_length=1, max_length=TEAM_SIZE, description="固定成員的帕魯 id(1~5 隻)"
     )
     level: int = Field(ge=LEVEL_MIN, le=LEVEL_MAX, description="計算等級,全隊套用")
+    star_level: int = Field(
+        default=STAR_DEFAULT, ge=STAR_MIN, le=STAR_MAX,
+        description="專注(濃縮)星級 0~4,影響夥伴技能加成強度,全隊套用",
+    )
     target: TargetIn | None = None

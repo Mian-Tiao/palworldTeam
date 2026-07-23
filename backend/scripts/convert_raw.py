@@ -119,55 +119,72 @@ def clean_description(raw: str, passive_list: list[dict], pal_names: "TextTable"
     return re.sub(r"\s+", " ", text).strip()
 
 
-def extract_partner_buff(dev_name: str, partner_params: dict, passives: dict) -> dict | None:
-    """自夥伴技能「專注 1 階」被動萃取攻擊加成(取第一個攻擊型效果)。"""
-    row = partner_params.get(dev_name)
-    ranks = (row or {}).get("PassiveSkills") or []
-    if not ranks:
+def _buff_from_effect(eff: dict) -> dict | None:
+    """自單一被動效果列判斷是否為納入計算的攻擊加成,回傳其標記與數值(%)。"""
+    if not eff["InvokeInOtomo"]:
         return None
-    for entry in ranks[0]["SkillAndParametersArray"]:
-        key = entry["SkillName"]["Key"]
-        eff = passives.get(key)
+    for i in (1, 2, 3, 4):
+        etype = enum_suffix(eff[f"EffectType{i}"])
+        value = eff[f"EffectValue{i}"]
+        target = enum_suffix(eff[f"TargetType{i}"])
+        if etype in ATTACK_EFFECTS and target == "ToSelf":
+            # 指派給隊伍中(限定屬性)帕魯的攻擊加成(如水靈兒:水帕魯射擊 +15%)
+            element = enum_suffix(eff["TargetElementType"])
+            return {"target": "pal_attack", "element": ELEMENT_DEV_TO_CODE.get(element),
+                    "mechanic": "flat", "value": value}
+        if etype in ATTACK_EFFECTS and target == "ToTrainer":
+            # 在隊伍中即生效的玩家攻擊加成(不影響帕魯輸出,呈現用)
+            return {"target": "player_attack", "element": None,
+                    "mechanic": "flat", "value": value}
+        if etype in STACK_EFFECTS and target in ("ToActiveOtomo", "ToOtomo"):
+            # 疊層型全隊攻擊加成(如波魯傑克斯):value 為每層 %
+            return {"target": "pal_attack", "element": None,
+                    "mechanic": "stack", "value": value}
+    return None
+
+
+def _buff_in_tier(tier: dict, passives: dict) -> dict | None:
+    """在一個專注階(tier)的被動列中找出攻擊加成。"""
+    for entry in tier["SkillAndParametersArray"]:
+        eff = passives.get(entry["SkillName"]["Key"])
         if eff is None:
             continue
-        for i in (1, 2, 3, 4):
-            etype = enum_suffix(eff[f"EffectType{i}"])
-            value = eff[f"EffectValue{i}"]
-            target = enum_suffix(eff[f"TargetType{i}"])
-            if etype in ATTACK_EFFECTS and target == "ToSelf" and eff["InvokeInOtomo"]:
-                # 指派給隊伍中(限定屬性)帕魯的攻擊加成(如水靈兒:水帕魯射擊+15%)
-                element = enum_suffix(eff["TargetElementType"])
-                return {
-                    "target": "pal_attack",
-                    "element": ELEMENT_DEV_TO_CODE.get(element),
-                    "value": value / 100.0,
-                    "mechanic": "flat",
-                    "source_passive": key,
-                }
-            if etype in ATTACK_EFFECTS and target == "ToTrainer" and eff["InvokeInOtomo"]:
-                # 在隊伍中即生效的玩家攻擊加成(不影響帕魯輸出,呈現用);
-                # 騎乘中才生效(InvokeRiding)者不納入
-                return {
-                    "target": "player_attack",
-                    "element": None,
-                    "value": value / 100.0,
-                    "mechanic": "flat",
-                    "source_passive": key,
-                }
-            if (
-                etype in STACK_EFFECTS
-                and target in ("ToActiveOtomo", "ToOtomo")
-                and eff["InvokeInOtomo"]
-            ):
-                # 疊層型全隊攻擊加成(如波魯傑克斯):存每層數值
-                return {
-                    "target": "pal_attack",
-                    "element": None,
-                    "value": value / 100.0,
-                    "mechanic": "stack",
-                    "source_passive": key,
-                }
+        found = _buff_from_effect(eff)
+        if found is not None:
+            found["source_passive"] = entry["SkillName"]["Key"]
+            return found
     return None
+
+
+def extract_partner_buff(dev_name: str, partner_params: dict, passives: dict) -> dict | None:
+    """萃取夥伴技能攻擊加成的「逐星級數值」(專注 0~4 星,對應 PassiveSkills 各階)。
+
+    回傳 values_by_star:flat 型為各星的加成分數;stack 型為各星的「每層」分數。
+    target/element/mechanic 取自 0 星(各星一致)。
+    """
+    row = partner_params.get(dev_name)
+    tiers = (row or {}).get("PassiveSkills") or []
+    if not tiers:
+        return None
+
+    base = _buff_in_tier(tiers[0], passives)
+    if base is None:
+        return None
+
+    values_by_star: list[float] = []
+    for tier in tiers:
+        found = _buff_in_tier(tier, passives)
+        # 某星缺該效果時沿用上一星(理論上不會發生,防護用)
+        val = found["value"] if found else (values_by_star[-1] * 100 if values_by_star else 0.0)
+        values_by_star.append(val / 100.0)
+
+    return {
+        "target": base["target"],
+        "element": base["element"],
+        "mechanic": base["mechanic"],
+        "values_by_star": values_by_star,
+        "source_passive": base["source_passive"],
+    }
 
 
 def main() -> None:

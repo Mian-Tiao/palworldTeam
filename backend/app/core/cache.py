@@ -14,6 +14,7 @@ from app.models import (
     Pal,
     PalActiveSkill,
     PalWorkSuitability,
+    PartnerSkill,
     TypeMatchup,
 )
 from app.schemas.pal import (
@@ -65,7 +66,7 @@ def load_cache(session: Session) -> DataCache:
         .options(
             selectinload(Pal.elements),
             selectinload(Pal.skill_links).selectinload(PalActiveSkill.skill),
-            selectinload(Pal.partner_skill),
+            selectinload(Pal.partner_skill).selectinload(PartnerSkill.buff_tiers),
             selectinload(Pal.work_suitabilities).selectinload(
                 PalWorkSuitability.work_type
             ),
@@ -109,11 +110,9 @@ def load_cache(session: Session) -> DataCache:
                         if partner.buff_element_id is not None
                         else None
                     ),
-                    buff_value=(
-                        float(partner.buff_value)
-                        if partner.buff_value is not None
-                        else None
-                    ),
+                    buff_mechanic=partner.buff_mechanic,
+                    buff_max_stacks=partner.buff_max_stacks,
+                    buff_tiers=[float(t.buff_value) for t in partner.buff_tiers],
                     description=partner.effect_raw,
                 )
                 if partner is not None

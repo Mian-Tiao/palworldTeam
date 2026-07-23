@@ -67,8 +67,34 @@ class PartnerSkill(Base):
     buff_element_id: Mapped[int | None] = mapped_column(
         ForeignKey("element_type.id", ondelete="RESTRICT")
     )
-    buff_value: Mapped[Decimal | None] = mapped_column(Numeric(5, 4))
+    # 加成機制:flat(固定加成)/ stack(命中或擊殺疊層);逐星級數值見 buff_tiers
+    buff_mechanic: Mapped[str | None] = mapped_column(String(10))
+    # 疊層型的最大層數(供呈現與說明;tier.buff_value 已含滿疊換算)
+    buff_max_stacks: Mapped[int | None]
     effect_raw: Mapped[str | None] = mapped_column(Text)
 
     pal: Mapped["Pal"] = relationship(back_populates="partner_skill")
     buff_element: Mapped["ElementType | None"] = relationship()
+    buff_tiers: Mapped[list["PartnerSkillBuffTier"]] = relationship(
+        back_populates="partner_skill",
+        cascade="all, delete-orphan",
+        order_by="PartnerSkillBuffTier.star_level",
+    )
+
+
+class PartnerSkillBuffTier(Base):
+    """加成型夥伴技能的逐星級(專注 0~4 星)有效加成值。
+
+    buff_value 為該星級套用到攻擊值的分數(如 0.15 = +15%);
+    疊層型已於匯入時以「每層 × 最大層數」換算為滿疊理論值。
+    """
+
+    __tablename__ = "partner_skill_buff_tier"
+
+    partner_skill_id: Mapped[int] = mapped_column(
+        ForeignKey("partner_skill.id", ondelete="CASCADE"), primary_key=True
+    )
+    star_level: Mapped[int] = mapped_column(primary_key=True)  # 0~4
+    buff_value: Mapped[Decimal] = mapped_column(Numeric(5, 4))
+
+    partner_skill: Mapped[PartnerSkill] = relationship(back_populates="buff_tiers")

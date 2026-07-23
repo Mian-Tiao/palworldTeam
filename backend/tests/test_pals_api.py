@@ -89,19 +89,24 @@ def test_get_pal_detail_team_buff_fields(client):
     assert partner["effect_type"] == "team_buff"
     assert partner["buff_target"] == "pal_attack"
     assert partner["buff_element"] == "water"
-    assert partner["buff_value"] == 0.15  # 遊戲 1.0 解包實值(專注 1 階)
+    assert partner["buff_mechanic"] == "flat"
+    # 專注 0~4 星逐星有效加成(遊戲 1.0 解包實值)
+    assert partner["buff_tiers"] == [0.15, 0.17, 0.2, 0.24, 0.3]
 
 
 def test_get_pal_detail_stack_buff(client):
-    """波魯傑克斯(1.0 改版):疊層型全隊攻擊加成,期望層數近似後參與計算。"""
+    """波魯傑克斯(1.0):疊層型全隊攻擊加成,各星以滿疊理論值計。"""
     listing = client.get("/api/pals", params={"search": "波魯傑克斯"}).json()
     pal = client.get(f"/api/pals/{listing['data'][0]['id']}").json()["data"]
     partner = pal["partner_skill"]
     assert partner["effect_type"] == "team_buff"
     assert partner["buff_target"] == "pal_attack"
     assert partner["buff_element"] is None
-    # 每層 1% × 期望層數(實際上限 30 × 維持係數 0.5 = 15 層)
-    assert partner["buff_value"] == 0.15
+    assert partner["buff_mechanic"] == "stack"
+    assert partner["buff_max_stacks"] == 30
+    # 0 星每層 1%×30=30%;4 星每層 5%×30=150%(對應遊戲滿星描述)
+    assert partner["buff_tiers"][0] == 0.3
+    assert partner["buff_tiers"][4] == 1.5
 
 
 def test_get_pal_not_found_returns_404(client):

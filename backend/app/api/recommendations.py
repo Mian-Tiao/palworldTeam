@@ -12,8 +12,8 @@ from app.services.recommend import CandidatePal, TeamResult, recommend_teams
 router = APIRouter(tags=["recommendations"])
 
 
-def _to_candidate(pal: PalDetailOut) -> CandidatePal:
-    """快取模型 → 引擎輸入。"""
+def _to_candidate(pal: PalDetailOut, star_level: int) -> CandidatePal:
+    """快取模型 → 引擎輸入;夥伴技能加成取所選星級(專注 0~4)的數值。"""
     spec = PalSpec(
         dev_name=pal.dev_name,
         name_zh=pal.name_zh,
@@ -38,12 +38,12 @@ def _to_candidate(pal: PalDetailOut) -> CandidatePal:
         partner is not None
         and partner.effect_type == "team_buff"
         and partner.buff_target
-        and partner.buff_value is not None
+        and star_level < len(partner.buff_tiers)
     ):
         buff = TeamBuff(
             buff_target=partner.buff_target,
             buff_element=partner.buff_element,
-            buff_value=partner.buff_value,
+            buff_value=partner.buff_tiers[star_level],
         )
     return CandidatePal(pal=spec, team_buff=buff)
 
@@ -93,6 +93,9 @@ def _serialize_team(team: TeamResult, pals_by_dev_name: dict[str, PalDetailOut])
                 "buff_target": b.buff.buff_target,
                 "buff_element": b.buff.buff_element,
                 "buff_value": b.buff.buff_value,
+                # 疊層型標註,供前端顯示「滿疊」等說明
+                "buff_mechanic": pals_by_dev_name[b.provider_dev_name].partner_skill.buff_mechanic,
+                "buff_max_stacks": pals_by_dev_name[b.provider_dev_name].partner_skill.buff_max_stacks,
             }
             for b in team.active_buffs
         ],
@@ -123,7 +126,7 @@ def create_team_recommendations(request: Request, body: RecommendationRequest) -
         target = TargetSpec(elements=target_elements)
 
     matchups = {(m.attacker, m.defender): m.multiplier for m in cache.matchups}
-    candidates = [_to_candidate(p) for p in cache.pals]
+    candidates = [_to_candidate(p, body.star_level) for p in cache.pals]
     fixed_dev_names = [cache.pals_by_id[pid].dev_name for pid in body.fixed_pal_ids]
 
     teams = recommend_teams(
@@ -139,6 +142,7 @@ def create_team_recommendations(request: Request, body: RecommendationRequest) -
         "data": {"teams": [_serialize_team(t, pals_by_dev_name) for t in teams]},
         "meta": {
             "level": body.level,
+            "star_level": body.star_level,
             "target_elements": list(target_elements),
             "enemy_defense": enemy_defense(target),
             "candidate_total": len(candidates),

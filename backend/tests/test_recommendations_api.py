@@ -75,6 +75,27 @@ def test_generic_target_works_without_target(client):
     )
     assert resp.status_code == 200
     assert resp.json()["meta"]["target_elements"] == []
+    assert resp.json()["meta"]["star_level"] == 4  # 預設滿星
+
+
+def test_star_level_scales_buff(client):
+    """星級提高 → 夥伴技能加成變強 → 帕魯攻擊加成%上升。"""
+    fixed = [_pal_id(client, "波魯傑克斯")]
+
+    def buff_rate(star):
+        body = client.post(
+            "/api/team-recommendations",
+            json={"fixed_pal_ids": fixed, "level": 50, "star_level": star},
+        ).json()
+        provider = body["data"]["teams"][0]["members"][0]  # 固定成員=波魯傑克斯
+        return provider["attack_buff_rate"]
+
+    # 0 星滿疊 30%(自身 stack)、4 星滿疊 150%;星級越高加成越大
+    assert buff_rate(4) > buff_rate(0) > 0
+    assert client.post(
+        "/api/team-recommendations",
+        json={"fixed_pal_ids": fixed, "level": 50, "star_level": 5},
+    ).status_code == 422  # 超出 0~4 範圍
 
 
 def test_duplicate_fixed_ids_rejected(client):

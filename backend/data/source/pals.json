@@ -2942,8 +2942,14 @@
   "partner_buff": {
    "target": "pal_attack",
    "element": null,
-   "value": 0.04,
    "mechanic": "flat",
+   "values_by_star": [
+    0.04,
+    0.05,
+    0.06,
+    0.07,
+    0.08
+   ],
    "source_passive": "ShotAttack_PartnerSkill_SpecificElement_1"
   },
   "work_suitability": {
@@ -7659,8 +7665,14 @@
   "partner_buff": {
    "target": "pal_attack",
    "element": "electricity",
-   "value": 0.15,
    "mechanic": "flat",
+   "values_by_star": [
+    0.15,
+    0.17,
+    0.2,
+    0.24,
+    0.3
+   ],
    "source_passive": "AttackUp_Electricity_PartnerSkill_1"
   },
   "work_suitability": {
@@ -11426,8 +11438,14 @@
   "partner_buff": {
    "target": "pal_attack",
    "element": null,
-   "value": 0.02,
    "mechanic": "flat",
+   "values_by_star": [
+    0.02,
+    0.03,
+    0.04,
+    0.05,
+    0.06
+   ],
    "source_passive": "ShotAttack_MoveSpeed_PartnerSkill_SpecificElement_1"
   },
   "work_suitability": {
@@ -11550,8 +11568,14 @@
   "partner_buff": {
    "target": "pal_attack",
    "element": null,
-   "value": 0.02,
    "mechanic": "flat",
+   "values_by_star": [
+    0.02,
+    0.03,
+    0.04,
+    0.05,
+    0.06
+   ],
    "source_passive": "ShotAttack_MoveSpeed_PartnerSkill_SpecificElement_1"
   },
   "work_suitability": {
@@ -15270,8 +15294,14 @@
   "partner_buff": {
    "target": "pal_attack",
    "element": "ice",
-   "value": 0.15,
    "mechanic": "flat",
+   "values_by_star": [
+    0.15,
+    0.17,
+    0.2,
+    0.24,
+    0.3
+   ],
    "source_passive": "AttackUp_Ice_PartnerSkill_1"
   },
   "work_suitability": {
@@ -16755,8 +16785,14 @@
   "partner_buff": {
    "target": "pal_attack",
    "element": "water",
-   "value": 0.15,
    "mechanic": "flat",
+   "values_by_star": [
+    0.15,
+    0.17,
+    0.2,
+    0.24,
+    0.3
+   ],
    "source_passive": "AttackUp_Water_PartnerSkill_1"
   },
   "work_suitability": {
@@ -16878,8 +16914,14 @@
   "partner_buff": {
    "target": "pal_attack",
    "element": "fire",
-   "value": 0.15,
    "mechanic": "flat",
+   "values_by_star": [
+    0.15,
+    0.17,
+    0.2,
+    0.24,
+    0.3
+   ],
    "source_passive": "AttackUp_Fire_PartnerSkill_1"
   },
   "work_suitability": {
@@ -17490,8 +17532,14 @@
   "partner_buff": {
    "target": "pal_attack",
    "element": null,
-   "value": 0.05,
    "mechanic": "stack",
+   "values_by_star": [
+    0.05,
+    0.06,
+    0.07,
+    0.08,
+    0.1
+   ],
    "source_passive": "KingBahamut_PartnerSkill_v2_1",
    "max_stacks": 5
   },
@@ -18717,8 +18765,14 @@
   "partner_buff": {
    "target": "pal_attack",
    "element": "earth",
-   "value": 0.15,
    "mechanic": "flat",
+   "values_by_star": [
+    0.15,
+    0.17,
+    0.2,
+    0.24,
+    0.3
+   ],
    "source_passive": "AttackUp_Earth_PartnerSkill_1"
   },
   "work_suitability": {
@@ -19709,8 +19763,14 @@
   "partner_buff": {
    "target": "pal_attack",
    "element": "leaf",
-   "value": 0.15,
    "mechanic": "flat",
+   "values_by_star": [
+    0.15,
+    0.17,
+    0.2,
+    0.24,
+    0.3
+   ],
    "source_passive": "AttackUp_Leaf_PartnerSkill_1"
   },
   "work_suitability": {
@@ -21025,8 +21085,14 @@
   "partner_buff": {
    "target": "player_attack",
    "element": null,
-   "value": 0.3,
    "mechanic": "flat",
+   "values_by_star": [
+    0.3,
+    0.4,
+    0.5,
+    0.6,
+    0.8
+   ],
    "source_passive": "AttackUp_IfAllOtomoTribeDifferent_PartnerSkill_1"
   },
   "work_suitability": {
@@ -21510,8 +21576,14 @@
   "partner_buff": {
    "target": "pal_attack",
    "element": null,
-   "value": 0.12,
    "mechanic": "flat",
+   "values_by_star": [
+    0.12,
+    0.13,
+    0.15,
+    0.19,
+    0.24
+   ],
    "source_passive": "Defense_ShotAttack_MopKing_PartnerSkill_1"
   },
   "work_suitability": {
@@ -23872,8 +23944,14 @@
   "partner_buff": {
    "target": "pal_attack",
    "element": null,
-   "value": 0.02,
    "mechanic": "flat",
+   "values_by_star": [
+    0.02,
+    0.03,
+    0.04,
+    0.05,
+    0.06
+   ],
    "source_passive": "ShotAttack_Defence_PartnerSkill_SpecificElement_1"
   },
   "work_suitability": {
@@ -24485,8 +24563,14 @@
   "partner_buff": {
    "target": "pal_attack",
    "element": "normal",
-   "value": 0.15,
    "mechanic": "flat",
+   "values_by_star": [
+    0.15,
+    0.17,
+    0.2,
+    0.24,
+    0.3
+   ],
    "source_passive": "AttackUp_Normal_PartnerSkill_1"
   },
   "work_suitability": {
@@ -25313,8 +25397,14 @@
   "partner_buff": {
    "target": "pal_attack",
    "element": null,
-   "value": 0.12,
    "mechanic": "flat",
+   "values_by_star": [
+    0.12,
+    0.13,
+    0.15,
+    0.19,
+    0.24
+   ],
    "source_passive": "PAL_TribePassive_Test"
   },
   "work_suitability": {
@@ -28628,8 +28718,14 @@
   "partner_buff": {
    "target": "pal_attack",
    "element": "dragon",
-   "value": 0.15,
    "mechanic": "flat",
+   "values_by_star": [
+    0.15,
+    0.17,
+    0.2,
+    0.24,
+    0.3
+   ],
    "source_passive": "AttackUp_Dragon_PartnerSkill_1"
   },
   "work_suitability": {
@@ -31644,8 +31740,14 @@
   "partner_buff": {
    "target": "pal_attack",
    "element": null,
-   "value": 0.01,
    "mechanic": "stack",
+   "values_by_star": [
+    0.01,
+    0.02,
+    0.03,
+    0.04,
+    0.05
+   ],
    "source_passive": "ThunderDragonMan_PartnerSkill_1",
    "max_stacks": 30
   },
@@ -32719,8 +32821,14 @@
   "partner_buff": {
    "target": "pal_attack",
    "element": null,
-   "value": 0.04,
    "mechanic": "flat",
+   "values_by_star": [
+    0.04,
+    0.05,
+    0.06,
+    0.07,
+    0.08
+   ],
    "source_passive": "ShotAttack_PartnerSkill_SpecificElement_1"
   },
   "work_suitability": {
@@ -33557,8 +33665,14 @@
   "partner_buff": {
    "target": "pal_attack",
    "element": null,
-   "value": 0.02,
    "mechanic": "flat",
+   "values_by_star": [
+    0.02,
+    0.03,
+    0.04,
+    0.05,
+    0.06
+   ],
    "source_passive": "ShotAttack_MoveSpeed_PartnerSkill_SpecificElement_1"
   },
   "work_suitability": {
@@ -34977,8 +35091,14 @@
   "partner_buff": {
    "target": "pal_attack",
    "element": "dark",
-   "value": 0.15,
    "mechanic": "flat",
+   "values_by_star": [
+    0.15,
+    0.17,
+    0.2,
+    0.24,
+    0.3
+   ],
    "source_passive": "AttackUp_Dark_PartnerSkill_1"
   },
   "work_suitability": {
@@ -35100,8 +35220,14 @@
   "partner_buff": {
    "target": "pal_attack",
    "element": "normal",
-   "value": 0.15,
    "mechanic": "flat",
+   "values_by_star": [
+    0.15,
+    0.17,
+    0.2,
+    0.24,
+    0.3
+   ],
    "source_passive": "AttackUp_Normal_PartnerSkill_1"
   },
   "work_suitability": {

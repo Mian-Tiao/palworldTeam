@@ -15,17 +15,21 @@ function BuffChips({ buffs }) {
   const elementZh = ELEMENT_ZH
   return (
     <div className="flex flex-wrap gap-2 text-xs">
-      {buffs.map((b, i) => (
-        <span
-          key={i}
-          className="rounded-full bg-amber-100 px-2 py-0.5 text-amber-900 ring-1 ring-amber-300"
-        >
-          {b.provider_name_zh}:
-          {b.buff_target === 'pal_attack'
-            ? `${b.buff_element ? `${elementZh[b.buff_element] ?? b.buff_element}屬性` : '全體'}帕魯攻擊 +${Math.round(b.buff_value * 100)}%`
-            : `玩家攻擊 +${Math.round(b.buff_value * 100)}%(不計入帕魯輸出)`}
-        </span>
-      ))}
+      {buffs.map((b, i) => {
+        const stackNote =
+          b.buff_mechanic === 'stack' ? `(滿疊${b.buff_max_stacks ?? ''}層理論值)` : ''
+        return (
+          <span
+            key={i}
+            className="rounded-full bg-amber-100 px-2 py-0.5 text-amber-900 ring-1 ring-amber-300"
+          >
+            {b.provider_name_zh}:
+            {b.buff_target === 'pal_attack'
+              ? `${b.buff_element ? `${elementZh[b.buff_element] ?? b.buff_element}屬性` : '全體'}帕魯攻擊 +${Math.round(b.buff_value * 100)}%${stackNote}`
+              : `玩家攻擊 +${Math.round(b.buff_value * 100)}%(不計入帕魯輸出)`}
+          </span>
+        )
+      })}
     </div>
   )
 }
@@ -148,7 +152,8 @@ export default function TeamResults({ result }) {
   return (
     <section className="space-y-3">
       <h2 className="text-lg font-bold">
-        推薦隊伍(Lv {meta.level}
+        推薦隊伍(Lv {meta.level}、
+        {meta.star_level === 0 ? '無星' : `${meta.star_level} 星`}
         {meta.target_elements.length > 0
           ? `,目標屬性:${meta.target_elements.map((c) => ELEMENT_ZH[c] ?? c).join(' + ')}`
           : ',未指定目標(通用計算)'}

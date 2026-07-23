@@ -7,7 +7,12 @@ from app.models.boss import Boss, BossElement
 from app.models.element import ElementType, TypeMatchup
 from app.models.import_log import ImportLog
 from app.models.pal import Pal, PalElement
-from app.models.skill import ActiveSkill, PalActiveSkill, PartnerSkill
+from app.models.skill import (
+    ActiveSkill,
+    PalActiveSkill,
+    PartnerSkill,
+    PartnerSkillBuffTier,
+)
 from app.models.work import PalWorkSuitability, WorkType
 
 __all__ = [
@@ -21,6 +26,7 @@ __all__ = [
     "PalElement",
     "PalWorkSuitability",
     "PartnerSkill",
+    "PartnerSkillBuffTier",
     "TypeMatchup",
     "WorkType",
 ]

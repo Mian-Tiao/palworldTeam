@@ -8,3 +8,8 @@ export const TARGET_ELEMENT_LIMIT = 2
 export const LEVEL_DEFAULT = 50
 export const LEVEL_MIN = 1
 export const LEVEL_MAX = 60
+
+// 專注(濃縮)星級:影響夥伴技能加成強度;預設滿星(對應練滿的實戰)
+export const STAR_DEFAULT = 4
+export const STAR_MIN = 0
+export const STAR_MAX = 4

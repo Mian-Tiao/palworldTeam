@@ -5,7 +5,7 @@ import { useRecommendTeams } from '../api/recommendations'
 import ConditionPanel from '../components/ConditionPanel'
 import ElementBadge from '../components/ElementBadge'
 import TeamResults from '../components/TeamResults'
-import { FIXED_MEMBER_LIMIT, LEVEL_DEFAULT } from '../constants'
+import { FIXED_MEMBER_LIMIT, LEVEL_DEFAULT, STAR_DEFAULT } from '../constants'
 
 // 載入/錯誤狀態的統一畫面(AGENTS.md:每個 API 呼叫都要有對應畫面)
 function LoadingBox({ text = '載入中…' }) {
@@ -166,6 +166,7 @@ export default function PalSelectPage() {
   const [selected, setSelected] = useState([])
   const [targetElements, setTargetElements] = useState([])
   const [level, setLevel] = useState(LEVEL_DEFAULT)
+  const [starLevel, setStarLevel] = useState(STAR_DEFAULT)
   const recommend = useRecommendTeams()
 
   function toggle(pal) {
@@ -180,6 +181,7 @@ export default function PalSelectPage() {
     recommend.mutate({
       fixedPalIds: selected.map((p) => p.id),
       level,
+      starLevel,
       targetElements,
     })
   }
@@ -193,6 +195,8 @@ export default function PalSelectPage() {
         onTargetElementsChange={setTargetElements}
         level={level}
         onLevelChange={setLevel}
+        starLevel={starLevel}
+        onStarLevelChange={setStarLevel}
         onSubmit={submit}
         canSubmit={selected.length >= 1}
         isPending={recommend.isPending}

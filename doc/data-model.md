@@ -170,13 +170,26 @@ erDiagram
 | pal_id | INTEGER | 是 | 外鍵 → pal.id,唯一(一對一) |
 | name_zh | VARCHAR(50) | 是 | 中文名稱 |
 | effect_type | VARCHAR(20) | 是 | 分類:`team_buff`(加成型,納入計算)/ `riding`(騎乘型,暫不計算)/ `other` |
-| buff_target | VARCHAR(30) | 否 | 加成對象(暫定值域:`player_attack`、`pal_attack`、`element_damage`);僅 team_buff 填寫 |
-| buff_element_id | INTEGER | 否 | 外鍵 → element_type.id;加成限定屬性時填寫(如「火屬性傷害提升」) |
-| buff_value | DECIMAL(5,4) | 否 | 加成幅度(如 0.1000 = +10%) |
+| buff_target | VARCHAR(30) | 否 | 加成對象:`pal_attack`(帕魯攻擊)/ `player_attack`(玩家攻擊,不影響帕魯輸出);僅 team_buff 填寫 |
+| buff_element_id | INTEGER | 否 | 外鍵 → element_type.id;加成限定屬性時填寫(如「水屬性帕魯攻擊提升」) |
+| buff_mechanic | VARCHAR(10) | 否 | `flat`(固定)/ `stack`(命中或擊殺疊層);僅 team_buff 填寫 |
+| buff_max_stacks | INTEGER | 否 | 疊層型的最大層數(呈現與說明用;逐星值已含滿疊換算) |
 | effect_raw | TEXT | 否 | 資料源原始效果描述,加成欄位無法表達時保留人工檢核依據 |
 
 - 主鍵:`id`;唯一約束:`pal_id`
-- **注意**:`buff_target`/`buff_value` 的結構是**暫定方案**,實際欄位設計取決於資料源的效果表達格式,見 Q-D2
+- 逐星級加成值見 2.7b `partner_skill_buff_tier`(2026-07-18 P-8/星級選擇器新增:改為每星一列,取代原單一 `buff_value`)
+
+### 2.7b partner_skill_buff_tier(夥伴技能逐星級加成)
+
+用途:加成型夥伴技能在專注(濃縮)0~4 星的有效加成值。遊戲中夥伴技能強度隨星級提升,使用者可於前端選擇星級(全隊套用),計算器據此取對應加成。
+
+| 欄位 | 資料型別(SQL 建議) | 必填 | 說明 |
+|------|---------------------|------|------|
+| partner_skill_id | INTEGER | 是 | 外鍵 → partner_skill.id,`ON DELETE CASCADE` |
+| star_level | INTEGER | 是 | 專注星級 0~4 |
+| buff_value | DECIMAL(5,4) | 是 | 該星級套用到攻擊值的分數(如 0.1500 = +15%);疊層型已以「每層 × 最大層數」換算為滿疊理論值 |
+
+- 主鍵:複合 (`partner_skill_id`, `star_level`);每個 team_buff 夥伴技能固定 5 列(0~4 星)
 
 ### 2.8 boss(頭目)與 boss_element(頭目屬性,中介表)
 

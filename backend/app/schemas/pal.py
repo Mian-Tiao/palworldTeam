@@ -30,7 +30,9 @@ class PartnerSkillOut(BaseModel):
     effect_type: str  # team_buff / riding / other
     buff_target: str | None
     buff_element: str | None  # 屬性 code
-    buff_value: float | None
+    buff_mechanic: str | None  # flat / stack
+    buff_max_stacks: int | None
+    buff_tiers: list[float]  # 專注 0~4 星的有效加成分數(team_buff 才有,否則空)
     description: str | None
 
 
