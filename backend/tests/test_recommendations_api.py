@@ -126,7 +126,7 @@ def test_too_many_fixed_members_rejected(client):
 
 def test_level_out_of_range_rejected(client):
     pid = _pal_id(client, "棉悠悠")
-    for level in (0, 61):
+    for level in (0, 81):
         resp = client.post(
             "/api/team-recommendations",
             json={"fixed_pal_ids": [pid], "level": level},

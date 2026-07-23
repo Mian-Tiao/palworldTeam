@@ -4,9 +4,10 @@ from pydantic import BaseModel, Field
 
 from app.services.recommend import TEAM_SIZE
 
-# 計算等級範圍:Q-4b 尚未定案,暫依 todo P-5 建議值(1~60);定案後只改這裡
+# 計算等級範圍:1~80(2026-07-18 使用者確認遊戲 1.0 上限 80,Q-4b 結案)
+# 帕魯的大絕招於 70 級習得,上限須 ≥ 70 才能納入計算
 LEVEL_MIN = 1
-LEVEL_MAX = 60
+LEVEL_MAX = 80
 
 # 專注(濃縮)星級:0~4 星,影響夥伴技能加成強度;預設滿星(對應玩家練滿的實戰)
 STAR_MIN = 0
