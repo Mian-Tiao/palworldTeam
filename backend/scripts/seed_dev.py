@@ -15,19 +15,21 @@ sys.path.insert(0, str(BACKEND_ROOT))
 
 from scripts.import_data import run_import  # noqa: E402
 
+# 分類註記依遊戲 1.0 資料(2026-07-18 更新;燎火鹿/鯊小子經改版已非攻擊加成型)
 SEED_DEV_NAMES = [
-    "SheepBall",        # 無;other(盾牌)
-    "FlameBambi",       # 火;team_buff(火帕魯攻擊)
-    "Kelpie",           # 水;team_buff(水帕魯攻擊)
-    "ElecCat",          # 雷;team_buff(雷帕魯攻擊)
-    "IceFox",           # 冰;team_buff(冰帕魯攻擊)
-    "LittleBriarRose",  # 草;team_buff(草帕魯攻擊)
-    "WizardOwl",        # 暗;team_buff(暗帕魯攻擊)
-    "SharkKid",         # 水;team_buff(玩家攻擊)
-    "Boar",             # 地;riding
-    "Penguin",          # 水/冰 雙屬性;other
-    "Baphomet",         # 火/暗 雙屬性;other
-    "BlueDragon",       # 水/龍 雙屬性;riding
+    "SheepBall",         # 無;other(盾牌)
+    "FlameBambi",        # 火;other(1.0 改為防禦加成,不入傷害模型)
+    "Kelpie",            # 水;team_buff(水帕魯攻擊 +15%)
+    "ElecCat",           # 雷;team_buff(雷帕魯攻擊 +15%)
+    "IceFox",            # 冰;team_buff(冰帕魯攻擊 +15%)
+    "LittleBriarRose",   # 草;team_buff(草帕魯攻擊 +15%)
+    "WizardOwl",         # 暗;team_buff(暗帕魯攻擊 +15%)
+    "SharkKid",          # 水;other(1.0 改版)
+    "Boar",              # 地;riding
+    "Penguin",           # 水/冰 雙屬性;other
+    "Baphomet",          # 火/暗 雙屬性;other
+    "BlueDragon",        # 水/龍 雙屬性;riding
+    "ThunderDragonMan",  # 龍/雷 雙屬性;team_buff(疊層型全隊攻擊,波魯傑克斯)
 ]
 
 

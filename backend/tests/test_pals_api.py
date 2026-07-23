@@ -5,8 +5,8 @@ def test_list_pals_returns_all_seeded(client):
     resp = client.get("/api/pals")
     assert resp.status_code == 200
     body = resp.json()
-    assert body["meta"]["total"] == 12
-    assert len(body["data"]) == 12
+    assert body["meta"]["total"] == 13
+    assert len(body["data"]) == 13
     first = body["data"][0]
     assert set(first) == {"id", "dev_name", "name_zh", "elements"}
 
@@ -83,13 +83,25 @@ def test_get_pal_detail_dual_element(client):
 
 
 def test_get_pal_detail_team_buff_fields(client):
-    listing = client.get("/api/pals", params={"search": "燎火鹿"}).json()
+    listing = client.get("/api/pals", params={"search": "水靈兒"}).json()
     pal = client.get(f"/api/pals/{listing['data'][0]['id']}").json()["data"]
     partner = pal["partner_skill"]
     assert partner["effect_type"] == "team_buff"
     assert partner["buff_target"] == "pal_attack"
-    assert partner["buff_element"] == "fire"
-    assert partner["buff_value"] == 0.1
+    assert partner["buff_element"] == "water"
+    assert partner["buff_value"] == 0.15  # 遊戲 1.0 解包實值(專注 1 階)
+
+
+def test_get_pal_detail_stack_buff(client):
+    """波魯傑克斯(1.0 改版):疊層型全隊攻擊加成,期望層數近似後參與計算。"""
+    listing = client.get("/api/pals", params={"search": "波魯傑克斯"}).json()
+    pal = client.get(f"/api/pals/{listing['data'][0]['id']}").json()["data"]
+    partner = pal["partner_skill"]
+    assert partner["effect_type"] == "team_buff"
+    assert partner["buff_target"] == "pal_attack"
+    assert partner["buff_element"] is None
+    # 每層 1% × 期望層數(實際上限 30 × 維持係數 0.5 = 15 層)
+    assert partner["buff_value"] == 0.15
 
 
 def test_get_pal_not_found_returns_404(client):

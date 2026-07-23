@@ -1,9 +1,22 @@
 # 資料來源說明
 
-- 來源:[blaynem/paldex](https://github.com/blaynem/paldex) 之 `data-provider/baked-data/zh-Hant/`
-- 版本:該 repo 最後 commit 2024-01-31(對應遊戲上市初期版本)
-- 已知限制:缺 2024/06 櫻島更新之後的所有新帕魯;個別條目有 `zh_Hant_Text` 佔位符或 `Missing...` 描述,匯入腳本須過濾或標記
-- 更新計畫:於安裝遊戲的電腦執行該 repo 的產生器解包最新遊戲檔案,替換本資料夾內容後重跑匯入腳本(見 doc/project-memory.md 2026-07-16 決策)
-- 屬性克制倍率表不在此資料集內,由匯入腳本內建(9×9,考據自 palworld.wiki.gg:克制 2×、被克 0.5×)
-- 夥伴技能加成數值各資料集均無結構化資料,由人工整理的 `partner_skill_buffs.json` 補充(僅列 team_buff 型;buff_value 0.10 為暫定值,待考據修正;不在檔內者由匯入腳本依描述判為 riding/other)
-- 匯入排除規則(scripts/import_data.py):中文名為佔位符(`zh_Hant_Text`)或無可用技能的條目不匯入(2024-01 資料集有 18 筆,多為當時未實裝帕魯)
+## 目前使用中(遊戲 1.0,2026-07-18 起)
+
+- 來源:本機安裝的 Steam 版 Palworld 遊戲檔(`Pal-Windows.pak`,2026-07-15 更新)唯讀解包
+- 原始匯出:`raw_v1/`(8 個 DataTable JSON,見 `backend/scripts/extract/README.md`)
+- 轉換:`scripts/convert_raw.py` 讀 `raw_v1/` → 產出 `pals.json`(沿用舊資料源形狀 +
+  新增結構化 `partner_buff` 欄位:自遊戲被動表萃取的攻擊加成明細)
+- 匯入:`scripts/import_data.py` 讀 `pals.json` 全量匯入(299 隻)
+- 屬性克制倍率表(9×9)不在遊戲 DataTable 內,由匯入腳本內建(考據自 palworld.wiki.gg:克制 2×、被克 0.5×)
+- `partner_skill_buffs.json`:人工覆寫檔,目前為空;僅在遊戲結構化資料有誤或缺漏時於此覆寫
+- 匯入排除規則:僅排除中文名為佔位符的條目;**無主動技能的純輔助帕魯(如趴趴鯰)保留**
+
+## 更新方式(遊戲改版後)
+
+依 `backend/scripts/extract/README.md` 重跑解包 → `convert_raw.py` → `import_data.py`。
+
+## 舊資料源(2024-01,已停用,保留供參考)
+
+- `elements.json` / `skills.json` 與舊版 `pals.json` 曾取自
+  [blaynem/paldex](https://github.com/blaynem/paldex) 的 zh-Hant baked-data(2024-01-31)
+- 已於 P-8(2026-07-18)由遊戲 1.0 解包取代;舊資料的夥伴技能與種族值過時(波魯傑克斯案例)

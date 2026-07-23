@@ -45,8 +45,15 @@ from app.models import (  # noqa: E402
 )
 
 SOURCE_DIR = BACKEND_ROOT / "data" / "source"
-SOURCE_LABEL = "blaynem/paldex baked-data zh-Hant(2024-01-31)"
-GAME_VERSION = "v0.1.x(2024-01)"
+SOURCE_LABEL = "本機解包 raw_v1 經 convert_raw.py 轉換(Pal-Windows.pak 2026-07-15)"
+GAME_VERSION = "1.0(2026-07)"
+
+# 疊層型夥伴技能(如波魯傑克斯命中疊攻)的期望層數近似。
+# 效果值為「每層 %」,實戰層數隨命中/擊殺變動且會衰退,無法精確模擬;
+# 統一以「實際上限 × 維持係數」估期望值(取半,代表延長戰鬥的典型維持度),
+# 至少 1 層。上限未知時退回 STACK_FALLBACK_CAP。詳見 doc/project-memory。
+STACK_SUSTAIN_FRACTION = 0.5
+STACK_FALLBACK_CAP = 10
 
 # 9 屬性:code 取資料集 dev_name 小寫,name_zh 取資料集中文名去掉「屬性」
 ELEMENTS = [
@@ -119,7 +126,11 @@ def _live_skills(pal_entry: dict) -> list[dict]:
 
 
 def load_usable_pals() -> tuple[list[dict], list[str]]:
-    """回傳(可匯入的帕魯, 被排除的 dev_name 清單)。"""
+    """回傳(可匯入的帕魯, 被排除的 dev_name 清單)。
+
+    無技能帕魯不排除(2026-07-18 修正):純輔助型(如趴趴鯰)自身輸出為 0
+    但夥伴技能加成有效,必須入庫。
+    """
     with open(SOURCE_DIR / "pals.json", encoding="utf-8") as f:
         all_pals = json.load(f)
 
@@ -127,7 +138,7 @@ def load_usable_pals() -> tuple[list[dict], list[str]]:
     for p in all_pals:
         if not (p["is_pal"] and p["is_available_ingame"] and not p["is_boss"]):
             continue
-        if _is_placeholder(p["pal_name"]) or not _live_skills(p):
+        if _is_placeholder(p["pal_name"]):
             skipped.append(p["pal_dev_name"])
             continue
         usable.append(p)
@@ -139,8 +150,16 @@ def load_buff_overlay() -> dict:
         return json.load(f)["buffs"]
 
 
-def classify_partner_skill(dev_name: str, description: str, overlay: dict) -> dict:
-    """夥伴技能分類:overlay 內 → team_buff;描述含騎乘字樣 → riding;其餘 other。"""
+def classify_partner_skill(
+    dev_name: str, description: str, overlay: dict, partner_buff: dict | None
+) -> dict:
+    """夥伴技能分類,優先序:
+    1. overlay(人工修正檔)→ team_buff
+    2. 來源結構化 partner_buff(convert_raw.py 自遊戲被動表萃取)→ team_buff
+       - stack 型:每層值 × 期望層數(實際上限 × 維持係數,取半;上限不受此估值超過)
+    3. 描述含騎乘字樣 → riding
+    4. 其餘 → other
+    """
     if dev_name in overlay:
         entry = overlay[dev_name]
         return {
@@ -148,6 +167,18 @@ def classify_partner_skill(dev_name: str, description: str, overlay: dict) -> di
             "buff_target": entry["buff_target"],
             "buff_element": entry["buff_element"],
             "buff_value": entry["buff_value"],
+        }
+    if partner_buff is not None:
+        value = partner_buff["value"]
+        if partner_buff.get("mechanic") == "stack":
+            cap = partner_buff.get("max_stacks") or STACK_FALLBACK_CAP
+            expected_stacks = max(1, round(cap * STACK_SUSTAIN_FRACTION))
+            value = round(value * expected_stacks, 4)
+        return {
+            "effect_type": "team_buff",
+            "buff_target": partner_buff["target"],
+            "buff_element": partner_buff.get("element"),
+            "buff_value": value,
         }
     if _RIDING_PATTERN.search(description):
         return {"effect_type": "riding"}
@@ -242,7 +273,9 @@ def run_import(
                 ))
 
             description = src["partner_skill_description"]
-            classified = classify_partner_skill(dev_name, description, overlay)
+            classified = classify_partner_skill(
+                dev_name, description, overlay, src.get("partner_buff")
+            )
             session.add(PartnerSkill(
                 pal_id=pal.id,
                 name_zh=src["partner_skill_title"],

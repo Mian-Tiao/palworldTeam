@@ -15,7 +15,11 @@
 | DT_PartnerSkillParameter.json | **夥伴技能結構化參數(682 列,含各專注階數值)** |
 | DT_PassiveSkill_Main.json | 被動技能效果(1,905 列):EffectType / EffectValue / TargetType / 生效條件旗標 |
 | DT_PalNameText_Common.json | 帕魯繁中名稱 |
-| DT_SkillNameText_Common.json / DT_SkillDescText_Common.json | 技能與夥伴技能繁中文本 |
+| DT_SkillNameText_Common.json / DT_SkillDescText_Common.json | 技能繁中文本 |
+| DT_PalFirstActivatedInfoText.json | 夥伴技能繁中說明(含 `{Passive1_EffectValue1}` 模板與 UI 標記,convert_raw.py 會清洗填值) |
+
+轉換由 `backend/scripts/convert_raw.py` 讀取以上檔案,產出 `backend/data/source/pals.json`
+(沿用舊資料源形狀 + 新增結構化 `partner_buff` 欄位),再由 `import_data.py` 全量匯入。
 
 ## 重跑方式(遊戲改版後更新資料)
 
