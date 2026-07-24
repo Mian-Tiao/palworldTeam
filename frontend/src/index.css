@@ -1,1 +1,23 @@
 @import "tailwindcss";
+
+@layer base {
+  html {
+    color-scheme: dark;
+  }
+  body {
+    background-color: #070b14;
+    /* 角落霓光:emerald + cyan,營造深色科技感 */
+    background-image:
+      radial-gradient(45rem 45rem at 108% -8%, rgba(16, 185, 129, 0.12), transparent 60%),
+      radial-gradient(40rem 40rem at -8% 4%, rgba(56, 189, 248, 0.10), transparent 55%);
+    background-attachment: fixed;
+    color: #e2e8f0;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  /* 深色下拉選單的選項在部分瀏覽器需明確配色 */
+  option {
+    background-color: #0f172a;
+    color: #e2e8f0;
+  }
+}
