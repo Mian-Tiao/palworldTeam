@@ -54,6 +54,8 @@
 | 2026-07-18 | 新版夥伴技能為結構化被動(各專注階獨立數值),含 StackBuff 等新效果型態;現行 partner_skill schema 需擴充才能表達 | 解包 DT_PartnerSkillParameter / DT_PassiveSkill_Main 證實 | data-model、匯入腳本、傷害計算器(見 todo P-8) |
 | 2026-07-18(P-8) | 資料源正式切換為遊戲 1.0 解包:convert_raw.py 產生 pals.json(含結構化 partner_buff),import_data.py 讀之全量匯入 299 隻。夥伴技能加成值一律取遊戲被動表「專注 1 階」實值(不再用 +10% 佔位);partner_skill_buffs.json overlay 清空,僅保留供未來人工覆寫。team_buff 判定改依 partner_buff(EffectType/TargetType/InvokeInOtomo),不再用中文描述關鍵字猜測 | 舊 2024-01 資料的夥伴技能與種族值過時(波魯傑克斯案例);結構化資料更準也更好維護 | data/source、convert_raw、import_data、partner_skill_buffs.json |
 | 2026-07-18(P-8) | 取消「無主動技能即排除」規則:純輔助帕魯(如趴趴鯰)自身輸出 0 但夥伴加成有效,必須入庫。僅排除中文名佔位條目 | 舊規則錯殺純輔助帕魯,正是使用者回報「增傷輔助不在隊伍」的成因之一 | import_data.load_usable_pals |
+| 2026-07-18(bug 修正) | 排除非可玩內部變種條目(dev_name 含 _Oilrig/SUMMON_/Quest_/RAID_)並以中文名去重(保留最短 dev_name):這些變種共用同一中文名,原本造成畫面重複。匯入數 299→287 | 使用者回報「有些帕魯重複出現」 | convert_raw(VARIANT_MARKERS、去重) |
+| 2026-07-18(bug 修正) | 「攻擊提升但燒血」型夥伴技能(如織夜鹿,滿星全隊攻擊 +80%):真正數值藏在引用被動(TextReferencePassiveSkills),主被動只放機制標記 LifeDrainPower_AttackUp。僅當主被動為此機制且目標為全隊(ToActiveOtomo)時才採引用值,以免誤收自我 buff(如鐵拳猿開大提升自己)。**其燒血代價未建模**——純傷害觀點視為強力團隊加成 | 使用者回報「織夜鹿 +80% 但沒進隊伍」 | convert_raw(_buff_at_star 引用被動閘門) |
 
 ## 重要限制
 

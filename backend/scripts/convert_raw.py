@@ -54,6 +54,15 @@ ATTACK_EFFECTS = {"ShotAttack", "MeleeAttack"}
 STACK_EFFECTS = {"BulletHit_StackBuff", "DefeatEnemy_StackBuff"}
 
 
+# 非可玩的內部變種條目(共用同一中文名,會造成畫面重複):
+# 石油平台版(_Oilrig)、召喚版(SUMMON_)、任務 NPC 版(Quest_)、突襲版(RAID_)
+VARIANT_MARKERS = ("_Oilrig", "SUMMON_", "Quest_", "RAID_")
+
+
+def is_variant_entry(dev_name: str) -> bool:
+    return any(m in dev_name for m in VARIANT_MARKERS)
+
+
 def load(name: str) -> dict:
     with open(RAW / name, encoding="utf-8") as f:
         return json.load(f)[0]["Rows"]
@@ -156,6 +165,70 @@ def _buff_in_tier(tier: dict, passives: dict) -> dict | None:
     return None
 
 
+def _attack_from_reference(eff: dict) -> dict | None:
+    """引用被動(TextReferencePassiveSkills)裡的攻擊加成。
+
+    部分帕魯(如織夜鹿:攻擊提升但燒血)主被動只放機制標記(LifeDrainPower_AttackUp,
+    值為 0),真正的攻擊 % 放在引用被動。引用被動是顯示用,InvokeInOtomo 常為 False,
+    故此處不檢查該旗標,只認 ShotAttack/MeleeAttack。
+    """
+    for i in (1, 2, 3, 4):
+        etype = enum_suffix(eff[f"EffectType{i}"])
+        value = eff[f"EffectValue{i}"]
+        target = enum_suffix(eff[f"TargetType{i}"])
+        if etype in ATTACK_EFFECTS and target in ("ToSelf", "ToActiveOtomo", "ToOtomo"):
+            element = enum_suffix(eff["TargetElementType"])
+            return {"target": "pal_attack", "element": ELEMENT_DEV_TO_CODE.get(element),
+                    "mechanic": "flat", "value": value}
+    return None
+
+
+def _buff_in_reference_tier(ref_tier: dict, passives: dict) -> dict | None:
+    for entry in ref_tier.get("PassiveSkillIds", []):
+        eff = passives.get(entry["Key"])
+        if eff is None:
+            continue
+        found = _attack_from_reference(eff)
+        if found is not None:
+            found["source_passive"] = entry["Key"]
+            return found
+    return None
+
+
+# 主被動只放「全隊攻擊機制標記」、真正數值在引用被動的效果類型(如織夜鹿:攻擊提升但燒血)。
+# 需搭配全隊目標(ToActiveOtomo/ToOtomo)才採用,以免誤收自我 buff(如鐵拳猿開大提升自己)。
+INDIRECT_TEAM_ATTACK = {"LifeDrainPower_AttackUp"}
+TEAM_TARGETS = {"ToActiveOtomo", "ToOtomo"}
+
+
+def _tier_signals_indirect_team_attack(tier: dict, passives: dict) -> bool:
+    for entry in tier["SkillAndParametersArray"]:
+        eff = passives.get(entry["SkillName"]["Key"])
+        if eff is None:
+            continue
+        for i in (1, 2, 3, 4):
+            if (
+                enum_suffix(eff[f"EffectType{i}"]) in INDIRECT_TEAM_ATTACK
+                and enum_suffix(eff[f"TargetType{i}"]) in TEAM_TARGETS
+            ):
+                return True
+    return False
+
+
+def _buff_at_star(tier: dict | None, ref_tier: dict | None, passives: dict) -> dict | None:
+    """單一星級的攻擊加成:先看主被動;主被動標記為間接全隊攻擊時,才採用引用被動的數值。"""
+    found = _buff_in_tier(tier, passives) if tier else None
+    if found is not None:
+        return found
+    if (
+        tier is not None
+        and ref_tier is not None
+        and _tier_signals_indirect_team_attack(tier, passives)
+    ):
+        return _buff_in_reference_tier(ref_tier, passives)
+    return None
+
+
 def extract_partner_buff(dev_name: str, partner_params: dict, passives: dict) -> dict | None:
     """萃取夥伴技能攻擊加成的「逐星級數值」(專注 0~4 星,對應 PassiveSkills 各階)。
 
@@ -164,17 +237,26 @@ def extract_partner_buff(dev_name: str, partner_params: dict, passives: dict) ->
     """
     row = partner_params.get(dev_name)
     tiers = (row or {}).get("PassiveSkills") or []
-    if not tiers:
+    refs = (row or {}).get("TextReferencePassiveSkills") or []
+    if not tiers and not refs:
         return None
 
-    base = _buff_in_tier(tiers[0], passives)
+    n = max(len(tiers), len(refs))
+    per_star = [
+        _buff_at_star(
+            tiers[i] if i < len(tiers) else None,
+            refs[i] if i < len(refs) else None,
+            passives,
+        )
+        for i in range(n)
+    ]
+    base = next((b for b in per_star if b is not None), None)
     if base is None:
         return None
 
     values_by_star: list[float] = []
-    for tier in tiers:
-        found = _buff_in_tier(tier, passives)
-        # 某星缺該效果時沿用上一星(理論上不會發生,防護用)
+    for found in per_star:
+        # 某星缺該效果時沿用上一星(防護用)
         val = found["value"] if found else (values_by_star[-1] * 100 if values_by_star else 0.0)
         values_by_star.append(val / 100.0)
 
@@ -214,6 +296,9 @@ def main() -> None:
     max_work_rank = 0
     for dev_name, row in monster.items():
         if not (row["IsPal"] and not row["IsBoss"] and row["ZukanIndex"] > 0):
+            continue
+        if is_variant_entry(dev_name):
+            skipped.append(f"{dev_name}(內部變種)")
             continue
         name_zh = pal_names.get(row["OverrideNameTextID"]) or pal_names.get(
             f"PAL_NAME_{dev_name}"
@@ -296,12 +381,22 @@ def main() -> None:
             "work_suitability": work,
         })
 
+    # 去重安全網:同中文名仍有多筆(如活動皮膚 _Flower)時,保留 dev_name 最短者
+    by_name: dict[str, dict] = {}
+    deduped = 0
+    for p in sorted(pals, key=lambda p: len(p["pal_dev_name"])):
+        if p["pal_name"] in by_name:
+            deduped += 1
+            continue
+        by_name[p["pal_name"]] = p
+    pals = list(by_name.values())
+
     pals.sort(key=lambda p: p["pal_dev_name"])
     with open(OUT, "w", encoding="utf-8") as f:
         json.dump(pals, f, ensure_ascii=False, indent=1)
 
     buffed = [p for p in pals if p["partner_buff"]]
-    print(f"轉換完成:{len(pals)} 隻帕魯 → {OUT.name}")
+    print(f"轉換完成:{len(pals)} 隻帕魯 → {OUT.name}(去重 {deduped} 筆同名變種)")
     print(f"  無中文名跳過:{len(no_name)} {no_name[:5]}")
     print(f"  無技能帕魯(保留,純輔助):{sum(1 for p in pals if not p['active_skills'])}")
     print(f"  partner_buff:{len(buffed)}(pal_attack {sum(1 for p in buffed if p['partner_buff']['target']=='pal_attack')} / "
