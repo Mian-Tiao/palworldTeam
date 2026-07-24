@@ -11,6 +11,7 @@ from app.models.skill import (
     ActiveSkill,
     PalActiveSkill,
     PartnerSkill,
+    PartnerSkillActivityEffect,
     PartnerSkillBuffTier,
 )
 from app.models.work import PalWorkSuitability, WorkType
@@ -26,6 +27,7 @@ __all__ = [
     "PalElement",
     "PalWorkSuitability",
     "PartnerSkill",
+    "PartnerSkillActivityEffect",
     "PartnerSkillBuffTier",
     "TypeMatchup",
     "WorkType",

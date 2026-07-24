@@ -17,8 +17,11 @@ import sys
 from pathlib import Path
 
 BACKEND_ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(BACKEND_ROOT))
 RAW = BACKEND_ROOT / "data" / "source" / "raw_v1"
 OUT = BACKEND_ROOT / "data" / "source" / "pals.json"
+
+from app.core.activities import activity_of  # noqa: E402
 
 # EPalElementType 尾碼 → 舊格式中文屬性名(import_data.ZH_ELEMENT_TO_CODE 的反向)
 ELEMENT_DEV_TO_ZH = {
@@ -269,6 +272,45 @@ def extract_partner_buff(dev_name: str, partner_params: dict, passives: dict) ->
     }
 
 
+def extract_activity_effects(dev_name: str, partner_params: dict, passives: dict) -> list[dict]:
+    """萃取夥伴技能的「活動加成」效果(釣魚/挖礦/伐木/採集/搬運),含逐星值。
+
+    一隻可有多個(如森猛獁:伐木+挖礦)。回傳每個效果的
+    {effect_type, activity, label_zh, kind, unit, values_by_star(0~4 星)}。
+    """
+    row = partner_params.get(dev_name)
+    tiers = (row or {}).get("PassiveSkills") or []
+    if not tiers:
+        return []
+
+    # effect_type → {star: value}
+    per_effect: dict[str, dict[int, float]] = {}
+    for star, tier in enumerate(tiers):
+        for entry in tier["SkillAndParametersArray"]:
+            eff = passives.get(entry["SkillName"]["Key"])
+            if eff is None:
+                continue
+            for i in (1, 2, 3, 4):
+                etype = enum_suffix(eff[f"EffectType{i}"])
+                if activity_of(etype) is None:
+                    continue
+                per_effect.setdefault(etype, {})[star] = eff[f"EffectValue{i}"]
+
+    results = []
+    for etype, by_star in per_effect.items():
+        meta = activity_of(etype)
+        values = [by_star.get(s, by_star.get(max(by_star), 0.0)) for s in range(5)]
+        results.append({
+            "effect_type": etype,
+            "activity": meta["activity"],
+            "label_zh": meta["label_zh"],
+            "kind": meta["kind"],
+            "unit": meta["unit"],
+            "values_by_star": values,
+        })
+    return results
+
+
 def main() -> None:
     monster = load("DT_PalMonsterParameter.json")
     pal_names = TextTable(load("DT_PalNameText_Common.json"))
@@ -378,6 +420,9 @@ def main() -> None:
             ),
             "partner_skill_description": description,
             "partner_buff": partner_buff,
+            "activity_effects": extract_activity_effects(
+                dev_name, partner_params, passives
+            ),
             "work_suitability": work,
         })
 

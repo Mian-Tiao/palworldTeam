@@ -42,6 +42,20 @@ class WorkSuitabilityOut(BaseModel):
     rank: int
 
 
+class ActivitySkillOut(BaseModel):
+    """出門活動加成型夥伴技能(釣魚/挖礦/伐木/採集/搬運)的瀏覽項目。"""
+
+    pal_id: int
+    name_zh: str
+    dev_name: str
+    elements: list[ElementOut]
+    partner_skill_name: str
+    label_zh: str  # 效果說明(如「破壞礦石效率」)
+    kind: str  # yield=收益 / stable=穩定或效率
+    unit: str  # pct=百分比 / flat=固定值
+    values_by_star: list[float]  # 專注 0~4 星原始數值
+
+
 class PalSummaryOut(BaseModel):
     id: int
     dev_name: str

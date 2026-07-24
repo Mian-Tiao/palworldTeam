@@ -80,6 +80,33 @@ class PartnerSkill(Base):
         cascade="all, delete-orphan",
         order_by="PartnerSkillBuffTier.star_level",
     )
+    activity_effects: Mapped[list["PartnerSkillActivityEffect"]] = relationship(
+        back_populates="partner_skill",
+        cascade="all, delete-orphan",
+        order_by="PartnerSkillActivityEffect.effect_type, "
+        "PartnerSkillActivityEffect.star_level",
+    )
+
+
+class PartnerSkillActivityEffect(Base):
+    """夥伴技能的出門活動加成(釣魚/挖礦/伐木/採集/搬運),逐星級一列。
+
+    value 為遊戲原始數值(百分比效果存 640 表 +640%,固定值效果存原數如負重 +300);
+    activity / 說明 / 類型 / 單位由 app.core.activities 依 effect_type 對照,不入庫。
+    """
+
+    __tablename__ = "partner_skill_activity_effect"
+
+    partner_skill_id: Mapped[int] = mapped_column(
+        ForeignKey("partner_skill.id", ondelete="CASCADE"), primary_key=True
+    )
+    effect_type: Mapped[str] = mapped_column(String(50), primary_key=True)
+    star_level: Mapped[int] = mapped_column(primary_key=True)  # 0~4
+    value: Mapped[Decimal] = mapped_column(Numeric(8, 2))
+
+    partner_skill: Mapped["PartnerSkill"] = relationship(
+        back_populates="activity_effects"
+    )
 
 
 class PartnerSkillBuffTier(Base):

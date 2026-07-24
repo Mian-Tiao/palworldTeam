@@ -5,8 +5,8 @@ def test_list_pals_returns_all_seeded(client):
     resp = client.get("/api/pals")
     assert resp.status_code == 200
     body = resp.json()
-    assert body["meta"]["total"] == 13
-    assert len(body["data"]) == 13
+    assert body["meta"]["total"] == 15
+    assert len(body["data"]) == 15
     first = body["data"][0]
     assert set(first) == {"id", "dev_name", "name_zh", "elements"}
 

@@ -1,7 +1,14 @@
+import { useState } from 'react'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
 import { useHealth } from './api/pals'
+import ActivitySkills from './components/ActivitySkills'
 import PalSelectPage from './pages/PalSelectPage'
+
+const TABS = [
+  { id: 'team', label: '配隊推薦' },
+  { id: 'activity', label: '活動夥伴技能' },
+]
 
 // 同源靜態資料,失敗即刻顯示錯誤畫面與「重試」按鈕,不做自動重試
 const queryClient = new QueryClient({
@@ -20,6 +27,7 @@ function HealthIndicator() {
 }
 
 function App() {
+  const [tab, setTab] = useState('team')
   return (
     <QueryClientProvider client={queryClient}>
       <div className="min-h-screen bg-gray-100 text-gray-900">
@@ -28,8 +36,24 @@ function App() {
             <h1 className="text-xl font-bold">幻獸帕魯隊伍與打工最佳化系統</h1>
             <HealthIndicator />
           </div>
+          <nav className="mx-auto flex max-w-5xl gap-1 px-6">
+            {TABS.map((t) => (
+              <button
+                type="button"
+                key={t.id}
+                onClick={() => setTab(t.id)}
+                className={`-mb-px border-b-2 px-4 py-2 text-sm font-semibold ${
+                  tab === t.id
+                    ? 'border-emerald-500 text-emerald-700'
+                    : 'border-transparent text-gray-500 hover:text-gray-800'
+                }`}
+              >
+                {t.label}
+              </button>
+            ))}
+          </nav>
         </header>
-        <PalSelectPage />
+        {tab === 'team' ? <PalSelectPage /> : <ActivitySkills />}
       </div>
     </QueryClientProvider>
   )

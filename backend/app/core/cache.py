@@ -17,8 +17,10 @@ from app.models import (
     PartnerSkill,
     TypeMatchup,
 )
+from app.core.activities import ACTIVITY_ORDER, activity_of
 from app.schemas.pal import (
     ActiveSkillOut,
+    ActivitySkillOut,
     ElementOut,
     MatchupOut,
     PalDetailOut,
@@ -35,6 +37,8 @@ class DataCache:
     pals: list[PalDetailOut] = field(default_factory=list)
     pals_by_id: dict[int, PalDetailOut] = field(default_factory=dict)
     element_codes: set[str] = field(default_factory=set)
+    # 活動 code → 該活動的夥伴技能清單(收益優先、同類依滿星值大→小)
+    activity_skills: dict[str, list[ActivitySkillOut]] = field(default_factory=dict)
 
     def summaries(self) -> list[PalSummaryOut]:
         return [PalSummaryOut.model_validate(p, from_attributes=True) for p in self.pals]
@@ -67,6 +71,9 @@ def load_cache(session: Session) -> DataCache:
             selectinload(Pal.elements),
             selectinload(Pal.skill_links).selectinload(PalActiveSkill.skill),
             selectinload(Pal.partner_skill).selectinload(PartnerSkill.buff_tiers),
+            selectinload(Pal.partner_skill).selectinload(
+                PartnerSkill.activity_effects
+            ),
             selectinload(Pal.work_suitabilities).selectinload(
                 PalWorkSuitability.work_type
             ),
@@ -127,5 +134,32 @@ def load_cache(session: Session) -> DataCache:
         )
         cache.pals.append(detail)
         cache.pals_by_id[detail.id] = detail
+
+        # 活動加成索引:同帕魯同 effect_type 的逐星值聚合
+        if partner is not None and partner.activity_effects:
+            by_type: dict[str, dict[int, float]] = {}
+            for ae in partner.activity_effects:
+                by_type.setdefault(ae.effect_type, {})[ae.star_level] = float(ae.value)
+            for effect_type, by_star in by_type.items():
+                meta = activity_of(effect_type)
+                if meta is None:
+                    continue
+                cache.activity_skills.setdefault(meta["activity"], []).append(
+                    ActivitySkillOut(
+                        pal_id=detail.id,
+                        name_zh=pal.name_zh,
+                        dev_name=pal.dev_name,
+                        elements=detail.elements,
+                        partner_skill_name=partner.name_zh,
+                        label_zh=meta["label_zh"],
+                        kind=meta["kind"],
+                        unit=meta["unit"],
+                        values_by_star=[by_star.get(s, 0.0) for s in range(5)],
+                    )
+                )
+
+    # 每個活動:收益優先,同類依滿星值大→小
+    for items in cache.activity_skills.values():
+        items.sort(key=lambda x: (0 if x.kind == "yield" else 1, -x.values_by_star[4]))
 
     return cache

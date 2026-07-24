@@ -40,6 +40,7 @@ from app.models import (  # noqa: E402
     PalElement,
     PalWorkSuitability,
     PartnerSkill,
+    PartnerSkillActivityEffect,
     PartnerSkillBuffTier,
     TypeMatchup,
     WorkType,
@@ -304,6 +305,15 @@ def run_import(
             partner.buff_tiers = [
                 PartnerSkillBuffTier(star_level=star, buff_value=Decimal(str(value)))
                 for star, value in enumerate(classified.get("buff_tiers", []))
+            ]
+            partner.activity_effects = [
+                PartnerSkillActivityEffect(
+                    effect_type=eff["effect_type"],
+                    star_level=star,
+                    value=Decimal(str(value)),
+                )
+                for eff in src.get("activity_effects", [])
+                for star, value in enumerate(eff["values_by_star"])
             ]
             session.add(partner)
 

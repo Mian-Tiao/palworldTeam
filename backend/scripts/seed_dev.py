@@ -30,6 +30,8 @@ SEED_DEV_NAMES = [
     "Baphomet",          # 火/暗 雙屬性;other
     "BlueDragon",        # 水/龍 雙屬性;riding
     "ThunderDragonMan",  # 龍/雷 雙屬性;team_buff(疊層型全隊攻擊,波魯傑克斯)
+    "DrillGame",         # 地;活動加成(碎岩龜:破壞礦石效率,挖礦)
+    "WhiteDeer_Dark",    # 暗;team_buff(織夜鹿:攻擊 +80% 但燒血,引用被動路徑)
 ]
 
 

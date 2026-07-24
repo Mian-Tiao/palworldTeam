@@ -55,6 +55,8 @@
 | 2026-07-18(P-8) | 資料源正式切換為遊戲 1.0 解包:convert_raw.py 產生 pals.json(含結構化 partner_buff),import_data.py 讀之全量匯入 299 隻。夥伴技能加成值一律取遊戲被動表「專注 1 階」實值(不再用 +10% 佔位);partner_skill_buffs.json overlay 清空,僅保留供未來人工覆寫。team_buff 判定改依 partner_buff(EffectType/TargetType/InvokeInOtomo),不再用中文描述關鍵字猜測 | 舊 2024-01 資料的夥伴技能與種族值過時(波魯傑克斯案例);結構化資料更準也更好維護 | data/source、convert_raw、import_data、partner_skill_buffs.json |
 | 2026-07-18(P-8) | 取消「無主動技能即排除」規則:純輔助帕魯(如趴趴鯰)自身輸出 0 但夥伴加成有效,必須入庫。僅排除中文名佔位條目 | 舊規則錯殺純輔助帕魯,正是使用者回報「增傷輔助不在隊伍」的成因之一 | import_data.load_usable_pals |
 | 2026-07-18(bug 修正) | 排除非可玩內部變種條目(dev_name 含 _Oilrig/SUMMON_/Quest_/RAID_)並以中文名去重(保留最短 dev_name):這些變種共用同一中文名,原本造成畫面重複。匯入數 299→287 | 使用者回報「有些帕魯重複出現」 | convert_raw(VARIANT_MARKERS、去重) |
+| 2026-07-18(P-11) | 出門活動夥伴技能「只列出、不最佳化」:釣魚等有失敗風險,收益(增產出)與穩定(防失敗/效率,不增產出但必備)無法用單一分數排名,強做最佳化會錯殺穩定型。改為分類列表 + 收益/穩定標籤,每隻可各自選星級(預設滿星),交玩家判斷 | 使用者提案並指出釣魚穩定型的取捨(桃晶鯨/墨沫姬案例) | app/core/activities、convert_raw、partner_skill_activity_effect、/api/activity-skills、前端活動分頁 |
+| 2026-07-18(P-11) | 活動範圍:釣魚/挖礦(出門)/伐木/採集/搬運;機動(移速/跳躍)使用者定案不收;基地打工(WorkSuitabilityAddRank_*)歸第二階段。數值單位分 pct/flat(如負重上限為固定值),存原始值、單位由 activities 對照表決定 | 使用者定案 | activities 對照表 |
 | 2026-07-18(bug 修正) | 「攻擊提升但燒血」型夥伴技能(如織夜鹿,滿星全隊攻擊 +80%):真正數值藏在引用被動(TextReferencePassiveSkills),主被動只放機制標記 LifeDrainPower_AttackUp。僅當主被動為此機制且目標為全隊(ToActiveOtomo)時才採引用值,以免誤收自我 buff(如鐵拳猿開大提升自己)。**其燒血代價未建模**——純傷害觀點視為強力團隊加成 | 使用者回報「織夜鹿 +80% 但沒進隊伍」 | convert_raw(_buff_at_star 引用被動閘門) |
 
 ## 重要限制
