@@ -1,5 +1,11 @@
 @import "tailwindcss";
 
+@theme {
+  --font-sans:
+    'Inter', 'Noto Sans TC', system-ui, 'Segoe UI', 'Microsoft JhengHei',
+    sans-serif;
+}
+
 @layer base {
   html {
     color-scheme: dark;
@@ -8,12 +14,14 @@
     background-color: #070b14;
     /* 角落霓光:emerald + cyan,營造深色科技感 */
     background-image:
-      radial-gradient(45rem 45rem at 108% -8%, rgba(16, 185, 129, 0.12), transparent 60%),
-      radial-gradient(40rem 40rem at -8% 4%, rgba(56, 189, 248, 0.10), transparent 55%);
+      radial-gradient(48rem 48rem at 108% -8%, rgba(16, 185, 129, 0.13), transparent 60%),
+      radial-gradient(42rem 42rem at -8% 2%, rgba(56, 189, 248, 0.10), transparent 55%);
     background-attachment: fixed;
     color: #e2e8f0;
+    font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
+    letter-spacing: 0.01em;
   }
   /* 深色下拉選單的選項在部分瀏覽器需明確配色 */
   option {

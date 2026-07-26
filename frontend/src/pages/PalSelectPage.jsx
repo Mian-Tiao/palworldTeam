@@ -4,7 +4,6 @@ import { useElements, usePals } from '../api/pals'
 import { useRecommendTeams } from '../api/recommendations'
 import ConditionPanel from '../components/ConditionPanel'
 import ElementBadge from '../components/ElementBadge'
-import ElementMotif from '../components/ElementMotif'
 import { ELEMENT_COLORS, elementAccent } from '../components/elementVisuals'
 import TeamResults from '../components/TeamResults'
 import { FIXED_MEMBER_LIMIT, LEVEL_DEFAULT, STAR_DEFAULT } from '../constants'
@@ -34,7 +33,7 @@ function ErrorBox({ error, onRetry }) {
 // 已選固定成員面板
 function SelectedPanel({ selected, onRemove }) {
   return (
-    <section className="rounded-2xl border border-emerald-400/25 bg-emerald-400/[0.06] p-4">
+    <section className="rounded-2xl border border-emerald-400/25 bg-emerald-400/[0.06] p-4 shadow-xl shadow-emerald-950/20">
       <h2 className="mb-2 flex items-center gap-2 text-sm font-bold text-emerald-300">
         <span className="text-emerald-400">★</span>
         隊伍固定成員
@@ -141,33 +140,39 @@ function PalList({ search, element, selected, onToggle }) {
                 onClick={() => onToggle(pal)}
                 disabled={disabled}
                 aria-pressed={isSelected}
-                className={`relative w-full overflow-hidden rounded-xl border p-3 text-left transition ${
+                className={`group relative w-full overflow-hidden rounded-xl border p-3.5 text-left transition-all duration-200 ${
                   isSelected
-                    ? 'border-emerald-400/60 bg-emerald-400/10 ring-1 ring-emerald-400/40 shadow-[0_0_18px_-4px_rgba(52,211,153,0.5)]'
+                    ? 'border-emerald-400/50 bg-emerald-400/[0.07] shadow-[0_0_22px_-6px_rgba(52,211,153,0.55)]'
                     : disabled
-                      ? 'cursor-not-allowed border-white/5 bg-slate-900/40 opacity-45'
-                      : 'border-white/10 bg-slate-900/70 hover:border-emerald-400/40 hover:bg-slate-800/70'
+                      ? 'cursor-not-allowed border-white/5 bg-slate-900/40 opacity-40'
+                      : 'border-white/[0.08] bg-gradient-to-b from-slate-800/50 to-slate-900/60 hover:-translate-y-0.5 hover:border-white/20 hover:shadow-lg hover:shadow-black/40'
                 }`}
               >
+                {/* 角落柔光(主屬性色)——取代扁平圖騰,增加質感 */}
+                <div
+                  className="pointer-events-none absolute -right-6 -top-8 h-24 w-24 rounded-full opacity-20 blur-2xl transition-opacity duration-200 group-hover:opacity-30"
+                  style={{ background: ELEMENT_COLORS[pal.elements[0].code] ?? '#64748b' }}
+                />
                 {/* 頂部屬性色線(雙屬性漸層) */}
                 <span
-                  className="absolute inset-x-0 top-0 h-[3px]"
+                  className="absolute inset-x-0 top-0 h-0.5 opacity-80"
                   style={{ background: elementAccent(pal.elements) }}
                 />
-                {/* 背景淡屬性圖騰(主屬性) */}
-                <ElementMotif
-                  code={pal.elements[0].code}
-                  className="absolute -bottom-4 -right-3 h-20 w-20 opacity-[0.08]"
-                />
                 <div className="relative">
-                  <div className="flex items-center justify-between gap-1">
-                    <span className="font-bold text-slate-100">{pal.name_zh}</span>
+                  <div className="flex items-start justify-between gap-1">
+                    <span className="text-[15px] font-bold leading-tight text-slate-50">
+                      {pal.name_zh}
+                    </span>
                     {isSelected && (
-                      <span className="text-xs font-semibold text-emerald-300">✓ 已選</span>
+                      <span className="shrink-0 text-xs font-semibold text-emerald-300">
+                        ✓ 已選
+                      </span>
                     )}
                   </div>
-                  <div className="mt-0.5 truncate text-xs text-slate-500">{pal.dev_name}</div>
-                  <div className="mt-2 flex flex-wrap gap-1">
+                  <div className="mt-0.5 truncate font-mono text-[11px] tracking-tight text-slate-500">
+                    {pal.dev_name}
+                  </div>
+                  <div className="mt-2.5 flex flex-wrap gap-1">
                     {pal.elements.map((e) => (
                       <ElementBadge key={e.code} code={e.code} nameZh={e.name_zh} />
                     ))}
@@ -234,7 +239,7 @@ export default function PalSelectPage() {
       )}
       {recommend.isSuccess && <TeamResults result={recommend.data} />}
 
-      <section className="space-y-3 rounded-2xl border border-white/10 bg-slate-900/60 p-4">
+      <section className="space-y-3 rounded-2xl border border-white/10 bg-slate-900/60 p-4 shadow-xl shadow-black/20">
         <input
           type="search"
           value={search}

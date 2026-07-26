@@ -43,7 +43,7 @@ export default function ConditionPanel({
     'rounded-lg border border-white/10 bg-slate-800/80 px-2 py-1 text-slate-100 focus:border-emerald-400 focus:outline-none'
 
   return (
-    <section className="space-y-3 rounded-2xl border border-white/10 bg-slate-900/60 p-4">
+    <section className="space-y-3 rounded-2xl border border-white/10 bg-slate-900/60 p-4 shadow-xl shadow-black/20">
       <h2 className="text-sm font-bold text-slate-200">計算條件</h2>
 
       <div>
