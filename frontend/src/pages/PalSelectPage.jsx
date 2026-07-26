@@ -4,7 +4,7 @@ import { useElements, usePals } from '../api/pals'
 import { useRecommendTeams } from '../api/recommendations'
 import ConditionPanel from '../components/ConditionPanel'
 import ElementBadge from '../components/ElementBadge'
-import { ELEMENT_COLORS, elementAccent } from '../components/elementVisuals'
+import { ELEMENT_COLORS, elementAccent, elementGradient } from '../components/elementVisuals'
 import TeamResults from '../components/TeamResults'
 import { FIXED_MEMBER_LIMIT, LEVEL_DEFAULT, STAR_DEFAULT } from '../constants'
 
@@ -140,22 +140,18 @@ function PalList({ search, element, selected, onToggle }) {
                 onClick={() => onToggle(pal)}
                 disabled={disabled}
                 aria-pressed={isSelected}
+                style={{ background: elementGradient(pal.elements[0].code) }}
                 className={`group relative w-full overflow-hidden rounded-xl border p-3.5 text-left transition-all duration-200 ${
                   isSelected
-                    ? 'border-emerald-400/50 bg-emerald-400/[0.07] shadow-[0_0_22px_-6px_rgba(52,211,153,0.55)]'
+                    ? 'border-emerald-400/60 ring-1 ring-emerald-400/40 shadow-[0_0_22px_-6px_rgba(52,211,153,0.55)]'
                     : disabled
-                      ? 'cursor-not-allowed border-white/5 bg-slate-900/40 opacity-40'
-                      : 'border-white/[0.08] bg-gradient-to-b from-slate-800/50 to-slate-900/60 hover:-translate-y-0.5 hover:border-white/20 hover:shadow-lg hover:shadow-black/40'
+                      ? 'cursor-not-allowed border-white/[0.06] opacity-40'
+                      : 'border-white/[0.08] hover:-translate-y-0.5 hover:border-white/20 hover:shadow-lg hover:shadow-black/40'
                 }`}
               >
-                {/* 角落柔光(主屬性色)——取代扁平圖騰,增加質感 */}
-                <div
-                  className="pointer-events-none absolute -right-6 -top-8 h-24 w-24 rounded-full opacity-20 blur-2xl transition-opacity duration-200 group-hover:opacity-30"
-                  style={{ background: ELEMENT_COLORS[pal.elements[0].code] ?? '#64748b' }}
-                />
-                {/* 頂部屬性色線(雙屬性漸層) */}
+                {/* 僅頂部屬性色線(2px,雙屬性漸層);其餘外框維持低調灰黑 */}
                 <span
-                  className="absolute inset-x-0 top-0 h-0.5 opacity-80"
+                  className="absolute inset-x-0 top-0 h-0.5"
                   style={{ background: elementAccent(pal.elements) }}
                 />
                 <div className="relative">
