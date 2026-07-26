@@ -4,6 +4,8 @@ import { useElements, usePals } from '../api/pals'
 import { useRecommendTeams } from '../api/recommendations'
 import ConditionPanel from '../components/ConditionPanel'
 import ElementBadge from '../components/ElementBadge'
+import ElementMotif from '../components/ElementMotif'
+import { ELEMENT_COLORS, elementAccent } from '../components/elementVisuals'
 import TeamResults from '../components/TeamResults'
 import { FIXED_MEMBER_LIMIT, LEVEL_DEFAULT, STAR_DEFAULT } from '../constants'
 
@@ -50,6 +52,7 @@ function SelectedPanel({ selected, onRemove }) {
             <li
               key={pal.id}
               className="flex items-center gap-2 rounded-full bg-slate-800 py-1 pl-3 pr-1 ring-1 ring-emerald-400/30"
+              style={{ borderLeft: `3px solid ${ELEMENT_COLORS[pal.elements[0].code] ?? '#64748b'}` }}
             >
               <span className="text-sm font-medium text-slate-100">{pal.name_zh}</span>
               {pal.elements.map((e) => (
@@ -138,7 +141,7 @@ function PalList({ search, element, selected, onToggle }) {
                 onClick={() => onToggle(pal)}
                 disabled={disabled}
                 aria-pressed={isSelected}
-                className={`w-full rounded-xl border p-3 text-left transition ${
+                className={`relative w-full overflow-hidden rounded-xl border p-3 text-left transition ${
                   isSelected
                     ? 'border-emerald-400/60 bg-emerald-400/10 ring-1 ring-emerald-400/40 shadow-[0_0_18px_-4px_rgba(52,211,153,0.5)]'
                     : disabled
@@ -146,17 +149,29 @@ function PalList({ search, element, selected, onToggle }) {
                       : 'border-white/10 bg-slate-900/70 hover:border-emerald-400/40 hover:bg-slate-800/70'
                 }`}
               >
-                <div className="flex items-center justify-between gap-1">
-                  <span className="font-bold text-slate-100">{pal.name_zh}</span>
-                  {isSelected && (
-                    <span className="text-xs font-semibold text-emerald-300">✓ 已選</span>
-                  )}
-                </div>
-                <div className="mt-0.5 truncate text-xs text-slate-500">{pal.dev_name}</div>
-                <div className="mt-2 flex flex-wrap gap-1">
-                  {pal.elements.map((e) => (
-                    <ElementBadge key={e.code} code={e.code} nameZh={e.name_zh} />
-                  ))}
+                {/* 頂部屬性色線(雙屬性漸層) */}
+                <span
+                  className="absolute inset-x-0 top-0 h-[3px]"
+                  style={{ background: elementAccent(pal.elements) }}
+                />
+                {/* 背景淡屬性圖騰(主屬性) */}
+                <ElementMotif
+                  code={pal.elements[0].code}
+                  className="absolute -bottom-4 -right-3 h-20 w-20 opacity-[0.08]"
+                />
+                <div className="relative">
+                  <div className="flex items-center justify-between gap-1">
+                    <span className="font-bold text-slate-100">{pal.name_zh}</span>
+                    {isSelected && (
+                      <span className="text-xs font-semibold text-emerald-300">✓ 已選</span>
+                    )}
+                  </div>
+                  <div className="mt-0.5 truncate text-xs text-slate-500">{pal.dev_name}</div>
+                  <div className="mt-2 flex flex-wrap gap-1">
+                    {pal.elements.map((e) => (
+                      <ElementBadge key={e.code} code={e.code} nameZh={e.name_zh} />
+                    ))}
+                  </div>
                 </div>
               </button>
             </li>
