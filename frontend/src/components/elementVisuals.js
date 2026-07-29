@@ -24,22 +24,8 @@ function hexToRgb(hex) {
   }
 }
 
-// 屬性色的半透明版本(給柔和標籤底色、極淡漸層用)
+// 屬性色的半透明版本(給柔和膠囊標籤底色/內框用)
 export function elementTint(code, alpha) {
   const { r, g, b } = hexToRgb(ELEMENT_COLORS[code] ?? FALLBACK)
   return `rgba(${r}, ${g}, ${b}, ${alpha})`
-}
-
-// 卡片極淡的對角漸層:屬性色僅 8% 隱隱透出,主體仍是暗色,不壓到文字
-export function elementGradient(code) {
-  return `linear-gradient(135deg, ${elementTint(code, 0.08)} 0%, #0e1117 62%)`
-}
-
-// 卡片頂部色線:單屬性=實色、雙屬性=漸層(左右各一屬性)
-export function elementAccent(elements) {
-  const colors = elements.map((e) => ELEMENT_COLORS[e.code] ?? FALLBACK)
-  if (colors.length >= 2) {
-    return `linear-gradient(90deg, ${colors[0]}, ${colors[1]})`
-  }
-  return colors[0] ?? FALLBACK
 }

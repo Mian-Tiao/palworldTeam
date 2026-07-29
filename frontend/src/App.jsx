@@ -47,7 +47,7 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <div className="min-h-screen text-slate-200">
-        <header className="sticky top-0 z-20 border-b border-white/10 bg-slate-950/70 backdrop-blur">
+        <header className="border-b border-white/10 bg-slate-950/70 backdrop-blur">
           <div className="mx-auto flex max-w-5xl items-center justify-between gap-3 px-4 py-3 sm:px-6 sm:py-4">
             <div className="flex items-center gap-2.5">
               <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-emerald-400 to-cyan-500 text-lg shadow-lg shadow-emerald-500/20">

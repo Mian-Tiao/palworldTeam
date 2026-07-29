@@ -1,10 +1,9 @@
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 
 import { useElements, usePals } from '../api/pals'
 import { useRecommendTeams } from '../api/recommendations'
 import ConditionPanel from '../components/ConditionPanel'
 import ElementBadge from '../components/ElementBadge'
-import { ELEMENT_COLORS, elementAccent, elementGradient } from '../components/elementVisuals'
 import TeamResults from '../components/TeamResults'
 import { FIXED_MEMBER_LIMIT, LEVEL_DEFAULT, STAR_DEFAULT } from '../constants'
 
@@ -30,50 +29,69 @@ function ErrorBox({ error, onRetry }) {
   )
 }
 
-// 已選固定成員面板
-function SelectedPanel({ selected, onRemove }) {
+// 上方固定列:5 個隊伍槽位 + 開始計算(捲動列表時仍固定在頂端)
+function TeamBar({ selected, onRemove, onSubmit, canSubmit, isPending, onAdd }) {
   return (
-    <section className="rounded-2xl border border-emerald-400/25 bg-emerald-400/[0.06] p-4 shadow-xl shadow-emerald-950/20">
-      <h2 className="mb-2 flex items-center gap-2 text-sm font-bold text-emerald-300">
-        <span className="text-emerald-400">★</span>
-        隊伍固定成員
-        <span className="rounded-full bg-emerald-400/15 px-2 py-0.5 text-xs text-emerald-300">
-          {selected.length}/{FIXED_MEMBER_LIMIT}
+    <div className="sticky top-0 z-20 -mx-4 mb-4 border-b border-white/10 bg-slate-950/85 px-4 py-2.5 backdrop-blur sm:-mx-6 sm:px-6">
+      <div className="flex flex-wrap items-center gap-2">
+        <span className="text-sm font-bold text-slate-200">
+          固定成員 <span className="text-emerald-300">{selected.length}/{FIXED_MEMBER_LIMIT}</span>
         </span>
-      </h2>
-      {selected.length === 0 ? (
-        <p className="text-sm text-slate-400">
-          尚未選擇。從下方清單點選你喜愛的帕魯,推薦時牠們一定會在隊伍中。
-        </p>
-      ) : (
-        <ul className="flex flex-wrap gap-2">
-          {selected.map((pal) => (
-            <li
-              key={pal.id}
-              className="flex items-center gap-2 rounded-full bg-slate-800 py-1 pl-3 pr-1 ring-1 ring-emerald-400/30"
-              style={{ borderLeft: `3px solid ${ELEMENT_COLORS[pal.elements[0].code] ?? '#64748b'}` }}
-            >
-              <span className="text-sm font-medium text-slate-100">{pal.name_zh}</span>
-              {pal.elements.map((e) => (
-                <ElementBadge key={e.code} code={e.code} nameZh={e.name_zh} />
-              ))}
+        <div className="flex flex-wrap items-center gap-1.5">
+          {Array.from({ length: FIXED_MEMBER_LIMIT }).map((_, i) => {
+            const pal = selected[i]
+            if (pal) {
+              return (
+                <span
+                  key={pal.id}
+                  className="flex items-center gap-1 rounded-full bg-slate-800 py-1 pl-2.5 pr-1 text-xs ring-1 ring-emerald-400/30"
+                >
+                  <span className="flex h-4 w-4 items-center justify-center rounded-full bg-emerald-400 text-[10px] font-bold text-slate-950">
+                    {i + 1}
+                  </span>
+                  <span className="font-medium text-slate-100">{pal.name_zh}</span>
+                  <button
+                    type="button"
+                    onClick={() => onRemove(pal)}
+                    aria-label={`移除 ${pal.name_zh}`}
+                    className="flex h-4 w-4 items-center justify-center rounded-full text-slate-400 hover:bg-slate-700 hover:text-red-300"
+                  >
+                    ✕
+                  </button>
+                </span>
+              )
+            }
+            return (
               <button
+                key={`empty-${i}`}
                 type="button"
-                onClick={() => onRemove(pal)}
-                aria-label={`移除 ${pal.name_zh}`}
-                className="ml-1 flex h-6 w-6 items-center justify-center rounded-full text-slate-400 hover:bg-slate-700 hover:text-red-300"
+                onClick={onAdd}
+                aria-label="新增固定成員"
+                className="flex h-7 w-8 items-center justify-center rounded-full border border-dashed border-white/15 text-slate-500 transition hover:border-emerald-400/50 hover:text-emerald-300"
               >
-                ✕
+                ＋
               </button>
-            </li>
-          ))}
-        </ul>
-      )}
-    </section>
+            )
+          })}
+        </div>
+        <button
+          type="button"
+          onClick={onSubmit}
+          disabled={!canSubmit || isPending}
+          className={`ml-auto rounded-lg px-4 py-1.5 text-sm font-bold transition ${
+            canSubmit && !isPending
+              ? 'bg-gradient-to-r from-emerald-400 to-cyan-400 text-slate-950 shadow-lg shadow-emerald-500/20 hover:brightness-110'
+              : 'cursor-not-allowed bg-slate-700 text-slate-500'
+          }`}
+        >
+          {isPending ? '計算中…' : '開始計算'}
+        </button>
+      </div>
+    </div>
   )
 }
 
-// 屬性篩選列(資料來自 /api/elements)
+// 屬性篩選列
 function ElementFilter({ value, onChange }) {
   const { data, isPending, isError, error, refetch } = useElements()
 
@@ -111,6 +129,52 @@ function ElementFilter({ value, onChange }) {
   )
 }
 
+// 單張帕魯卡(緊湊):名稱+英文名在左,選取圓圈+屬性標籤在右
+function PalCard({ pal, order, isSelected, disabled, onToggle }) {
+  return (
+    <button
+      type="button"
+      onClick={() => onToggle(pal)}
+      disabled={disabled}
+      aria-pressed={isSelected}
+      className={`group flex w-full items-center gap-2 rounded-lg border p-3 text-left transition ${
+        isSelected
+          ? 'border-emerald-400/60 bg-emerald-400/[0.08] ring-1 ring-emerald-400/25'
+          : disabled
+            ? 'cursor-not-allowed border-white/[0.06] bg-slate-900/40 opacity-40'
+            : 'border-white/[0.08] bg-slate-900/50 hover:border-white/20 hover:bg-slate-800/60'
+      }`}
+    >
+      <div className="min-w-0 flex-1">
+        <div className="truncate text-[15px] font-bold leading-tight text-slate-50">
+          {pal.name_zh}
+        </div>
+        <div className="truncate font-mono text-[11px] tracking-tight text-slate-500">
+          {pal.dev_name}
+        </div>
+      </div>
+      <div className="flex shrink-0 flex-col items-end gap-1.5">
+        {isSelected ? (
+          <span className="flex h-5 w-5 items-center justify-center rounded-full bg-emerald-400 text-[11px] font-bold text-slate-950">
+            {order}
+          </span>
+        ) : (
+          <span
+            className={`h-5 w-5 rounded-full border-2 transition ${
+              disabled ? 'border-slate-700' : 'border-slate-600 group-hover:border-emerald-400/70'
+            }`}
+          />
+        )}
+        <div className="flex gap-1">
+          {pal.elements.map((e) => (
+            <ElementBadge key={e.code} code={e.code} nameZh={e.name_zh} />
+          ))}
+        </div>
+      </div>
+    </button>
+  )
+}
+
 // 帕魯清單
 function PalList({ search, element, selected, onToggle }) {
   const { data, isPending, isError, error, refetch } = usePals({ search, element })
@@ -123,58 +187,25 @@ function PalList({ search, element, selected, onToggle }) {
     return <p className="py-8 text-center text-slate-500">沒有符合條件的帕魯,換個關鍵字或屬性試試。</p>
   }
 
-  const selectedIds = new Set(selected.map((p) => p.id))
+  const orderById = new Map(selected.map((p, i) => [p.id, i + 1]))
   const isFull = selected.length >= FIXED_MEMBER_LIMIT
 
   return (
     <>
-      <p className="mb-2 text-sm text-slate-500">共 {data.meta.total} 隻</p>
-      <ul className="grid grid-cols-2 gap-2.5 sm:grid-cols-3 sm:gap-3 lg:grid-cols-4">
+      <p className="mb-2 text-xs text-slate-500">共 {data.meta.total} 隻</p>
+      <ul className="grid grid-cols-2 gap-2.5 md:grid-cols-4 lg:grid-cols-5">
         {pals.map((pal) => {
-          const isSelected = selectedIds.has(pal.id)
-          const disabled = !isSelected && isFull
+          const order = orderById.get(pal.id)
+          const isSelected = order !== undefined
           return (
             <li key={pal.id}>
-              <button
-                type="button"
-                onClick={() => onToggle(pal)}
-                disabled={disabled}
-                aria-pressed={isSelected}
-                style={{ background: elementGradient(pal.elements[0].code) }}
-                className={`group relative w-full overflow-hidden rounded-xl border p-3.5 text-left transition-all duration-200 ${
-                  isSelected
-                    ? 'border-emerald-400/60 ring-1 ring-emerald-400/40 shadow-[0_0_22px_-6px_rgba(52,211,153,0.55)]'
-                    : disabled
-                      ? 'cursor-not-allowed border-white/[0.06] opacity-40'
-                      : 'border-white/[0.08] hover:-translate-y-0.5 hover:border-white/20 hover:shadow-lg hover:shadow-black/40'
-                }`}
-              >
-                {/* 僅頂部屬性色線(2px,雙屬性漸層);其餘外框維持低調灰黑 */}
-                <span
-                  className="absolute inset-x-0 top-0 h-0.5"
-                  style={{ background: elementAccent(pal.elements) }}
-                />
-                <div className="relative">
-                  <div className="flex items-start justify-between gap-1">
-                    <span className="text-[15px] font-bold leading-tight text-slate-50">
-                      {pal.name_zh}
-                    </span>
-                    {isSelected && (
-                      <span className="shrink-0 text-xs font-semibold text-emerald-300">
-                        ✓ 已選
-                      </span>
-                    )}
-                  </div>
-                  <div className="mt-0.5 truncate font-mono text-[11px] tracking-tight text-slate-500">
-                    {pal.dev_name}
-                  </div>
-                  <div className="mt-2.5 flex flex-wrap gap-1">
-                    {pal.elements.map((e) => (
-                      <ElementBadge key={e.code} code={e.code} nameZh={e.name_zh} />
-                    ))}
-                  </div>
-                </div>
-              </button>
+              <PalCard
+                pal={pal}
+                order={order}
+                isSelected={isSelected}
+                disabled={!isSelected && isFull}
+                onToggle={onToggle}
+              />
             </li>
           )
         })}
@@ -196,6 +227,7 @@ export default function PalSelectPage() {
   const [level, setLevel] = useState(LEVEL_DEFAULT)
   const [starLevel, setStarLevel] = useState(STAR_DEFAULT)
   const recommend = useRecommendTeams()
+  const searchRef = useRef(null)
 
   function toggle(pal) {
     setSelected((prev) => {
@@ -214,39 +246,50 @@ export default function PalSelectPage() {
     })
   }
 
-  return (
-    <div className="mx-auto max-w-5xl space-y-4 p-4 sm:p-6">
-      <SelectedPanel selected={selected} onRemove={toggle} />
+  function scrollToGrid() {
+    searchRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' })
+    searchRef.current?.querySelector('input')?.focus()
+  }
 
-      <ConditionPanel
-        targetElements={targetElements}
-        onTargetElementsChange={setTargetElements}
-        level={level}
-        onLevelChange={setLevel}
-        starLevel={starLevel}
-        onStarLevelChange={setStarLevel}
+  return (
+    <div className="mx-auto max-w-5xl p-4 sm:p-6">
+      <TeamBar
+        selected={selected}
+        onRemove={toggle}
         onSubmit={submit}
         canSubmit={selected.length >= 1}
         isPending={recommend.isPending}
+        onAdd={scrollToGrid}
       />
 
-      {recommend.isError && (
-        <ErrorBox error={recommend.error} onRetry={submit} />
-      )}
-      {recommend.isSuccess && <TeamResults result={recommend.data} />}
-
-      <section className="space-y-3 rounded-2xl border border-white/10 bg-slate-900/60 p-4 shadow-xl shadow-black/20">
-        <input
-          type="search"
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          placeholder="🔍 搜尋帕魯名稱(例如:棉悠悠)"
-          className="w-full rounded-lg border border-white/10 bg-slate-800/80 px-3 py-2 text-slate-100 placeholder:text-slate-500 focus:border-emerald-400 focus:outline-none focus:ring-1 focus:ring-emerald-400/40"
+      <div className="space-y-4">
+        <ConditionPanel
+          targetElements={targetElements}
+          onTargetElementsChange={setTargetElements}
+          level={level}
+          onLevelChange={setLevel}
+          starLevel={starLevel}
+          onStarLevelChange={setStarLevel}
         />
-        <ElementFilter value={element} onChange={setElement} />
-      </section>
 
-      <PalList search={search} element={element} selected={selected} onToggle={toggle} />
+        {recommend.isError && <ErrorBox error={recommend.error} onRetry={submit} />}
+        {recommend.isSuccess && <TeamResults result={recommend.data} />}
+
+        <section ref={searchRef} className="space-y-3 rounded-xl border border-white/10 bg-slate-900/50 p-4">
+          <div className="flex flex-wrap items-center gap-3">
+            <input
+              type="search"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              placeholder="🔍 搜尋帕魯名稱(例如:棉悠悠)"
+              className="min-w-0 flex-1 rounded-lg border border-white/10 bg-slate-800/80 px-3 py-2 text-slate-100 placeholder:text-slate-500 focus:border-emerald-400 focus:outline-none focus:ring-1 focus:ring-emerald-400/40"
+            />
+          </div>
+          <ElementFilter value={element} onChange={setElement} />
+        </section>
+
+        <PalList search={search} element={element} selected={selected} onToggle={toggle} />
+      </div>
     </div>
   )
 }
