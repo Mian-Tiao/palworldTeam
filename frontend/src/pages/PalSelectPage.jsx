@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { useElements, usePals } from '../api/pals'
 import { useRecommendTeams } from '../api/recommendations'
@@ -30,7 +30,7 @@ function ErrorBox({ error, onRetry }) {
 }
 
 // 上方固定列:5 個隊伍槽位 + 開始計算(捲動列表時仍固定在頂端)
-function TeamBar({ selected, onRemove, onSubmit, canSubmit, isPending, onAdd }) {
+function TeamBar({ selected, onRemove, onSubmit, canSubmit, isPending, hasResults, onViewResults }) {
   return (
     <div className="sticky top-0 z-20 -mx-4 mb-4 border-b border-white/10 bg-slate-950/85 px-4 py-2.5 backdrop-blur sm:-mx-6 sm:px-6">
       <div className="flex flex-wrap items-center gap-2">
@@ -62,30 +62,39 @@ function TeamBar({ selected, onRemove, onSubmit, canSubmit, isPending, onAdd }) 
               )
             }
             return (
-              <button
+              <span
                 key={`empty-${i}`}
-                type="button"
-                onClick={onAdd}
-                aria-label="新增固定成員"
-                className="flex h-7 w-8 items-center justify-center rounded-full border border-dashed border-white/15 text-slate-500 transition hover:border-emerald-400/50 hover:text-emerald-300"
+                aria-hidden="true"
+                className="flex h-7 w-8 items-center justify-center rounded-full border border-dashed border-white/10 text-slate-600"
               >
                 ＋
-              </button>
+              </span>
             )
           })}
         </div>
-        <button
-          type="button"
-          onClick={onSubmit}
-          disabled={!canSubmit || isPending}
-          className={`ml-auto rounded-lg px-4 py-1.5 text-sm font-bold transition ${
-            canSubmit && !isPending
-              ? 'bg-gradient-to-r from-emerald-400 to-cyan-400 text-slate-950 shadow-lg shadow-emerald-500/20 hover:brightness-110'
-              : 'cursor-not-allowed bg-slate-700 text-slate-500'
-          }`}
-        >
-          {isPending ? '計算中…' : '開始計算'}
-        </button>
+        <div className="ml-auto flex items-center gap-2">
+          {hasResults && !isPending && (
+            <button
+              type="button"
+              onClick={onViewResults}
+              className="rounded-lg border border-white/15 px-3 py-1.5 text-sm text-slate-300 transition hover:border-white/30 hover:text-slate-100"
+            >
+              查看結果
+            </button>
+          )}
+          <button
+            type="button"
+            onClick={onSubmit}
+            disabled={!canSubmit || isPending}
+            className={`rounded-lg px-4 py-1.5 text-sm font-bold transition ${
+              canSubmit && !isPending
+                ? 'bg-gradient-to-r from-emerald-400 to-cyan-400 text-slate-950 shadow-lg shadow-emerald-500/20 hover:brightness-110'
+                : 'cursor-not-allowed bg-slate-700 text-slate-500'
+            }`}
+          >
+            {isPending ? '計算中…' : '開始計算'}
+          </button>
+        </div>
       </div>
     </div>
   )
@@ -175,6 +184,45 @@ function PalCard({ pal, order, isSelected, disabled, onToggle }) {
   )
 }
 
+// 推薦結果彈窗:算完後浮出,清單原地不動;關閉即回到原位置
+function ResultsModal({ result, onClose }) {
+  useEffect(() => {
+    document.body.style.overflow = 'hidden'
+    const onKey = (e) => e.key === 'Escape' && onClose()
+    window.addEventListener('keydown', onKey)
+    return () => {
+      document.body.style.overflow = ''
+      window.removeEventListener('keydown', onKey)
+    }
+  }, [onClose])
+
+  return (
+    <div
+      className="fixed inset-0 z-40 overflow-y-auto bg-black/70 p-3 backdrop-blur-sm sm:p-6"
+      onClick={onClose}
+    >
+      <div
+        className="mx-auto w-full max-w-4xl rounded-2xl border border-white/10 bg-slate-950 shadow-2xl"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <div className="sticky top-0 flex items-center justify-between rounded-t-2xl border-b border-white/10 bg-slate-950/95 px-4 py-3 backdrop-blur">
+          <h2 className="font-bold text-slate-100">推薦結果</h2>
+          <button
+            type="button"
+            onClick={onClose}
+            className="rounded-lg px-3 py-1 text-sm text-slate-400 transition hover:bg-white/5 hover:text-slate-100"
+          >
+            ✕ 關閉
+          </button>
+        </div>
+        <div className="p-4">
+          <TeamResults result={result} />
+        </div>
+      </div>
+    </div>
+  )
+}
+
 // 帕魯清單
 function PalList({ search, element, selected, onToggle }) {
   const { data, isPending, isError, error, refetch } = usePals({ search, element })
@@ -226,8 +274,8 @@ export default function PalSelectPage() {
   const [targetElements, setTargetElements] = useState([])
   const [level, setLevel] = useState(LEVEL_DEFAULT)
   const [starLevel, setStarLevel] = useState(STAR_DEFAULT)
+  const [resultsOpen, setResultsOpen] = useState(false)
   const recommend = useRecommendTeams()
-  const searchRef = useRef(null)
 
   function toggle(pal) {
     setSelected((prev) => {
@@ -238,17 +286,15 @@ export default function PalSelectPage() {
   }
 
   function submit() {
-    recommend.mutate({
-      fixedPalIds: selected.map((p) => p.id),
-      level,
-      starLevel,
-      targetElements,
-    })
-  }
-
-  function scrollToGrid() {
-    searchRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' })
-    searchRef.current?.querySelector('input')?.focus()
+    recommend.mutate(
+      {
+        fixedPalIds: selected.map((p) => p.id),
+        level,
+        starLevel,
+        targetElements,
+      },
+      { onSuccess: () => setResultsOpen(true) },
+    )
   }
 
   return (
@@ -259,7 +305,8 @@ export default function PalSelectPage() {
         onSubmit={submit}
         canSubmit={selected.length >= 1}
         isPending={recommend.isPending}
-        onAdd={scrollToGrid}
+        hasResults={recommend.isSuccess}
+        onViewResults={() => setResultsOpen(true)}
       />
 
       <div className="space-y-4">
@@ -273,9 +320,8 @@ export default function PalSelectPage() {
         />
 
         {recommend.isError && <ErrorBox error={recommend.error} onRetry={submit} />}
-        {recommend.isSuccess && <TeamResults result={recommend.data} />}
 
-        <section ref={searchRef} className="space-y-3 rounded-xl border border-white/10 bg-slate-900/50 p-4">
+        <section className="space-y-3 rounded-xl border border-white/10 bg-slate-900/50 p-4">
           <div className="flex flex-wrap items-center gap-3">
             <input
               type="search"
@@ -290,6 +336,10 @@ export default function PalSelectPage() {
 
         <PalList search={search} element={element} selected={selected} onToggle={toggle} />
       </div>
+
+      {resultsOpen && recommend.isSuccess && (
+        <ResultsModal result={recommend.data} onClose={() => setResultsOpen(false)} />
+      )}
     </div>
   )
 }
