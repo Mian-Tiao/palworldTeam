@@ -48,7 +48,7 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <div className="min-h-screen text-slate-200">
         <header className="border-b border-white/10 bg-slate-950/70 backdrop-blur">
-          <div className="mx-auto flex max-w-5xl items-center justify-between gap-3 px-4 py-3 sm:px-6 sm:py-4">
+          <div className="mx-auto flex max-w-[1440px] items-center justify-between gap-3 px-4 py-3 sm:px-6 sm:py-4">
             <div className="flex items-center gap-2.5">
               <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-emerald-400 to-cyan-500 text-lg shadow-lg shadow-emerald-500/20">
                 ⚔️
@@ -64,7 +64,7 @@ function App() {
             </div>
             <HealthIndicator />
           </div>
-          <nav className="mx-auto flex max-w-5xl gap-1 px-4 sm:px-6">
+          <nav className="mx-auto flex max-w-[1440px] gap-1 px-4 sm:px-6">
             {TABS.map((t) => (
               <button
                 type="button"
@@ -82,7 +82,7 @@ function App() {
           </nav>
         </header>
         {tab === 'team' ? <PalSelectPage /> : <ActivitySkills />}
-        <footer className="mx-auto max-w-5xl px-4 py-8 text-center text-xs text-slate-600 sm:px-6">
+        <footer className="mx-auto max-w-[1440px] px-4 py-8 text-center text-xs text-slate-600 sm:px-6">
           資料解包自 Palworld 1.0 · 純文字呈現不使用遊戲圖片
         </footer>
       </div>
