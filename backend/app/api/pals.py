@@ -39,6 +39,10 @@ def list_pals(
             "dev_name": p.dev_name,
             "name_zh": p.name_zh,
             "elements": [e.model_dump() for e in p.elements],
+            # 種族值,供清單快速掃讀;取遠程/近戰較高者為代表攻擊
+            "attack": max(p.shot_attack_stat, p.melee_attack_stat),
+            "defense_stat": p.defense_stat,
+            "hp_stat": p.hp_stat,
         }
         for p in pals
     ]

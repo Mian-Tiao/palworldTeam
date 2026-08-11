@@ -8,7 +8,10 @@ def test_list_pals_returns_all_seeded(client):
     assert body["meta"]["total"] == 15
     assert len(body["data"]) == 15
     first = body["data"][0]
-    assert set(first) == {"id", "dev_name", "name_zh", "elements"}
+    assert set(first) == {
+        "id", "dev_name", "name_zh", "elements", "attack", "defense_stat", "hp_stat"
+    }
+    assert isinstance(first["attack"], int)
 
 
 def test_search_by_chinese_name(client):

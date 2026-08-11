@@ -4,6 +4,7 @@ import { useElements, usePals } from '../api/pals'
 import { useRecommendTeams } from '../api/recommendations'
 import ConditionPanel from '../components/ConditionPanel'
 import ElementBadge from '../components/ElementBadge'
+import { elementAccent } from '../components/elementVisuals'
 import TeamResults from '../components/TeamResults'
 import { FIXED_MEMBER_LIMIT, LEVEL_DEFAULT, STAR_DEFAULT } from '../constants'
 
@@ -208,7 +209,7 @@ function FilterPanel({ search, onSearch, element, onElement, resultCount, isPend
   )
 }
 
-// 單張帕魯卡(緊湊):名稱+英文名在左,選取圓圈+屬性標籤在右
+// 單張帕魯卡(緊湊、可掃讀):左側屬性色細線、名稱、屬性標籤 + 攻擊數值、選取圓圈
 function PalCard({ pal, order, isSelected, disabled, onToggle }) {
   return (
     <button
@@ -216,7 +217,7 @@ function PalCard({ pal, order, isSelected, disabled, onToggle }) {
       onClick={() => onToggle(pal)}
       disabled={disabled}
       aria-pressed={isSelected}
-      className={`group flex min-h-[68px] w-full items-center gap-2 rounded-lg border p-3 text-left transition ${
+      className={`group relative flex min-h-[76px] w-full flex-col justify-between overflow-hidden rounded-lg border p-3 pl-3.5 text-left transition ${
         isSelected
           ? 'border-emerald-400/60 bg-emerald-400/[0.08] ring-1 ring-emerald-400/25'
           : disabled
@@ -224,31 +225,41 @@ function PalCard({ pal, order, isSelected, disabled, onToggle }) {
             : 'border-[var(--border)] bg-[var(--card)] hover:border-[var(--border-strong)] hover:bg-slate-800/60'
       }`}
     >
-      <div className="min-w-0 flex-1">
-        <div className="truncate text-[15px] font-bold leading-tight text-[var(--text)]">
-          {pal.name_zh}
+      {/* 左側屬性色細線(掃讀用;雙屬性上下漸層) */}
+      <span
+        className="absolute inset-y-0 left-0 w-[3px]"
+        style={{ background: elementAccent(pal.elements) }}
+      />
+      <div className="flex items-start justify-between gap-1">
+        <div className="min-w-0">
+          <div className="truncate text-[15px] font-bold leading-tight text-[var(--text)]">
+            {pal.name_zh}
+          </div>
+          <div className="truncate font-mono text-[10px] tracking-tight text-[var(--muted)]">
+            {pal.dev_name}
+          </div>
         </div>
-        <div className="truncate font-mono text-[11px] tracking-tight text-[var(--muted)]">
-          {pal.dev_name}
-        </div>
-      </div>
-      <div className="flex shrink-0 flex-col items-end gap-1.5">
         {isSelected ? (
-          <span className="flex h-5 w-5 items-center justify-center rounded-full bg-[var(--accent)] text-[11px] font-bold text-slate-950">
+          <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[var(--accent)] text-[11px] font-bold text-slate-950">
             {order}
           </span>
         ) : (
           <span
-            className={`h-5 w-5 rounded-full border-2 transition ${
+            className={`h-5 w-5 shrink-0 rounded-full border-2 transition ${
               disabled ? 'border-slate-700' : 'border-slate-600 group-hover:border-emerald-400/70'
             }`}
           />
         )}
-        <div className="flex gap-1">
+      </div>
+      <div className="mt-2 flex items-center justify-between gap-2">
+        <span className="flex gap-1">
           {pal.elements.map((e) => (
             <ElementBadge key={e.code} code={e.code} nameZh={e.name_zh} />
           ))}
-        </div>
+        </span>
+        <span className="shrink-0 text-[11px] tabular-nums text-[var(--text-2)]">
+          攻擊 <span className="font-semibold text-[var(--text)]">{pal.attack}</span>
+        </span>
       </div>
     </button>
   )

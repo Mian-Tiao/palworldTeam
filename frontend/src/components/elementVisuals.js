@@ -29,3 +29,12 @@ export function elementTint(code, alpha) {
   const { r, g, b } = hexToRgb(ELEMENT_COLORS[code] ?? FALLBACK)
   return `rgba(${r}, ${g}, ${b}, ${alpha})`
 }
+
+// 卡片左側屬性色細線:單屬性=實色、雙屬性=上下漸層
+export function elementAccent(elements) {
+  const colors = elements.map((e) => ELEMENT_COLORS[e.code] ?? FALLBACK)
+  if (colors.length >= 2) {
+    return `linear-gradient(180deg, ${colors[0]}, ${colors[1]})`
+  }
+  return colors[0] ?? FALLBACK
+}
