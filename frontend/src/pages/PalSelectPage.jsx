@@ -309,7 +309,7 @@ function PalList({ query, selected, onToggle, onClearFilters }) {
 }
 
 // 推薦結果彈窗:算完後浮出,清單原地不動;關閉即回到原位置
-function ResultsModal({ result, onClose }) {
+function ResultsModal({ result, onClose, onRecalc, isPending }) {
   useEffect(() => {
     document.body.style.overflow = 'hidden'
     const onKey = (e) => e.key === 'Escape' && onClose()
@@ -329,15 +329,25 @@ function ResultsModal({ result, onClose }) {
         className="mx-auto w-full max-w-[1120px] rounded-2xl border border-[var(--border)] bg-slate-950 shadow-2xl"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="sticky top-0 flex items-center justify-between rounded-t-2xl border-b border-[var(--border)] bg-slate-950/95 px-4 py-3 backdrop-blur">
+        <div className="sticky top-0 flex items-center justify-between gap-2 rounded-t-2xl border-b border-[var(--border)] bg-slate-950/95 px-4 py-3 backdrop-blur">
           <h2 className="font-bold text-[var(--text)]">推薦結果</h2>
-          <button
-            type="button"
-            onClick={onClose}
-            className="rounded-lg px-3 py-1 text-sm text-[var(--text-2)] transition hover:bg-white/5 hover:text-[var(--text)]"
-          >
-            ✕ 關閉
-          </button>
+          <div className="flex items-center gap-2">
+            <button
+              type="button"
+              onClick={onRecalc}
+              disabled={isPending}
+              className="rounded-lg border border-[var(--border-strong)] px-3 py-1 text-sm text-[var(--text-2)] transition hover:text-[var(--text)] disabled:opacity-50"
+            >
+              {isPending ? '計算中…' : '重新計算'}
+            </button>
+            <button
+              type="button"
+              onClick={onClose}
+              className="rounded-lg px-3 py-1 text-sm text-[var(--text-2)] transition hover:bg-white/5 hover:text-[var(--text)]"
+            >
+              ✕ 關閉
+            </button>
+          </div>
         </div>
         <div className="p-4">
           <TeamResults result={result} />
@@ -482,7 +492,12 @@ export default function PalSelectPage() {
       </FilterSheet>
 
       {resultsOpen && recommend.isSuccess && (
-        <ResultsModal result={recommend.data} onClose={() => setResultsOpen(false)} />
+        <ResultsModal
+          result={recommend.data}
+          onClose={() => setResultsOpen(false)}
+          onRecalc={submit}
+          isPending={recommend.isPending}
+        />
       )}
     </div>
   )
