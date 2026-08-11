@@ -2878,19 +2878,7 @@
   ],
   "partner_skill_title": "蒼天統治者",
   "partner_skill_description": "可騎在牠的背上在空中飛行。 霄龍的攻擊力，會隨著隊伍中其他帕魯的數量提升，每隻增加4%。",
-  "partner_buff": {
-   "target": "pal_attack",
-   "element": null,
-   "mechanic": "flat",
-   "values_by_star": [
-    0.04,
-    0.05,
-    0.06,
-    0.07,
-    0.08
-   ],
-   "source_passive": "ShotAttack_PartnerSkill_SpecificElement_1"
-  },
+  "partner_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -11403,19 +11391,7 @@
   ],
   "partner_skill_title": "自由翼龍",
   "partner_skill_description": "可騎在牠的背上在空中飛行。 靈曦龍的攻擊力和移動速度，會隨著隊伍中其他或帕魯的數量提升，每隻增加2%。",
-  "partner_buff": {
-   "target": "pal_attack",
-   "element": null,
-   "mechanic": "flat",
-   "values_by_star": [
-    0.02,
-    0.03,
-    0.04,
-    0.05,
-    0.06
-   ],
-   "source_passive": "ShotAttack_MoveSpeed_PartnerSkill_SpecificElement_1"
-  },
+  "partner_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -11534,19 +11510,7 @@
   ],
   "partner_skill_title": "憤怒翼龍",
   "partner_skill_description": "可騎在牠的背上在空中飛行。 獄熙龍的攻擊力和移動速度，會隨著隊伍中其他或帕魯的數量提升，每隻增加2%。",
-  "partner_buff": {
-   "target": "pal_attack",
-   "element": null,
-   "mechanic": "flat",
-   "values_by_star": [
-    0.02,
-    0.03,
-    0.04,
-    0.05,
-    0.06
-   ],
-   "source_passive": "ShotAttack_MoveSpeed_PartnerSkill_SpecificElement_1"
-  },
+  "partner_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 6,
@@ -21512,19 +21476,7 @@
   ],
   "partner_skill_title": "毛茸茸之王",
   "partner_skill_description": "可騎在牠的背上移動。 此帕魯的防禦力和攻擊力會隨著隊伍中的數量提升，每隻增加12%。",
-  "partner_buff": {
-   "target": "pal_attack",
-   "element": null,
-   "mechanic": "flat",
-   "values_by_star": [
-    0.12,
-    0.13,
-    0.15,
-    0.19,
-    0.24
-   ],
-   "source_passive": "Defense_ShotAttack_MopKing_PartnerSkill_1"
-  },
+  "partner_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -23930,19 +23882,7 @@
   ],
   "partner_skill_title": "克己修練",
   "partner_skill_description": "莉芳的攻擊力和防禦力，會隨著隊伍中其他帕魯的數量提升，每隻增加2%。",
-  "partner_buff": {
-   "target": "pal_attack",
-   "element": null,
-   "mechanic": "flat",
-   "values_by_star": [
-    0.02,
-    0.03,
-    0.04,
-    0.05,
-    0.06
-   ],
-   "source_passive": "ShotAttack_Defence_PartnerSkill_SpecificElement_1"
-  },
+  "partner_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -25320,19 +25260,7 @@
   ],
   "partner_skill_title": "女王蜂的統率",
   "partner_skill_description": "此帕魯的攻擊力會隨著隊伍中的數量提升，每隻增加12%。",
-  "partner_buff": {
-   "target": "pal_attack",
-   "element": null,
-   "mechanic": "flat",
-   "values_by_star": [
-    0.12,
-    0.13,
-    0.15,
-    0.19,
-    0.24
-   ],
-   "source_passive": "PAL_TribePassive_Test"
-  },
+  "partner_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -32442,19 +32370,7 @@
   ],
   "partner_skill_title": "熔岩霸主",
   "partner_skill_description": "可騎在牠的背上移動。 流焰龍的攻擊力，會隨著隊伍中其他或帕魯的數量提升，每隻增加4%。",
-  "partner_buff": {
-   "target": "pal_attack",
-   "element": null,
-   "mechanic": "flat",
-   "values_by_star": [
-    0.04,
-    0.05,
-    0.06,
-    0.07,
-    0.08
-   ],
-   "source_passive": "ShotAttack_PartnerSkill_SpecificElement_1"
-  },
+  "partner_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 5,
@@ -33293,19 +33209,7 @@
   ],
   "partner_skill_title": "淨化的祝福",
   "partner_skill_description": "可騎在牠的背上移動。 淨世鹿的攻擊力和移動速度，會隨著隊伍中其他帕魯的數量提升，每隻增加2%。 若牠在隊伍中，非戰鬥時每秒玩家與隊伍帕魯的生命值恢復0.15%。（不可疊加）",
-  "partner_buff": {
-   "target": "pal_attack",
-   "element": null,
-   "mechanic": "flat",
-   "values_by_star": [
-    0.02,
-    0.03,
-    0.04,
-    0.05,
-    0.06
-   ],
-   "source_passive": "ShotAttack_MoveSpeed_PartnerSkill_SpecificElement_1"
-  },
+  "partner_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,

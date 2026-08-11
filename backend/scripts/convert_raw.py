@@ -131,8 +131,13 @@ def clean_description(raw: str, passive_list: list[dict], pal_names: "TextTable"
     return re.sub(r"\s+", " ", text).strip()
 
 
-def _buff_from_effect(eff: dict) -> dict | None:
-    """自單一被動效果列判斷是否為納入計算的攻擊加成,回傳其標記與數值(%)。"""
+def _buff_from_effect(eff: dict, assign_others: bool) -> dict | None:
+    """自單一被動效果列判斷是否為納入計算的攻擊加成,回傳其標記與數值(%)。
+
+    assign_others:該夥伴技能是否「指派給隊伍其他帕魯」。ToSelf 攻擊加成必須
+    assign_others=True 才是隊友 buff(如水靈兒);否則為自我 buff(如霄龍:自身
+    攻擊隨隊伍人數提升),不對其他成員有貢獻,不納入。
+    """
     if not eff["InvokeInOtomo"]:
         return None
     for i in (1, 2, 3, 4):
@@ -140,6 +145,8 @@ def _buff_from_effect(eff: dict) -> dict | None:
         value = eff[f"EffectValue{i}"]
         target = enum_suffix(eff[f"TargetType{i}"])
         if etype in ATTACK_EFFECTS and target == "ToSelf":
+            if not assign_others:
+                continue  # 自我 buff(只加自己),不算隊友加成
             # 指派給隊伍中(限定屬性)帕魯的攻擊加成(如水靈兒:水帕魯射擊 +15%)
             element = enum_suffix(eff["TargetElementType"])
             return {"target": "pal_attack", "element": ELEMENT_DEV_TO_CODE.get(element),
@@ -161,7 +168,8 @@ def _buff_in_tier(tier: dict, passives: dict) -> dict | None:
         eff = passives.get(entry["SkillName"]["Key"])
         if eff is None:
             continue
-        found = _buff_from_effect(eff)
+        assign_others = bool(entry.get("Parameters", {}).get("AssignOthers"))
+        found = _buff_from_effect(eff, assign_others)
         if found is not None:
             found["source_passive"] = entry["SkillName"]["Key"]
             return found

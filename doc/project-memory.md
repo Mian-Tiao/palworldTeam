@@ -57,6 +57,7 @@
 | 2026-07-18(bug 修正) | 排除非可玩內部變種條目(dev_name 含 _Oilrig/SUMMON_/Quest_/RAID_)並以中文名去重(保留最短 dev_name):這些變種共用同一中文名,原本造成畫面重複。匯入數 299→287 | 使用者回報「有些帕魯重複出現」 | convert_raw(VARIANT_MARKERS、去重) |
 | 2026-07-18(P-11) | 出門活動夥伴技能「只列出、不最佳化」:釣魚等有失敗風險,收益(增產出)與穩定(防失敗/效率,不增產出但必備)無法用單一分數排名,強做最佳化會錯殺穩定型。改為分類列表 + 收益/穩定標籤,每隻可各自選星級(預設滿星),交玩家判斷 | 使用者提案並指出釣魚穩定型的取捨(桃晶鯨/墨沫姬案例) | app/core/activities、convert_raw、partner_skill_activity_effect、/api/activity-skills、前端活動分頁 |
 | 2026-07-18(P-11) | 活動範圍:釣魚/挖礦(出門)/伐木/採集/搬運;機動(移速/跳躍)使用者定案不收;基地打工(WorkSuitabilityAddRank_*)歸第二階段。數值單位分 pct/flat(如負重上限為固定值),存原始值、單位由 activities 對照表決定 | 使用者定案 | activities 對照表 |
+| 2026-07-18(bug 修正) | 自我 buff(攻擊隨隊伍人數提升「自己」,如霄龍/女皇蜂/毛老爹等 8 隻)原被誤當全隊加成。判別關鍵:夥伴技能參數 `AssignOthers`——ToSelf 攻擊加成須 AssignOthers=True 才是隊友 buff(水靈兒),False 為自我 buff 不納入。team_buff 由 22 修正為 14 | 使用者回報「霄龍提升自身不是全隊,為喜愛帕魯組隊不該列入」 | convert_raw._buff_from_effect(assign_others 閘門);同時解掉 P-10 女皇蜂條件型疑慮 |
 | 2026-07-18(bug 修正) | 「攻擊提升但燒血」型夥伴技能(如織夜鹿,滿星全隊攻擊 +80%):真正數值藏在引用被動(TextReferencePassiveSkills),主被動只放機制標記 LifeDrainPower_AttackUp。僅當主被動為此機制且目標為全隊(ToActiveOtomo)時才採引用值,以免誤收自我 buff(如鐵拳猿開大提升自己)。**其燒血代價未建模**——純傷害觀點視為強力團隊加成 | 使用者回報「織夜鹿 +80% 但沒進隊伍」 | convert_raw(_buff_at_star 引用被動閘門) |
 
 ## 重要限制

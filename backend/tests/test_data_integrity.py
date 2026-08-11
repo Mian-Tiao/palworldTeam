@@ -27,6 +27,17 @@ def test_no_variant_dev_names():
             assert marker not in dn, f"變種條目未排除:{dn}"
 
 
+def test_self_buff_not_counted_as_team_buff():
+    """回報 bug:自我 buff(攻擊隨隊伍人數提升自己,如霄龍)不該算隊友加成。
+
+    判別關鍵:AssignOthers=False。這類帕魯 partner_buff 應為 None(不列入)。
+    """
+    for name in ("霄龍", "女皇蜂", "毛老爹"):
+        pal = next((p for p in PALS if p["pal_name"] == name), None)
+        assert pal is not None, f"{name} 應存在"
+        assert pal["partner_buff"] is None, f"{name} 是自我 buff,不該列為隊友加成"
+
+
 def test_lifedrain_attack_buff_extracted():
     """回報 bug:織夜鹿(攻擊 +80% 但燒血)加成藏在引用被動,原本被漏掉。"""
     wd = next((p for p in PALS if p["pal_name"] == "織夜鹿"), None)
