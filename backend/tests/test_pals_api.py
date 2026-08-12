@@ -98,7 +98,7 @@ def test_get_pal_detail_team_buff_fields(client):
 
 
 def test_get_pal_detail_stack_buff(client):
-    """波魯傑克斯(1.0):疊層型全隊攻擊加成,各星以滿疊理論值計。"""
+    """波魯傑克斯(1.0):命中疊層,以保守實戰估計層數計(非理論滿疊)。"""
     listing = client.get("/api/pals", params={"search": "波魯傑克斯"}).json()
     pal = client.get(f"/api/pals/{listing['data'][0]['id']}").json()["data"]
     partner = pal["partner_skill"]
@@ -107,9 +107,9 @@ def test_get_pal_detail_stack_buff(client):
     assert partner["buff_element"] is None
     assert partner["buff_mechanic"] == "stack"
     assert partner["buff_max_stacks"] == 30
-    # 0 星每層 1%×30=30%;4 星每層 5%×30=150%(對應遊戲滿星描述)
-    assert partner["buff_tiers"][0] == 0.3
-    assert partner["buff_tiers"][4] == 1.5
+    # 命中型估上限 40% = 12 層;每層 1%(0星)/5%(4星)→ 12% / 60%(非滿疊 150%)
+    assert partner["buff_tiers"][0] == 0.12
+    assert partner["buff_tiers"][4] == 0.6
 
 
 def test_get_pal_not_found_returns_404(client):

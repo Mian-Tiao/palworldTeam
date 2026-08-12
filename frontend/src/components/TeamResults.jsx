@@ -43,7 +43,7 @@ function BuffSummary({ buffs }) {
       {palBuffs.map((b, i) => {
         const strong = b.buff_value === maxVal
         const elZh = b.buff_element ? `${ELEMENT_ZH[b.buff_element] ?? b.buff_element}系` : '全體'
-        const stack = b.buff_mechanic === 'stack' ? '(滿疊)' : ''
+        const stack = b.buff_mechanic === 'stack' ? '(疊層·實戰估計)' : ''
         return (
           <span
             key={i}

@@ -156,9 +156,10 @@ def _buff_from_effect(eff: dict, assign_others: bool) -> dict | None:
             return {"target": "player_attack", "element": None,
                     "mechanic": "flat", "value": value}
         if etype in STACK_EFFECTS and target in ("ToActiveOtomo", "ToOtomo"):
-            # 疊層型全隊攻擊加成(如波魯傑克斯):value 為每層 %
+            # 疊層型全隊攻擊加成(如波魯傑克斯):value 為每層 %。
+            # 保留 stack_kind 供匯入端依機制(命中/擊殺)估實戰層數
             return {"target": "pal_attack", "element": None,
-                    "mechanic": "stack", "value": value}
+                    "mechanic": "stack", "stack_kind": etype, "value": value}
     return None
 
 
@@ -271,13 +272,16 @@ def extract_partner_buff(dev_name: str, partner_params: dict, passives: dict) ->
         val = found["value"] if found else (values_by_star[-1] * 100 if values_by_star else 0.0)
         values_by_star.append(val / 100.0)
 
-    return {
+    result = {
         "target": base["target"],
         "element": base["element"],
         "mechanic": base["mechanic"],
         "values_by_star": values_by_star,
         "source_passive": base["source_passive"],
     }
+    if base.get("stack_kind"):
+        result["stack_kind"] = base["stack_kind"]
+    return result
 
 
 def extract_activity_effects(dev_name: str, partner_params: dict, passives: dict) -> list[dict]:

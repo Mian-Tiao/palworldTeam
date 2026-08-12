@@ -38,6 +38,18 @@ def test_self_buff_not_counted_as_team_buff():
         assert pal["partner_buff"] is None, f"{name} 是自我 buff,不該列為隊友加成"
 
 
+def test_stack_buff_uses_conservative_estimate():
+    """疊層 buff 以保守實戰估計(非理論滿疊):
+    - 波魯傑克斯(命中,上限30):估 12 層 → 4★ 0.6(非 1.5)
+    - 焰煌(擊殺,上限5):對單一目標估 1 層 → 4★ 0.1(非 0.5)
+    """
+    orsek = next((p for p in PALS if p["pal_name"] == "波魯傑克斯"), None)
+    assert orsek["partner_buff"]["values_by_star"][4] == 0.05  # 每層原值(4★ 5%)
+    king = next((p for p in PALS if p["pal_name"] == "焰煌"), None)
+    assert king is not None
+    assert king["partner_buff"]["stack_kind"] == "DefeatEnemy_StackBuff"
+
+
 def test_lifedrain_attack_buff_extracted():
     """回報 bug:織夜鹿(攻擊 +80% 但燒血)加成藏在引用被動,原本被漏掉。"""
     wd = next((p for p in PALS if p["pal_name"] == "織夜鹿"), None)

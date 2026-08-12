@@ -50,10 +50,18 @@ SOURCE_DIR = BACKEND_ROOT / "data" / "source"
 SOURCE_LABEL = "本機解包 raw_v1 經 convert_raw.py 轉換(Pal-Windows.pak 2026-07-15)"
 GAME_VERSION = "1.0(2026-07)"
 
-# 疊層型夥伴技能(如波魯傑克斯命中疊攻)以「滿疊理論值」計:每層 % × 最大層數。
-# 對應遊戲內顯示的滿星 150% 等描述。實戰維持度會低於此上限,呈現時明確標註為
-# 「滿疊」;若未來要打折,調整此處與前端標籤即可。上限未知時退回 STACK_FALLBACK_CAP。
+# 疊層型夥伴技能以「保守的實戰估計層數」計(非理論滿疊),避免無腦高估疊層帕魯:
+# - 命中疊層(BulletHit,如波魯傑克斯):持續射擊可維持,估上限的 40%
+# - 擊殺疊層(DefeatEnemy,如焰煌):打單一頭目通常只殺 1 隻,估 1 層
+# 至少 1 層,且不超過實際上限。上限未知時退回 STACK_FALLBACK_CAP。
 STACK_FALLBACK_CAP = 30
+
+
+def expected_stacks(stack_kind: str | None, cap: int) -> int:
+    if stack_kind == "DefeatEnemy_StackBuff":
+        return 1  # 對單一目標的戰鬥,擊殺數極少
+    # 命中型與其他:上限的 40%
+    return max(1, min(cap, round(cap * 0.4)))
 
 # 9 屬性:code 取資料集 dev_name 小寫,name_zh 取資料集中文名去掉「屬性」
 ELEMENTS = [
@@ -182,7 +190,8 @@ def classify_partner_skill(
         max_stacks = partner_buff.get("max_stacks")
         if mechanic == "stack":
             cap = max_stacks or STACK_FALLBACK_CAP
-            tiers = [round(v * cap, 4) for v in per_star]
+            layers = expected_stacks(partner_buff.get("stack_kind"), cap)
+            tiers = [round(v * layers, 4) for v in per_star]
         else:
             tiers = [round(v, 4) for v in per_star]
         return {

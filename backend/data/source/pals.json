@@ -17482,6 +17482,7 @@
     0.1
    ],
    "source_passive": "KingBahamut_PartnerSkill_v2_1",
+   "stack_kind": "DefeatEnemy_StackBuff",
    "max_stacks": 5
   },
   "activity_effects": [],
@@ -31262,6 +31263,7 @@
     0.05
    ],
    "source_passive": "ThunderDragonMan_PartnerSkill_1",
+   "stack_kind": "BulletHit_StackBuff",
    "max_stacks": 30
   },
   "activity_effects": [],
