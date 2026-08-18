@@ -7,8 +7,9 @@
 並新增結構化欄位 `partner_buff`(取代舊資料時代的描述文字猜測):
     {"target": "pal_attack"|"player_attack", "element": code|None,
      "value": 0.15, "mechanic": "flat"|"stack"}
-- 數值一律取夥伴技能「專注 1 階」(統一基準:無濃縮強化,見 project-memory)
-- stack 型(如波魯傑克斯的命中疊層)存每層數值,期望層數近似由匯入端套用
+- partner_buff.values_by_star 保存專注 0~4 星全部結構化數值
+- 遊戲原始描述模板只能以「專注 1 階」填字,推薦畫面不得把其中數字當成
+  使用者目前星級;stack 型存每層數值,實際層數由匯入端套用
 """
 
 import json
@@ -56,10 +57,20 @@ WORK_FIELDS = {
 ATTACK_EFFECTS = {"ShotAttack", "MeleeAttack"}
 STACK_EFFECTS = {"BulletHit_StackBuff", "DefeatEnemy_StackBuff"}
 
+# 克制增傷(條件型):ElementBoostWeakness_<屬性>。全 8 隻各配一個屬性、各自獨立
+# effect ID,故判定為「以該屬性攻擊剋制的敵人時才生效」,而非泛用弱點加成。
+# (遊戲描述文字為簡化模板,本專案已多次驗證其不可靠,見 project-memory P-15)
+WEAKNESS_EFFECT_PREFIX = "ElementBoostWeakness_"
+
 
 # 非可玩的內部變種條目(共用同一中文名,會造成畫面重複):
 # 石油平台版(_Oilrig)、召喚版(SUMMON_)、任務 NPC 版(Quest_)、突襲版(RAID_)
-VARIANT_MARKERS = ("_Oilrig", "SUMMON_", "Quest_", "RAID_")
+# 非可玩的內部變種/特殊條目(共用同一中文名或屬重複實體,會造成畫面重複):
+# 石油平台、召喚、任務 NPC、突襲、頭目挑戰(BossRush)、道館、警備隊、掠食者
+VARIANT_MARKERS = (
+    "_Oilrig", "SUMMON_", "Quest_", "RAID_",
+    "BOSS_", "GYM_", "POLICE_", "PREDATOR_",
+)
 
 
 def is_variant_entry(dev_name: str) -> bool:
@@ -284,6 +295,52 @@ def extract_partner_buff(dev_name: str, partner_params: dict, passives: dict) ->
     return result
 
 
+def extract_weakness_buff(dev_name: str, partner_params: dict, passives: dict) -> dict | None:
+    """萃取「克制增傷」條件型加成(ElementBoostWeakness_*)的逐星值。
+
+    刻意與 partner_buff 分開存放:此加成有觸發條件(需以該屬性攻擊剋制的敵人),
+    不可無條件併入輸出模型的 attack_buff_rate。
+    """
+    row = partner_params.get(dev_name)
+    tiers = (row or {}).get("PassiveSkills") or []
+    if not tiers:
+        return None
+
+    element, source_key, values = None, None, []
+    for tier in tiers:
+        found = None
+        for entry in tier.get("SkillAndParametersArray", []):
+            eff = passives.get(entry["SkillName"]["Key"])
+            if eff is None or not eff["InvokeInOtomo"]:
+                continue
+            for i in (1, 2, 3, 4):
+                etype = enum_suffix(eff[f"EffectType{i}"])
+                if not etype.startswith(WEAKNESS_EFFECT_PREFIX):
+                    continue
+                if not entry.get("Parameters", {}).get("AssignOthers"):
+                    continue  # 與一般加成同標準:未指派給隊友者不算隊伍加成
+                elem_dev = etype[len(WEAKNESS_EFFECT_PREFIX):]
+                found = (ELEMENT_DEV_TO_CODE.get(elem_dev), eff[f"EffectValue{i}"],
+                         entry["SkillName"]["Key"])
+                break
+            if found:
+                break
+        if found is None:
+            values.append(values[-1] if values else 0.0)
+            continue
+        element = element or found[0]
+        source_key = source_key or found[2]
+        values.append(found[1] / 100.0)
+
+    if element is None:
+        return None
+    return {
+        "element": element,
+        "values_by_star": values,
+        "source_passive": source_key,
+    }
+
+
 def extract_activity_effects(dev_name: str, partner_params: dict, passives: dict) -> list[dict]:
     """萃取夥伴技能的「活動加成」效果(釣魚/挖礦/伐木/採集/搬運),含逐星值。
 
@@ -349,7 +406,9 @@ def main() -> None:
     pals, skipped, no_name, stats = [], [], [], {"skills_missing_text": set()}
     max_work_rank = 0
     for dev_name, row in monster.items():
-        if not (row["IsPal"] and not row["IsBoss"] and row["ZukanIndex"] > 0):
+        # 不以 ZukanIndex 過濾:屋久島等內容的正規帕魯(如惡魔眼)圖鑑編號為 -1,
+        # 但確實可捕捉且提供隊伍加成。可玩性改由「非 Boss + 非變種 + 有中文名」判定。
+        if not (row["IsPal"] and not row["IsBoss"]):
             continue
         if is_variant_entry(dev_name):
             skipped.append(f"{dev_name}(內部變種)")
@@ -357,7 +416,8 @@ def main() -> None:
         name_zh = pal_names.get(row["OverrideNameTextID"]) or pal_names.get(
             f"PAL_NAME_{dev_name}"
         )
-        if not name_zh:
+        # 佔位名稱(zh_Hant_Text)視同無名,避免流入 pals.json 後才被匯入端擋下
+        if not name_zh or name_zh.lower().startswith(("zh_hant", "zh-hant")):
             no_name.append(dev_name)
             continue
         if enum_suffix(row["ElementType1"]) == "None":
@@ -432,6 +492,7 @@ def main() -> None:
             ),
             "partner_skill_description": description,
             "partner_buff": partner_buff,
+            "weakness_buff": extract_weakness_buff(dev_name, partner_params, passives),
             "activity_effects": extract_activity_effects(
                 dev_name, partner_params, passives
             ),

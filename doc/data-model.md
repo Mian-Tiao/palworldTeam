@@ -82,7 +82,7 @@ erDiagram
 | dev_name | VARCHAR(50) | 是 | 資料集內部識別名(如 `SheepBall`),唯一(2026-07-16 Q-D1 結案:取代原 paldex_no 設計,資料集無穩定圖鑑編號) |
 | name_zh | VARCHAR(50) | 是 | 繁體中文名稱 |
 | shot_attack_stat | INTEGER | 是 | 遠程攻擊種族值(傷害計算主用;2026-07-16 依資料源格式拆分) |
-| melee_attack_stat | INTEGER | 是 | 近戰攻擊種族值(技能 category=Melee 時使用) |
+| melee_attack_stat | INTEGER | 是 | 原始近戰種族值(保留作資料完整性/未來用途;P-12 輸出模型不使用) |
 | defense_stat | INTEGER | 是 | 防禦種族值(資料源既有,一併存入備未來使用) |
 | hp_stat | INTEGER | 是 | 生命種族值(同上) |
 
@@ -125,7 +125,7 @@ erDiagram
 |------|---------------------|------|------|
 | attacker_element_id | INTEGER | 是 | 外鍵 → element_type.id |
 | defender_element_id | INTEGER | 是 | 外鍵 → element_type.id |
-| multiplier | DECIMAL(3,2) | 是 | 倍率(如 2.00、0.50、1.00) |
+| multiplier | DECIMAL(3,2) | 是 | 1.0 倍率(1.50、0.66、1.00) |
 
 - 主鍵:複合 (`attacker_element_id`, `defender_element_id`)
 - 匯入腳本驗證:9×9 = 81 筆須完整,`multiplier > 0`
@@ -142,7 +142,7 @@ erDiagram
 | element_id | INTEGER | 是 | 外鍵 → element_type.id,技能屬性 |
 | power | INTEGER | 是 | 技能威力,≥ 0 |
 | cooldown_seconds | DECIMAL(5,2) | 是 | 冷卻秒數,> 0(DPS 計算用) |
-| category | VARCHAR(10) | 是 | `Shot` / `Melee`;傷害公式依此選用遠程或近戰攻擊種族值(2026-07-16 補欄位:Q-6 公式定案後發現缺漏) |
+| category | VARCHAR(10) | 是 | `Shot` / `Melee`;招式行為與顯示分類,P-12 輸出模型不據此切換攻擊值 |
 
 - 主鍵:`id`;唯一約束:`name_en`
 - 外鍵:`element_id`(`ON DELETE RESTRICT`——屬性不應在技能仍引用時被刪)

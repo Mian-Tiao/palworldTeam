@@ -26,7 +26,7 @@ class ActiveSkill(Base):
     )
     power: Mapped[int]
     cooldown_seconds: Mapped[Decimal] = mapped_column(Numeric(5, 2))
-    # Shot / Melee:傷害公式依此選用 shot_attack_stat 或 melee_attack_stat(Q-6 結案)
+    # Shot / Melee:招式行為/顯示分類;1.0 輸出模型不再據此切換攻擊值(P-12)
     category: Mapped[str] = mapped_column(String(10))
 
     element: Mapped["ElementType"] = relationship()
@@ -74,7 +74,10 @@ class PartnerSkill(Base):
     effect_raw: Mapped[str | None] = mapped_column(Text)
 
     pal: Mapped["Pal"] = relationship(back_populates="partner_skill")
-    buff_element: Mapped["ElementType | None"] = relationship()
+    # partner_skill 有兩個指向 element_type 的外鍵,關聯須明確指定
+    buff_element: Mapped["ElementType | None"] = relationship(
+        foreign_keys=[buff_element_id]
+    )
     buff_tiers: Mapped[list["PartnerSkillBuffTier"]] = relationship(
         back_populates="partner_skill",
         cascade="all, delete-orphan",
@@ -85,6 +88,38 @@ class PartnerSkill(Base):
         cascade="all, delete-orphan",
         order_by="PartnerSkillActivityEffect.effect_type, "
         "PartnerSkillActivityEffect.star_level",
+    )
+    # 克制增傷(條件型):以此屬性攻擊剋制的敵人時才生效,與 buff_tiers 分開存放,
+    # 避免無條件併入輸出模型
+    weakness_element_id: Mapped[int | None] = mapped_column(
+        ForeignKey("element_type.id", ondelete="RESTRICT")
+    )
+    weakness_element: Mapped["ElementType | None"] = relationship(
+        foreign_keys=[weakness_element_id]
+    )
+    weakness_tiers: Mapped[list["PartnerSkillWeaknessTier"]] = relationship(
+        back_populates="partner_skill",
+        cascade="all, delete-orphan",
+        order_by="PartnerSkillWeaknessTier.star_level",
+    )
+
+
+class PartnerSkillWeaknessTier(Base):
+    """克制增傷的逐星級(專注 0~4 星)加成值。
+
+    生效條件:以 partner_skill.weakness_element 屬性攻擊「該屬性剋制的敵人」。
+    """
+
+    __tablename__ = "partner_skill_weakness_tier"
+
+    partner_skill_id: Mapped[int] = mapped_column(
+        ForeignKey("partner_skill.id", ondelete="CASCADE"), primary_key=True
+    )
+    star_level: Mapped[int] = mapped_column(primary_key=True)  # 0~4
+    buff_value: Mapped[Decimal] = mapped_column(Numeric(5, 4))
+
+    partner_skill: Mapped["PartnerSkill"] = relationship(
+        back_populates="weakness_tiers"
     )
 
 

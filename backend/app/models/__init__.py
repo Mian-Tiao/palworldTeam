@@ -13,6 +13,7 @@ from app.models.skill import (
     PartnerSkill,
     PartnerSkillActivityEffect,
     PartnerSkillBuffTier,
+    PartnerSkillWeaknessTier,
 )
 from app.models.work import PalWorkSuitability, WorkType
 
@@ -29,6 +30,7 @@ __all__ = [
     "PartnerSkill",
     "PartnerSkillActivityEffect",
     "PartnerSkillBuffTier",
+    "PartnerSkillWeaknessTier",
     "TypeMatchup",
     "WorkType",
 ]

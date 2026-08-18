@@ -100,6 +100,7 @@
   "partner_skill_title": "蓬蓬羊毛",
   "partner_skill_description": "可騎在牠的背上移動。 若牠在隊伍中，君王美露帕的防禦力和移動速度將會提升。 將牠分派到，牠就有機會掉落。",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -238,6 +239,7 @@
   "partner_skill_title": "日輪之狼",
   "partner_skill_description": "可騎在牠的背上移動。 若牠在隊伍中，玩家和帕魯受到的傷害減輕15%，並且不會陷入狀態。（不可疊加）",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 3,
@@ -376,6 +378,7 @@
   "partner_skill_title": "曇天之狼",
   "partner_skill_description": "可騎在牠的背上移動。 若牠在隊伍中，玩家和帕魯受到的傷害減輕15%，並且不會陷入狀態。（不可疊加）",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 4,
@@ -504,6 +507,7 @@
   "partner_skill_title": "沙漠守護神",
   "partner_skill_description": "發動後，阿努比斯會將力量分給玩家，讓玩家的攻擊轉變為，且攻擊力提升%。 戰鬥時偶爾會以高速滑步迴避攻擊。",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -612,6 +616,7 @@
   "partner_skill_title": "貓咪霰陣",
   "partner_skill_description": "發動後，妮瞅莎會在一段時間內用散彈槍攻擊附近的敵人。 若牠在隊伍中，玩家的散彈槍攻擊傷害提升10%。（不可疊加）",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -731,6 +736,7 @@
   "partner_skill_title": "焰爪獵人",
   "partner_skill_description": "發動後會以攻擊鎖定的目標敵人。 此帕魯使用的的威力將提升至倍。",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 3,
@@ -859,6 +865,7 @@
   "partner_skill_title": "黑爪獵人",
   "partner_skill_description": "發動後會以攻擊鎖定的目標敵人。 此帕魯使用的的威力將提升至倍。",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -977,6 +984,7 @@
   "partner_skill_title": "招財貓",
   "partner_skill_description": "將牠分派到，牠就有機會從地裡挖出。",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -1095,6 +1103,7 @@
   "partner_skill_title": "晴天冰靂",
   "partner_skill_description": "將牠分派到，牠就有機會掉落。",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -1213,6 +1222,7 @@
   "partner_skill_title": "摘取莓果",
   "partner_skill_description": "將牠分派到，就有機會從背上掉落。 若牠在隊伍中，每5分鐘會讓目前飽足度最低的帕魯恢復100點飽足度。（不可疊加）",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -1321,6 +1331,7 @@
   "partner_skill_title": "採摘毒腺",
   "partner_skill_description": "將牠分派到，有機會從背上掉落。 若牠在隊伍中，每5分鐘會讓目前飽足度最低的帕魯恢復100點飽足度。（不可疊加）",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -1450,6 +1461,7 @@
   "partner_skill_title": "大空襲擊者",
   "partner_skill_description": "可騎在牠的背上在空中飛行。 若牠在隊伍中，玩家攻擊敵方弱點部位造成的傷害將提升20%。（不可疊加）",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 2,
@@ -1579,6 +1591,7 @@
   "partner_skill_title": "大空襲擊者",
   "partner_skill_description": "可騎在牠的背上在空中飛行。 若牠在隊伍中，玩家攻擊敵方弱點部位造成的傷害將提升30%。（不可疊加）",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -1717,6 +1730,7 @@
   "partner_skill_title": "深淵黑騎士",
   "partner_skill_description": "可騎在牠的背上移動。 騎乘期間可以進行2段跳躍，發動後，會召喚出1隻隊伍中的聖光騎士，一起進行攻擊。",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -1845,6 +1859,7 @@
   "partner_skill_title": "基因改造",
   "partner_skill_description": "可騎在牠的背上在空中飛行。 騎乘期間的攻擊將提升15%。 且飛行期間移動速度將會變快。",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -1974,6 +1989,7 @@
   "partner_skill_title": "黑鎧之龍",
   "partner_skill_description": "可騎在牠的背上在空中飛行。 騎乘期間對礦石造成的傷害將提升1100%，且的掉落量提升150%。",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [
    {
     "effect_type": "Mining",
@@ -2141,6 +2157,7 @@
   "partner_skill_title": "忠犬墨丸",
   "partner_skill_description": "發動後能夠以敏銳的嗅覺，來探測附近的位置。 與牠並肩作戰時，的掉落量也會提升100%。",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [
    {
     "effect_type": "CollectItemDrop",
@@ -2285,6 +2302,7 @@
   "partner_skill_title": "忠犬冬丸",
   "partner_skill_description": "若牠在據點裡，其他據點帕魯的工作適應性等級+1。（不可疊加）",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -2404,6 +2422,7 @@
   "partner_skill_title": "水翔之舞",
   "partner_skill_description": "可騎在牠的背上在水上移動。 騎乘期間玩家的攻擊會轉變為，且攻擊力提升5%。",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -2523,6 +2542,7 @@
   "partner_skill_title": "冰翔之舞",
   "partner_skill_description": "可騎在牠的背上在水上移動。 騎乘期間玩家的攻擊會轉變為，且攻擊力提升5%。",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -2641,6 +2661,7 @@
   "partner_skill_title": "乘風破浪",
   "partner_skill_description": "發動後，衝浪鴨會乘著浪頭衝向敵人。",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -2760,6 +2781,7 @@
   "partner_skill_title": "熱浪滾滾",
   "partner_skill_description": "發動後，熱浪鴨會乘著焰浪衝向敵人。",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 2,
@@ -2879,6 +2901,7 @@
   "partner_skill_title": "蒼天統治者",
   "partner_skill_description": "可騎在牠的背上在空中飛行。 霄龍的攻擊力，會隨著隊伍中其他帕魯的數量提升，每隻增加4%。",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -3007,6 +3030,7 @@
   "partner_skill_title": "電離衝刺",
   "partner_skill_description": "可騎在牠的背上移動。 此外，可在空中進行衝刺以高速移動。",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -3116,6 +3140,7 @@
   "partner_skill_title": "豐收祈願",
   "partner_skill_description": "若牠在據點裡，梅莉姆會進行祈禱， 讓作物的收穫量提升18%。",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -3234,6 +3259,7 @@
   "partner_skill_title": "堅硬頭殼",
   "partner_skill_description": "可騎在牠的背上移動。 騎乘期間破壞岩石的效率將提升500%。",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [
    {
     "effect_type": "Mining",
@@ -3367,6 +3393,7 @@
   "partner_skill_title": "大地是好朋友",
   "partner_skill_description": "若牠在隊伍中，玩家在衝刺期間的防禦力提升50%。（不可疊加）",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -3485,6 +3512,7 @@
   "partner_skill_title": "請你抱抱我",
   "partner_skill_description": "若牠在隊伍中，玩家和帕魯對狀態的敵人造成的傷害將提升50%。（不可疊加）",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -3604,6 +3632,7 @@
   "partner_skill_title": "緊緊抱住你",
   "partner_skill_description": "若牠在隊伍中，會為玩家的攻擊附加2點異常狀態值。（不可疊加）",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -3723,6 +3752,7 @@
   "partner_skill_title": "古墓燭影",
   "partner_skill_description": "若牠在隊伍中，玩家和帕魯受到的傷害減輕15%。（不可疊加） 將牠分派到，牠就有機會從地裡挖出。",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 3,
@@ -3842,6 +3872,7 @@
   "partner_skill_title": "勇敢的海之戰士",
   "partner_skill_description": "若牠在隊伍中，擊倒帕魯時的道具掉落量增加40%。（不可疊加）",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -3961,6 +3992,17 @@
   "partner_skill_title": "不屈的雷擊船長",
   "partner_skill_description": "若牠在隊伍中，玩家和帕魯以攻擊命中敵方弱點時的傷害將提升25%。（不可疊加）",
   "partner_buff": null,
+  "weakness_buff": {
+   "element": "water",
+   "values_by_star": [
+    0.25,
+    0.27,
+    0.3,
+    0.34,
+    0.4
+   ],
+   "source_passive": "ElementBoostWeakness_Water_PartnerSkill_1"
+  },
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -4079,6 +4121,7 @@
   "partner_skill_title": "翠葉鼠出擊",
   "partner_skill_description": "發動後牠會坐在玩家的頭上，配合玩家的攻擊用衝鋒槍進行追擊。",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -4197,6 +4240,7 @@
   "partner_skill_title": "貓妖感應",
   "partner_skill_description": "發動後能夠發出超音波，探測附近地下城、寶箱以及廢品的位置。",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -4315,6 +4359,7 @@
   "partner_skill_title": "怪奇黑魔法",
   "partner_skill_description": "若牠在隊伍中，擊倒帕魯時的道具掉落量增加40%。 此外，當玩家投擲帕魯球時，有10%的機率不會消耗帕魯球。（不可疊加）",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -4434,6 +4479,7 @@
   "partner_skill_title": "熱情黑魔法",
   "partner_skill_description": "若牠在據點裡，其他據點帕魯的工作適應性等級+1。（不可疊加）",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 3,
@@ -4552,6 +4598,7 @@
   "partner_skill_title": "竊取生命",
   "partner_skill_description": "與牠並肩作戰時，會為玩家與夜幕魔蝠賦予生命竊取效果，攻擊造成傷害時將恢復等同於傷害量5%的。",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -4670,6 +4717,7 @@
   "partner_skill_title": "產蛋",
   "partner_skill_description": "將牠分派到，牠就有機會產下。",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -4788,6 +4836,7 @@
   "partner_skill_title": "魔力雙子",
   "partner_skill_description": "若牠在據點裡，其他據點帕魯的工作適應性等級+1。（不可疊加）",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -4907,6 +4956,7 @@
   "partner_skill_title": "幸運三葉草",
   "partner_skill_description": "若牠在據點裡，其他據點帕魯的工作適應性等級+1。（不可疊加）",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -5025,6 +5075,7 @@
   "partner_skill_title": "拉比拉比魔術秀",
   "partner_skill_description": "若牠在隊伍中，當玩家的生命值低於50%時，拉比耶爾會在玩家週邊掀起爆炸衝擊波（ / 威力: 100 / 積蓄值: ）。 此外，玩家的生命值低於50%期間，玩家的攻擊力提升30%。（不可疊加）",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 7,
@@ -5143,6 +5194,7 @@
   "partner_skill_title": "炸蛋發射器",
   "partner_skill_description": "發動後牠會化身為裝備在玩家身上的發射器，製造出會爆炸的蛋。",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -5261,6 +5313,7 @@
   "partner_skill_title": "產奶",
   "partner_skill_description": "將牠分派到，牠就有機會產出。",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -5379,6 +5432,7 @@
   "partner_skill_title": "負石古代龜",
   "partner_skill_description": "可騎在牠的背上移動。 若牠在據點裡，其他據點帕魯的工作適應性等級+1。（不可疊加）",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -5497,6 +5551,7 @@
   "partner_skill_title": "逐石古代龜",
   "partner_skill_description": "可騎在牠的背上移動。 若牠在隊伍中，武器和防具的耐久度損耗減緩80%。（不可疊加）",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -5605,6 +5660,7 @@
   "partner_skill_title": "神秘鱗粉",
   "partner_skill_description": "發動後會以攻擊鎖定的目標敵人。 若牠在據點裡，其他據點帕魯的的工作適應性等級+1。（不可疊加）",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -5723,6 +5779,7 @@
   "partner_skill_title": "挖掘指導",
   "partner_skill_description": "將牠分派到，牠就有機會從地裡挖出道具。",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -5851,6 +5908,7 @@
   "partner_skill_title": "礦工啦啦隊",
   "partner_skill_description": "若牠在隊伍中，玩家採礦時造成的傷害將提升30%，的重量將減輕80%。（不可疊加）",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [
    {
     "effect_type": "Mining",
@@ -5998,6 +6056,7 @@
   "partner_skill_title": "絨毛妖精",
   "partner_skill_description": "若牠在隊伍中，提升對陷入狀態帕魯的捕獲機率。（不可疊加）",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -6116,6 +6175,7 @@
   "partner_skill_title": "未知侵略者",
   "partner_skill_description": "若牠在隊伍中，全自動武器的彈匣中最後一發子彈的傷害提升100%。（不可疊加）",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -6234,6 +6294,7 @@
   "partner_skill_title": "夜襲怪鳥",
   "partner_skill_description": "發動後可以使用夜視，即使在黑暗中也能看得一清二楚。 再次發動即可解除該效果。 將牠分派到，牠就有機會從地裡挖出。",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -6353,6 +6414,7 @@
   "partner_skill_title": "暗狐秘咒",
   "partner_skill_description": "若牠在隊伍中，玩家的攻擊擊中狀態的敵人時，會使敵人週邊燃燒，觸碰到火焰的敵人將持續受到相當於玩家攻擊力15%的傷害。（不可疊加）",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 4,
@@ -6472,6 +6534,7 @@
   "partner_skill_title": "隕星之翼",
   "partner_skill_description": "可騎在牠的背上在空中飛行。 若牠在隊伍中，持有武器的帕魯的夥伴技能傷害將提升20%。（不可疊加）",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -6601,6 +6664,7 @@
   "partner_skill_title": "鋼鐵之蠍",
   "partner_skill_description": "若牠在隊伍中，玩家的防禦力將提升5%，且擊倒帕魯時的道具掉落量增加40%。（不可疊加）",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -6719,6 +6783,7 @@
   "partner_skill_title": "黃金之蠍",
   "partner_skill_description": "若牠在隊伍中，玩家的防禦力將提升5%，且擊倒帕魯時的道具掉落量增加40%。（不可疊加）",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -6837,6 +6902,7 @@
   "partner_skill_title": "森林守護者",
   "partner_skill_description": "可騎在牠的背上移動。 騎乘期間可以進行2段跳躍，破壞樹木的效率也會提升220%。",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [
    {
     "effect_type": "Logging",
@@ -6980,6 +7046,7 @@
   "partner_skill_title": "金之森守護者",
   "partner_skill_description": "可騎在牠的背上移動。騎乘期間可以進行2段跳躍。 若牠在據點裡，其他據點帕魯的工作適應性等級+1。（不可疊加）",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -7099,6 +7166,7 @@
   "partner_skill_title": "不破要塞龍",
   "partner_skill_description": "可騎在牠的背上移動。 若牠在隊伍中，玩家和帕魯受到的爆炸攻擊傷害減輕60%，並且不會陷入狀態。（不可疊加）",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -7217,6 +7285,7 @@
   "partner_skill_title": "逐夢者",
   "partner_skill_description": "若牠在隊伍中，就會出現於玩家身邊。 牠會用的魔彈追擊敵對的個體。 且該追擊不會使獵物斃命。",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -7335,6 +7404,7 @@
   "partner_skill_title": "鑽頭粉碎者",
   "partner_skill_description": "發動後會進入狀態。 牠會一邊旋轉一邊跟隨玩家，且破壞礦石的效率將提升%。",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [
    {
     "effect_type": "Mining",
@@ -7468,6 +7538,7 @@
   "partner_skill_title": "天擒鳥滑翔",
   "partner_skill_description": "若牠在隊伍中，會改變滑翔傘的性能。 能夠高速滑翔，且在滑翔期間能用右手使用槍械射擊。",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -7598,6 +7669,7 @@
    ],
    "source_passive": "AttackUp_Electricity_PartnerSkill_1"
   },
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -7716,6 +7788,7 @@
   "partner_skill_title": "懶懶電鍵",
   "partner_skill_description": "若牠在隊伍中，玩家的攻擊擊中狀態的敵人時，會令敵人放電，對周圍的敵人造成相當於玩家攻擊力40%的傷害。（不可疊加）",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -7844,6 +7917,7 @@
   "partner_skill_title": "黃色重型戰車",
   "partner_skill_description": "可騎在牠的背上移動。 騎乘期間牠還能用機關槍連續攻擊。",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -7972,6 +8046,7 @@
   "partner_skill_title": "電光強化",
   "partner_skill_description": "若牠在據點裡，其他據點帕魯的工作適應性等級+1。（不可疊加）",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -8090,6 +8165,7 @@
   "partner_skill_title": "電電電池",
   "partner_skill_description": "若牠在隊伍中，會為玩家的攻擊附加2點異常狀態值。（不可疊加）",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -8209,6 +8285,7 @@
   "partner_skill_title": "咚咚甲殼",
   "partner_skill_description": "若牠在隊伍中，玩家和帕魯受到的傷害減輕15%，並且不會陷入狀態。（不可疊加）",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -8327,6 +8404,7 @@
   "partner_skill_title": "善良的聖潔之龍",
   "partner_skill_description": "可騎在牠的背上在空中飛行。 飛行期間移動速度將會變快。 若牠在隊伍中，擊倒帕魯時的道具掉落量增加40%。（不可疊加）",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -8446,6 +8524,7 @@
   "partner_skill_title": "善良的流水之龍",
   "partner_skill_description": "可騎在牠的背上在空中飛行。 飛行期間移動速度將會變快。 若牠在隊伍中，玩家和帕魯受到的傷害減輕15%，並且不會陷入狀態。（不可疊加）",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -8564,6 +8643,7 @@
   "partner_skill_title": "飛砂腿",
   "partner_skill_description": "可騎在牠的背上移動。 在砂地上移動時，移動速度會提高50%。",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -8682,6 +8762,7 @@
   "partner_skill_title": "風雲",
   "partner_skill_description": "可騎在牠的背上移動。 騎乘期間可以進行2段跳躍。",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -8800,6 +8881,7 @@
   "partner_skill_title": "雷雲",
   "partner_skill_description": "可騎在牠的背上移動。 騎乘期間可以進行2段跳躍。 若牠在隊伍中，擊倒帕魯時的道具掉落量增加40%。（不可疊加）",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -8918,6 +9000,7 @@
   "partner_skill_title": "赤兔馬",
   "partner_skill_description": "可騎在牠的背上在空中飛行。 騎乘期間玩家的攻擊會轉變為，且攻擊力提升5%。",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 4,
@@ -9037,6 +9120,7 @@
   "partner_skill_title": "黑兔馬",
   "partner_skill_description": "可騎在牠的背上在空中飛行。 騎乘期間玩家的攻擊會轉變為，且攻擊力提升5%。",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 4,
@@ -9155,6 +9239,7 @@
   "partner_skill_title": "微小火種",
   "partner_skill_description": "若牠在隊伍中，帕魯的防禦力會提升15%。（不可疊加） 將牠分派到，牠就有機會掉落。",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 1,
@@ -9273,6 +9358,7 @@
   "partner_skill_title": "溫暖之軀",
   "partner_skill_description": "可騎在牠的背上移動。 若牠在隊伍中，玩家的耐寒能力+2。（不可疊加）",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 3,
@@ -9392,6 +9478,7 @@
   "partner_skill_title": "馥郁花香之龍",
   "partner_skill_description": "可騎在牠的背上移動。 若牠在隊伍中，帕魯的防禦力會提升15%。（不可疊加）",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -9521,6 +9608,7 @@
   "partner_skill_title": "落雷綻放之龍",
   "partner_skill_description": "可騎在牠的背上移動。 若牠在隊伍中，帕魯的防禦力會提升15%。（不可疊加）",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -9639,6 +9727,7 @@
   "partner_skill_title": "花精靈的祝福",
   "partner_skill_description": "發動後可透過花朵的治癒能力，來恢復玩家%的生命值。 若牠在據點裡，其他據點帕魯的工作適應性等級+1。（不可疊加）",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -9758,6 +9847,7 @@
   "partner_skill_title": "花精靈的熱情",
   "partner_skill_description": "發動後，牠會用花朵的治癒之力讓玩家的生命值恢復%。 若牠在隊伍中，玩家和帕魯受到的傷害減輕15%，並且不會陷入狀態。（不可疊加）",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 4,
@@ -9877,6 +9967,7 @@
   "partner_skill_title": "迷霧守衛",
   "partner_skill_description": "發動後，為玩家的攻擊附加點異常狀態值。（不可疊加） 若牠在隊伍中，玩家和帕魯不會陷入狀態，並且不受世界樹區域的毒氣影響。",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -9995,6 +10086,7 @@
   "partner_skill_title": "兔兔助手",
   "partner_skill_description": "若牠在隊伍中，就會出現在玩家身邊。 牠會自動前去拾取附近的道具。",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -10113,6 +10205,7 @@
   "partner_skill_title": "軟萌圓圓鳥",
   "partner_skill_description": "若牠在隊伍中，提升對陷入狀態帕魯的捕獲機率。（不可疊加）",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -10231,6 +10324,7 @@
   "partner_skill_title": "微風滑翔",
   "partner_skill_description": "若牠在隊伍中，會改變滑翔傘的效能，並使玩家免受墜落傷害。 滑翔期間能夠長時間快速移動。",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -10350,6 +10444,7 @@
   "partner_skill_title": "電風滑翔",
   "partner_skill_description": "若牠在隊伍中，會改變滑翔傘的效能，並使玩家免受墜落傷害。 滑翔期間能夠長時間快速移動。",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -10468,6 +10563,7 @@
   "partner_skill_title": "未來之炎",
   "partner_skill_description": "若牠在隊伍中，玩家的攻擊擊中狀態的敵人時，會使敵人爆炸，額外造成相當於玩家攻擊力40%的傷害。（不可疊加）",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 7,
@@ -10586,6 +10682,7 @@
   "partner_skill_title": "狐神大人",
   "partner_skill_description": "發動後，焰巫狐會將力量分給玩家，讓玩家的攻擊轉變為，且攻擊力提升%。",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 3,
@@ -10705,6 +10802,7 @@
   "partner_skill_title": "巫神大人",
   "partner_skill_description": "發動後，幽巫狐會將力量分給玩家，讓玩家的攻擊轉變為，且攻擊力提升%。",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 4,
@@ -10823,6 +10921,7 @@
   "partner_skill_title": "療傷之浴",
   "partner_skill_description": "若牠在隊伍中，玩家的生命值低於30%時，將恢復20%的生命值。（不可疊加） ※發動後需秒冷卻才可再次觸發",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -10951,6 +11050,7 @@
   "partner_skill_title": "獵狼騎手",
   "partner_skill_description": "可騎在牠的背上移動。 騎乘期間的移動速度會稍微變快。",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -10989,6 +11089,7 @@
   "partner_skill_title": "暗夜引路人",
   "partner_skill_description": "可騎在牠的背上在水上移動。 冥燈魚的移動速度，會隨著隊伍中其他或帕魯的數量提升，每隻增加5%。",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -11027,6 +11128,7 @@
   "partner_skill_title": "深海名廚",
   "partner_skill_description": "可騎在牠的背上在水上移動。 炙燈魚的移動速度，會隨著隊伍中其他或帕魯的數量提升，每隻增加5%。",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 5,
@@ -11155,6 +11257,7 @@
   "partner_skill_title": "冥界使者",
   "partner_skill_description": "可騎在牠的背上移動。 若牠在隊伍中，每次打倒敵人時，所有隊伍帕魯的主動技能冷卻時間縮短30%。（不可疊加）",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -11273,6 +11376,7 @@
   "partner_skill_title": "附體靈貓",
   "partner_skill_description": "若牠在隊伍中，觸發背面獎勵時的捕獲機率增加。（不可疊加）",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -11392,6 +11496,7 @@
   "partner_skill_title": "自由翼龍",
   "partner_skill_description": "可騎在牠的背上在空中飛行。 靈曦龍的攻擊力和移動速度，會隨著隊伍中其他或帕魯的數量提升，每隻增加2%。",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -11511,6 +11616,7 @@
   "partner_skill_title": "憤怒翼龍",
   "partner_skill_description": "可騎在牠的背上在空中飛行。 獄熙龍的攻擊力和移動速度，會隨著隊伍中其他或帕魯的數量提升，每隻增加2%。",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 6,
@@ -11629,6 +11735,7 @@
   "partner_skill_title": "奪魂幽靈兔",
   "partner_skill_description": "若牠在隊伍中，擊倒帕魯時的帕魯之魂掉落量增加+100%。（不可疊加）",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [
    {
     "effect_type": "GainItemDrop",
@@ -11762,6 +11869,7 @@
   "partner_skill_title": "縛魂幽靈兔",
   "partner_skill_description": "若牠在隊伍中，帕魯的防禦力提升15%。（不可疊加）",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -11900,6 +12008,7 @@
   "partner_skill_title": "沙塵加護",
   "partner_skill_description": "可騎在牠的背上移動。 騎乘期間玩家的攻擊會轉變為，且攻擊力提升5%。",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -12018,6 +12127,7 @@
   "partner_skill_title": "火力全開大猩猩模式",
   "partner_skill_description": "發動後會解放野性之力，並在一定時間內鐵拳猿的攻擊力將提升%。",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -12146,6 +12256,7 @@
   "partner_skill_title": "火力全開鐵臂大猩猩",
   "partner_skill_description": "若牠在隊伍中，玩家的攀爬速度提升50%。（不可疊加）",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -12265,6 +12376,7 @@
   "partner_skill_title": "自然光砲",
   "partner_skill_description": "可騎在牠的背上移動。 發動後，雙心岩傀的右手處會發射的強力雷射。",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -12384,6 +12496,7 @@
   "partner_skill_title": "枯萎光砲",
   "partner_skill_description": "可騎在牠的背上移動。 發動後，咒心岩傀的右手處會發射的強力雷射。",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -12503,6 +12616,7 @@
   "partner_skill_title": "蓋亞粉碎者",
   "partner_skill_description": "可騎在牠的背上移動。 騎乘期間破壞樹木的效率會提高220%，破壞礦石的效率會提高500%。",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [
    {
     "effect_type": "Logging",
@@ -12651,6 +12765,7 @@
   "partner_skill_title": "冰霜粉碎者",
   "partner_skill_description": "可騎在牠的背上移動。 騎乘期間破壞樹木的效率會提高220%，破壞礦石的效率會提高500%。",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [
    {
     "effect_type": "Logging",
@@ -12798,6 +12913,7 @@
   "partner_skill_title": "大自然之威",
   "partner_skill_description": "發動後，密林陶洛斯會將力量分給玩家，讓玩家的攻擊轉變為，且攻擊力提升%。",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -12916,6 +13032,7 @@
   "partner_skill_title": "永凍土之威",
   "partner_skill_description": "若牠在隊伍中，當玩家攻擊狀態的敵人時，一擊就會讓敵人陷入狀態。",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -13034,6 +13151,7 @@
   "partner_skill_title": "不良熊貓",
   "partner_skill_description": "可騎在牠的背上移動。 騎乘期間牠還能用榴彈發射器連續攻擊。",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -13152,6 +13270,7 @@
   "partner_skill_title": "不良熊貓",
   "partner_skill_description": "可騎在牠的背上移動。 騎乘期間牠還能用榴彈發射器連續攻擊。",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -13280,6 +13399,7 @@
   "partner_skill_title": "草原特技之星",
   "partner_skill_description": "若牠在隊伍中，可以額外進行+1次跳躍和+1次空中衝刺。（不可疊加）",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -13398,6 +13518,7 @@
   "partner_skill_title": "狂愛之刃",
   "partner_skill_description": "若牠在隊伍中， 使用進行解體時，所獲得的掉落道具增加100%。（不可疊加）",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [
    {
     "effect_type": "MeatCutAddItemDrop",
@@ -13551,6 +13672,7 @@
   "partner_skill_title": "物以類聚",
   "partner_skill_description": "可騎在牠的背上移動。 與牠並肩作戰時，遇到和牠有著相同被動技能的帕魯的機率將提升15%。 ※部分被動技能除外",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -13669,6 +13791,7 @@
   "partner_skill_title": "冥府之翼",
   "partner_skill_description": "可騎在牠的背上在空中飛行。 騎乘期間玩家的攻擊會轉變為，且攻擊力提升5%。",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -13788,6 +13911,7 @@
   "partner_skill_title": "雷鳴之翼",
   "partner_skill_description": "可騎在牠的背上在空中飛行。 騎乘期間玩家的攻擊會轉變為，且攻擊力提升5%。",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -13906,6 +14030,7 @@
   "partner_skill_title": "旅伴",
   "partner_skill_description": "可騎在牠的背上在空中飛行。",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -14024,6 +14149,7 @@
   "partner_skill_title": "電擊炸彈",
   "partner_skill_description": "發動後就能將電棘鼠裝備在手上，若將牠投向敵人且命中目標，便會引發爆炸。",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -14142,6 +14268,7 @@
   "partner_skill_title": "急凍炸彈",
   "partner_skill_description": "發動後就能將冰刺鼠裝備在手上，若將牠投向敵人且命中目標，便會引發爆炸。",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -14261,6 +14388,7 @@
   "partner_skill_title": "攻守一體的黑甲",
   "partner_skill_description": "若牠在隊伍中，當玩家的近戰攻擊在5秒內命中5次時，牠會在玩家周圍產生護盾。（不可疊加）",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -14379,6 +14507,7 @@
   "partner_skill_title": "攻守一體的金甲",
   "partner_skill_description": "若牠在隊伍中，當玩家的近戰攻擊在5秒內命中5次時，牠會在玩家周圍產生護盾。（不可疊加）",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -14497,6 +14626,7 @@
   "partner_skill_title": "潛於虛無之物",
   "partner_skill_description": "若牠在隊伍中，玩家對非戰鬥狀態的敵人造成的傷害提升50%。（不可疊加）",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -14625,6 +14755,7 @@
   "partner_skill_title": "灼熱捕食者",
   "partner_skill_description": "可騎在牠的背上在空中飛行。 若牠在隊伍中，擊倒帕魯時的道具掉落量增加40%。（不可疊加）",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 6,
@@ -14743,6 +14874,7 @@
   "partner_skill_title": "潮汐捕食者",
   "partner_skill_description": "可騎在牠的背上在空中飛行。 若牠在隊伍中，擊倒帕魯時的道具掉落量增加40%。（不可疊加）",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -14862,6 +14994,7 @@
   "partner_skill_title": "雪盆大口",
   "partner_skill_description": "若牠在隊伍中，食材和料理的重量會減輕30%。並在帕魯原有的防腐效果基礎上，讓腐敗速度進一步-30%。（不可疊加）",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [
    {
     "effect_type": "ItemWeightReduction",
@@ -14995,6 +15128,7 @@
   "partner_skill_title": "冰涼之軀",
   "partner_skill_description": "可騎在牠的背上移動。 若牠在隊伍中，玩家的耐暑能力+2。（不可疊加）",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -15125,6 +15259,7 @@
    ],
    "source_passive": "AttackUp_Ice_PartnerSkill_1"
   },
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -15263,6 +15398,7 @@
   "partner_skill_title": "冰天馬",
   "partner_skill_description": "可騎在牠的背上在空中飛行。 騎乘期間玩家的攻擊會轉變為，攻擊力提升10%，且攻擊會附加2點異常狀態值。",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -15411,6 +15547,7 @@
   "partner_skill_title": "黑天馬",
   "partner_skill_description": "可騎在牠的背上在空中飛行。 騎乘期間玩家的攻擊會轉變為，攻擊力提升10%，且攻擊會附加2點異常狀態值。",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -15530,6 +15667,7 @@
   "partner_skill_title": "涼冰冰鯨魚號",
   "partner_skill_description": "可騎在牠的背上在水上移動。 若牠在隊伍中，釣魚的捕獲計量槽在小遊戲開始時的初始位置升高5%，並且在判定條與魚的圖示重合期間，捕獲計量槽的上升量增加5%。（不可疊加）",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [
    {
     "effect_type": "Fishing_StartProgressAdd",
@@ -15678,6 +15816,7 @@
   "partner_skill_title": "暖烘烘鯨魚號",
   "partner_skill_description": "可騎在牠的背上在水上移動。 若牠在隊伍中，釣魚的捕獲計量槽在小遊戲開始時的初始位置升高7%，並且在判定條與魚的圖示重合期間，捕獲計量槽的上升量增加7%。（不可疊加）",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [
    {
     "effect_type": "Fishing_StartProgressAdd",
@@ -15826,6 +15965,7 @@
   "partner_skill_title": "滑雪行家",
   "partner_skill_description": "可騎在牠的背上移動。 在雪地上時，移動速度提高80%。 並且可以在斜坡處快速向下滑行。",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -15945,6 +16085,7 @@
   "partner_skill_title": "雪山速滑",
   "partner_skill_description": "可騎在牠的背上移動。 在雪地上時，移動速度提高80%。 並且可以在斜坡處快速向下滑行。 滑行時初始速度較慢，但最高速度更快。",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -16063,6 +16204,7 @@
   "partner_skill_title": "魔女的冷氣",
   "partner_skill_description": "發動後，冰姬靈會將力量分給玩家，讓玩家的攻擊轉變為，且攻擊力提升%。",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -16181,6 +16323,7 @@
   "partner_skill_title": "海月仙祝福",
   "partner_skill_description": "若牠在隊伍中，釣魚時獲得的道具增加55%。（不可疊加） 此外，當海月仙和海月靈同時在據點裡時，海月仙澆水的工作速度提升50%。（不可疊加）",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [
    {
     "effect_type": "Fishing_ItemAddDrop",
@@ -16329,6 +16472,7 @@
   "partner_skill_title": "海月靈祝福",
   "partner_skill_description": "若牠在隊伍中，打撈時獲得的道具增加55%。（不可疊加） 此外，當海月仙和海月靈同時在據點裡時，海月靈澆水的工作速度提升50%。（不可疊加）",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [
    {
     "effect_type": "FishingSalvage_ItemDrop",
@@ -16482,6 +16626,7 @@
   "partner_skill_title": "地毯式轟炸",
   "partner_skill_description": "可騎在牠的背上在空中飛行。 騎乘期間牠還能用飛彈發射器連續攻擊。",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -16600,6 +16745,7 @@
   "partner_skill_title": "大顯身手",
   "partner_skill_description": "若牠在隊伍中，會為玩家的攻擊附加2點異常狀態值。（不可疊加）",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 8,
@@ -16730,6 +16876,7 @@
    ],
    "source_passive": "AttackUp_Water_PartnerSkill_1"
   },
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -16860,6 +17007,7 @@
    ],
    "source_passive": "AttackUp_Fire_PartnerSkill_1"
   },
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 1,
@@ -16978,6 +17126,7 @@
   "partner_skill_title": "蓄勢跳躍",
   "partner_skill_description": "發動後，武道蛙會靠忠誠心和膨脹的腹部積蓄力量。玩家踩上去後能高高跳起。 在落地前，玩家的攻擊力提升%。",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -17097,6 +17246,17 @@
   "partner_skill_title": "蓄勢暗躍",
   "partner_skill_description": "發動後，極道蛙會靠忠誠心和膨脹的腹部積蓄力量。 玩家踩上去後能高高跳起。 若牠在隊伍中，玩家和帕魯以攻擊命中敵方弱點時的傷害提升25%。（不可疊加）",
   "partner_buff": null,
+  "weakness_buff": {
+   "element": "dark",
+   "values_by_star": [
+    0.25,
+    0.27,
+    0.3,
+    0.34,
+    0.4
+   ],
+   "source_passive": "ElementBoostWeakness_Dark_PartnerSkill_1"
+  },
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -17215,6 +17375,7 @@
   "partner_skill_title": "大力國王",
   "partner_skill_description": "可騎在牠的背上移動。 此帕魯的防禦力和移動速度會隨著隊伍中的數量提升，每隻增加5%。",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -17343,6 +17504,7 @@
   "partner_skill_title": "冷酷國王",
   "partner_skill_description": "可騎在牠的背上移動。 此帕魯的防禦力和移動速度會隨著隊伍中的數量提升，每隻增加5%。",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -17485,6 +17647,7 @@
    "stack_kind": "DefeatEnemy_StackBuff",
    "max_stacks": 5
   },
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 6,
@@ -17604,6 +17767,17 @@
   "partner_skill_title": "巨龍凱撒",
   "partner_skill_description": "可騎在牠的背上移動。 若牠在隊伍中，玩家和帕魯以攻擊命中敵方弱點時的傷害將提升25%。（不可疊加）",
   "partner_buff": null,
+  "weakness_buff": {
+   "element": "dragon",
+   "values_by_star": [
+    0.25,
+    0.27,
+    0.3,
+    0.34,
+    0.4
+   ],
+   "source_passive": "ElementBoostWeakness_Dragon_PartnerSkill_1"
+  },
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 6,
@@ -17722,6 +17896,7 @@
   "partner_skill_title": "領袖翻車魚",
   "partner_skill_description": "可騎在牠的背上在水上移動。 若牠在隊伍中，會更容易釣上高潛力帕魯。（不可疊加）",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [
    {
     "effect_type": "Fishing_GoodTalentPalProbability",
@@ -17856,6 +18031,7 @@
   "partner_skill_title": "電光翻車魚",
   "partner_skill_description": "可騎在牠的背上在水上移動。 騎乘期間玩家的攻擊會轉變為，且攻擊力提升5%。 此外，若牠在隊伍中，會更容易釣上高潛力帕魯。（不可疊加）",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [
    {
     "effect_type": "Fishing_GoodTalentPalProbability",
@@ -17989,6 +18165,7 @@
   "partner_skill_title": "殘響守護者",
   "partner_skill_description": "可騎在牠的背上在空中飛行。 在據點最多只能召喚1隻。 若牠在據點裡，會在據點上空持續盤旋，遠程砲轟入侵據點的敵人。",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -18117,6 +18294,17 @@
   "partner_skill_title": "疾風迅雷",
   "partner_skill_description": "可騎在牠的背上移動。 若牠在隊伍中，玩家和帕魯以攻擊命中敵方弱點時的傷害將提升25%。（不可疊加）",
   "partner_buff": null,
+  "weakness_buff": {
+   "element": "electricity",
+   "values_by_star": [
+    0.25,
+    0.27,
+    0.3,
+    0.34,
+    0.4
+   ],
+   "source_passive": "ElementBoostWeakness_Electricity_PartnerSkill_1"
+  },
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -18235,6 +18423,7 @@
   "partner_skill_title": "冰華亂舞",
   "partner_skill_description": "可騎在牠的背上移動。 騎乘期間玩家的攻擊會轉變為，且攻擊力提升5%。",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -18353,6 +18542,7 @@
   "partner_skill_title": "抱抱火焰",
   "partner_skill_description": "發動後，牠會化身為裝備在玩家身上的火焰噴射器。",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 1,
@@ -18471,6 +18661,7 @@
   "partner_skill_title": "抱抱寒冰",
   "partner_skill_description": "發動後，牠會化身為裝備在玩家身上的冷凍噴射器。",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -18590,6 +18781,7 @@
   "partner_skill_title": "提燈附魔",
   "partner_skill_description": "若牠在隊伍中，玩家射箭命中目標時會爆炸，額外造成相當於玩家攻擊力15%的傷害。（不可疊加）",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 4,
@@ -18708,6 +18900,7 @@
   "partner_skill_title": "熔岩之淚",
   "partner_skill_description": "若牠在隊伍中，非戰鬥時每秒令玩家與隊伍帕魯的生命值恢復0.1%。（不可疊加） 將牠分派到，牠就有機會掉落。",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 1,
@@ -18758,6 +18951,7 @@
    ],
    "source_passive": "AttackUp_Earth_PartnerSkill_1"
   },
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -18796,6 +18990,7 @@
   "partner_skill_title": "黃金豐收",
   "partner_skill_description": "若牠在隊伍中，被打倒的敵人掉落的提升100%。（不可疊加） 將牠分派到，牠就會掉落或有小機率掉落。",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [
    {
     "effect_type": "GainItemDrop",
@@ -18930,6 +19125,7 @@
   "partner_skill_title": "餓餓飛彈",
   "partner_skill_description": "可騎在牠的背上移動。 騎乘期間牠還能用飛彈發射器連續攻擊。",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -19049,6 +19245,7 @@
   "partner_skill_title": "飛彈盛宴",
   "partner_skill_description": "可騎在牠的背上移動。 騎乘期間牠還能用飛彈發射器連續攻擊。",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -19168,6 +19365,7 @@
   "partner_skill_title": "復甦鼠鼠",
   "partner_skill_description": "若牠在隊伍中，達鼠泥會在玩家陷入瀕死狀態時，透過治癒能力讓玩家以%的狀態復活。",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -19286,6 +19484,7 @@
   "partner_skill_title": "繁花告春",
   "partner_skill_description": "若牠在據點裡，春彩娘會為農園注入元氣，使作物的生長加速50%。",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -19404,6 +19603,7 @@
   "partner_skill_title": "庇佑聖盾",
   "partner_skill_description": "可騎在牠的背上移動。 騎乘期間可生成護盾，抵禦一切攻擊。 此外，騎乘期間可進行3段跳躍。",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -19522,6 +19722,7 @@
   "partner_skill_title": "豐饒女神",
   "partner_skill_description": "發動後便能透過女王的治癒能力，為玩家和隊伍內的帕魯恢復%的生命值。",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -19650,6 +19851,7 @@
   "partner_skill_title": "幽光女神",
   "partner_skill_description": "發動後便能透過女王的治癒能力，為玩家和隊伍內的帕魯恢復%的生命值。",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -19780,6 +19982,7 @@
    ],
    "source_passive": "AttackUp_Leaf_PartnerSkill_1"
   },
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -19898,6 +20101,7 @@
   "partner_skill_title": "透明化",
   "partner_skill_description": "發動後秒內，龐克蜥與玩家將變透明，並從敵人的視野中消失。",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -20016,6 +20220,7 @@
   "partner_skill_title": "透明化",
   "partner_skill_description": "發動後秒內，熱血蜥與玩家將變透明，並從敵人的視野中消失。",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 2,
@@ -20134,6 +20339,7 @@
   "partner_skill_title": "伸展喵咪",
   "partner_skill_description": "若牠在隊伍中，玩家承受的重力減弱，跳躍或墜落時會漂浮落地。（不可疊加）",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -20253,6 +20459,7 @@
   "partner_skill_title": "清燦迷霧",
   "partner_skill_description": "可騎在牠的背上移動。 若牠在隊伍中，會為玩家的攻擊附加2點異常狀態值。（不可疊加）",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -20381,6 +20588,7 @@
   "partner_skill_title": "獄炎獅子",
   "partner_skill_description": "可騎在牠的背上移動。 若牠在隊伍中，擊倒帕魯時的道具掉落量增加40%。（不可疊加）",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 5,
@@ -20510,6 +20718,7 @@
   "partner_skill_title": "黑炎獅子",
   "partner_skill_description": "可騎在牠的背上移動。 若牠在隊伍中，擊倒帕魯時的道具掉落量增加40%。（不可疊加）",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 5,
@@ -20628,6 +20837,7 @@
   "partner_skill_title": "撬鎖",
   "partner_skill_description": "與牠並肩作戰時，能藉助旺財的力量，在不使用鑰匙的情況下打開寶箱。",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -20746,6 +20956,7 @@
   "partner_skill_title": "猴急步槍",
   "partner_skill_description": "發動後，新葉猿會在一定時間內用突擊步槍猛烈掃射附近的敵人。",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -20864,6 +21075,7 @@
   "partner_skill_title": "槍火奇猿",
   "partner_skill_description": "發動後，秋葉猿會在一定時間內以突擊步槍猛烈掃射附近的敵人。",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 1,
@@ -20995,6 +21207,7 @@
    ],
    "source_passive": "AttackUp_IfAllOtomoTribeDifferent_PartnerSkill_1"
   },
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -21113,6 +21326,7 @@
   "partner_skill_title": "隱藏的暗能量",
   "partner_skill_description": "若牠在隊伍中，帕魯的防禦力提升15%。（不可疊加）",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -21242,6 +21456,7 @@
   "partner_skill_title": "晦暗輝光",
   "partner_skill_description": "可坐在牠背後的月亮在空中飛行。 騎乘期間的和攻擊將提升15%。",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -21360,6 +21575,7 @@
   "partner_skill_title": "毛茸茸茸茸",
   "partner_skill_description": "若牠在隊伍中，毛老爹的防禦力和攻擊力將會提升。",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -21478,6 +21694,7 @@
   "partner_skill_title": "毛茸茸之王",
   "partner_skill_description": "可騎在牠的背上移動。 此帕魯的防禦力和攻擊力會隨著隊伍中的數量提升，每隻增加12%。",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -21596,6 +21813,7 @@
   "partner_skill_title": "孢子守衛",
   "partner_skill_description": "若牠在隊伍中，玩家的攻擊擊中狀態的敵人時，會使敵人爆炸，額外造成相當於玩家攻擊力40%的傷害。（不可疊加） 另外，能讓玩家與帕魯不受世界樹的爆炸孢子影響。",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -21715,6 +21933,7 @@
   "partner_skill_title": "黃泉歸來",
   "partner_skill_description": "與玩家並肩作戰時，若縛乃伊陷入瀕死狀態，縛乃伊會消耗全部的飽足度並復活。",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -21833,6 +22052,7 @@
   "partner_skill_title": "飄飄然孢子",
   "partner_skill_description": "可騎在牠的背上移動。 將牠分派到，牠就有機會掉落或。",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -21952,6 +22172,7 @@
   "partner_skill_title": "幽幽然孢子",
   "partner_skill_description": "可騎在牠的背上移動。 若牠在據點裡，菇波的神奇孢子將會使據點內帕魯的SAN值下降速度減緩10%。",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -22070,6 +22291,7 @@
   "partner_skill_title": "魅惑孢子",
   "partner_skill_description": "若牠在據點裡，其他據點帕魯的工作適應性等級+1。（不可疊加）",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -22188,6 +22410,7 @@
   "partner_skill_title": "反重力",
   "partner_skill_description": "若牠在隊伍中，投擲出去的帕魯球將會自動追蹤帕魯，且玩家的負重上限提高300。（不可疊加）",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [
    {
     "effect_type": "MaxInventoryWeight",
@@ -22321,6 +22544,7 @@
   "partner_skill_title": "假面舞會",
   "partner_skill_description": "若牠在隊伍中，隊伍帕魯所獲得的經驗值會提升40%。（不可疊加）",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -22439,6 +22663,7 @@
   "partner_skill_title": "貓眼逼人",
   "partner_skill_description": "可騎在牠的背上移動。 若牠在隊伍中，撿到帕魯蛋時將有50%的機率再撿到1顆。（不可疊加）",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -22557,6 +22782,7 @@
   "partner_skill_title": "攝取咖啡因",
   "partner_skill_description": "發動後，瞅什魔會大量飲用能量飲料，瞅什魔的移動速度和工作速度會因此提升%。 將牠分派到，牠就有機會掉落。",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -22676,6 +22902,7 @@
   "partner_skill_title": "炸魷魚",
   "partner_skill_description": "若牠在隊伍中，會改變滑翔傘的性能。 滑翔期間能夠長時間漂浮在空中。",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -22795,6 +23022,7 @@
   "partner_skill_title": "炸魷魚",
   "partner_skill_description": "若牠在隊伍中，會改變滑翔傘的性能。 滑翔期間能夠長時間漂浮在空中。",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -22923,6 +23151,7 @@
   "partner_skill_title": "夜舞者",
   "partner_skill_description": "可騎在牠的背上移動。騎乘期間跳躍能力提升。 夜晚期間，此帕魯的移動速度提升50%。（不可疊加）",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -23041,6 +23270,7 @@
   "partner_skill_title": "光舞者",
   "partner_skill_description": "可騎在牠的背上移動，騎乘期間跳躍能力提升。 日耀駒的移動速度，會隨著隊伍中其他帕魯的數量提升，每隻增加5%。",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -23159,6 +23389,7 @@
   "partner_skill_title": "冷嬌",
   "partner_skill_description": "發動後，牠會偵測附近的帕魯雕像。",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -23277,6 +23508,7 @@
   "partner_skill_title": "夢魘之瞳",
   "partner_skill_description": "發動後會以攻擊鎖定的目標敵人。 此帕魯使用的的威力將提升至倍。",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -23395,6 +23627,7 @@
   "partner_skill_title": "噩夢凝視",
   "partner_skill_description": "發動後會以攻擊鎖定的目標敵人。 此帕魯使用的的威力將提升至倍。",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -23514,6 +23747,7 @@
   "partner_skill_title": "纏人小公主",
   "partner_skill_description": "若牠在隊伍中，在釣魚小遊戲中的判定條和魚的圖示未重合期間，捕獲計量槽的下降量減少12%。（不可疊加）",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [
    {
     "effect_type": "Fishing_FailedAmountDown",
@@ -23648,6 +23882,7 @@
   "partner_skill_title": "咬咬姬",
   "partner_skill_description": "若牠在隊伍中，帕魯的防禦力提升15%。（不可疊加）",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -23766,6 +24001,7 @@
   "partner_skill_title": "播撒歡笑的亡者",
   "partner_skill_description": "若牠在隊伍中，攻擊陷入狀態的敵人時，會使該敵人的攻擊力降低40%。（不可疊加）",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -23884,6 +24120,7 @@
   "partner_skill_title": "克己修練",
   "partner_skill_description": "莉芳的攻擊力和防禦力，會隨著隊伍中其他帕魯的數量提升，每隻增加2%。",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -24003,6 +24240,7 @@
   "partner_skill_title": "企丸丸發射",
   "partner_skill_description": "發動後玩家將裝備，並可將企丸丸當作砲彈射出。 命中目標後企丸丸會爆炸，並陷入瀕死狀態。",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -24122,6 +24360,7 @@
   "partner_skill_title": "閃丸丸發射",
   "partner_skill_description": "發動後玩家將裝備，並可將閃丸丸當作砲彈射出。 命中目標後閃丸丸會爆炸，並陷入瀕死狀態。",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -24240,6 +24479,7 @@
   "partner_skill_title": "跟貓借手手",
   "partner_skill_description": "若牠在隊伍中，搗蛋貓就會幫忙搬運行李，玩家的負重上限將提高100。（不可疊加）",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [
    {
     "effect_type": "MaxInventoryWeight",
@@ -24393,6 +24633,7 @@
   "partner_skill_title": "愛心吸取",
   "partner_skill_description": "與牠並肩作戰時，會為玩家與博愛蜥賦予生命竊取效果，攻擊造成傷害時將恢復等同於傷害量5%的。",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -24523,6 +24764,7 @@
    ],
    "source_passive": "AttackUp_Normal_PartnerSkill_1"
   },
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -24641,6 +24883,17 @@
   "partner_skill_title": "暴力青草兔",
   "partner_skill_description": "若牠在隊伍中，玩家和帕魯以攻擊命中敵方弱點時的傷害將提升25%。（不可疊加） 艾小兔在武器製作台或武器工廠等處工作時，工作效率將會提升200%。",
   "partner_buff": null,
+  "weakness_buff": {
+   "element": "leaf",
+   "values_by_star": [
+    0.25,
+    0.27,
+    0.3,
+    0.34,
+    0.4
+   ],
+   "source_passive": "ElementBoostWeakness_Leaf_PartnerSkill_1"
+  },
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -24760,6 +25013,7 @@
   "partner_skill_title": "樵夫啦啦隊",
   "partner_skill_description": "若牠在隊伍中，玩家伐木時造成的傷害將提升30%，所有木材種類的重量都將減輕40%。（不可疊加）",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [
    {
     "effect_type": "Logging",
@@ -24908,6 +25162,7 @@
   "partner_skill_title": "暖洋洋晴日",
   "partner_skill_description": "可騎在牠的背上移動。 若牠在據點裡，分派到的帕魯產蛋速度加快20%。（不可疊加）",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -25036,6 +25291,7 @@
   "partner_skill_title": "大海的霸主",
   "partner_skill_description": "與牠並肩作戰時，牠會配合玩家的攻擊用的長槍進行追擊。 可騎在牠的背上在水上移動。 騎乘期間可在水面高高躍起。",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -25144,6 +25400,7 @@
   "partner_skill_title": "桃色之網",
   "partner_skill_description": "可騎在牠的背上移動。 騎乘期間可以進行2段跳躍， 並向射擊地點發射蜘蛛絲，牽引身體快速移動。",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -25262,6 +25519,7 @@
   "partner_skill_title": "女王蜂的統率",
   "partner_skill_description": "此帕魯的攻擊力會隨著隊伍中的數量提升，每隻增加12%。",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -25380,6 +25638,7 @@
   "partner_skill_title": "雷電姑娘",
   "partner_skill_description": "若牠在隊伍中，就會出現於玩家身邊。 牠會用的落雷追擊敵對的個體。 且該追擊不會使獵物斃命。",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -25499,6 +25758,7 @@
   "partner_skill_title": "烏雲姑娘",
   "partner_skill_description": "若牠在隊伍中，就會出現於玩家身邊。 牠會用的落雷追擊敵對的個體。 且該追擊不會使獵物斃命。",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -25627,6 +25887,7 @@
   "partner_skill_title": "火焰之翼",
   "partner_skill_description": "可騎在牠的背上在空中飛行。 騎乘期間玩家的攻擊會轉變為，且攻擊力提升5%。",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 4,
@@ -25745,6 +26006,7 @@
   "partner_skill_title": "花之舞",
   "partner_skill_description": "若牠在隊伍中，玩家進行翻滾或滑步動作時，無敵時間延長15%。（不可疊加）",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -25863,6 +26125,7 @@
   "partner_skill_title": "射箭達人",
   "partner_skill_description": "若牠在隊伍中，玩家使用弓箭時的傷害提升10%。（不可疊加）",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -25982,6 +26245,7 @@
   "partner_skill_title": "拉弓達人",
   "partner_skill_description": "若牠在隊伍中，玩家使用弓箭時的蓄力速度提升15%。（不可疊加）",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -26100,6 +26364,7 @@
   "partner_skill_title": "能量石",
   "partner_skill_description": "若牠在隊伍中，玩家和帕魯對狀態的敵人造成的傷害將提升50%。（不可疊加）",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -26218,6 +26483,7 @@
   "partner_skill_title": "能量水晶",
   "partner_skill_description": "若牠在隊伍中，玩家和帕魯受到的傷害減輕15%。（不可疊加）",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -26336,6 +26602,7 @@
   "partner_skill_title": "紫電一閃",
   "partner_skill_description": "發動後會以攻擊鎖定的目標敵人。 此帕魯使用的的威力將提升至倍。",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 2,
@@ -26465,6 +26732,7 @@
   "partner_skill_title": "秘技·紫電一閃",
   "partner_skill_description": "發動後會以攻擊鎖定的目標敵人。 此帕魯使用的的威力將提升至倍。 若牠在隊伍中，玩家的近戰武器攻擊傷害在非戰鬥時提升30%。（不可疊加）",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 2,
@@ -26603,6 +26871,7 @@
   "partner_skill_title": "天翔聖騎士",
   "partner_skill_description": "可騎在牠的背上移動。 騎乘期間可以進行3段跳躍，發動後，會召喚出1隻隊伍中的混沌騎士，一起進行攻擊。",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -26721,6 +26990,7 @@
   "partner_skill_title": "戀香初綻",
   "partner_skill_description": "可騎在牠的背上移動。 若牠在隊伍中，撿到的帕魯蛋將有35%的機率變成頭目帕魯蛋。（不可疊加）",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -26850,6 +27120,7 @@
   "partner_skill_title": "純心盛綻",
   "partner_skill_description": "可騎在牠的背上移動。 若牠在隊伍中，撿到的帕魯蛋將有45%的機率變成頭目帕魯蛋。（不可疊加）",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -26978,6 +27249,7 @@
   "partner_skill_title": "幹勁支援",
   "partner_skill_description": "若牠在隊伍中，玩家使用近戰武器時的傷害提升10%。（不可疊加）",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -27097,6 +27369,7 @@
   "partner_skill_title": "無毒毒蠍",
   "partner_skill_description": "若牠在隊伍中，玩家和帕魯對狀態的敵人造成的傷害將提升50%。（不可疊加）",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -27216,6 +27489,7 @@
   "partner_skill_title": "低頻脈衝蠍",
   "partner_skill_description": "發動後，電針妖會將力量分給玩家，讓玩家的攻擊轉變為，且攻擊力提升%。",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -27334,6 +27608,7 @@
   "partner_skill_title": "沙漠女帝",
   "partner_skill_description": "若牠在據點裡，據點中的的工作速度提升20%。（不可疊加） 塞赫麥特在工作台或作業工廠等處工作時，工作效率將會提升30%。",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -27452,6 +27727,7 @@
   "partner_skill_title": "滑滑水蛇",
   "partner_skill_description": "可騎在牠的背上在水上移動。 將牠分派到，牠就有機會掉落。",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -27570,6 +27846,7 @@
   "partner_skill_title": "滑滑沙蛇",
   "partner_skill_description": "可騎在牠的背上移動。 若牠在隊伍中，會為玩家的攻擊附加2點異常狀態值。（不可疊加）",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -27688,6 +27965,7 @@
   "partner_skill_title": "易怒鯊鯊",
   "partner_skill_description": "發動後會以攻擊鎖定的目標。 此帕魯使用的的威力將提升至倍。 若牠在隊伍中，玩家的攻擊力提升10%。",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -27806,6 +28084,7 @@
   "partner_skill_title": "易怒鯊鯊",
   "partner_skill_description": "發動後會以攻擊鎖定的目標。 此帕魯使用的的威力將提升至倍。 若牠在隊伍中，玩家的攻擊力提升10%。",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 2,
@@ -27924,6 +28203,7 @@
   "partner_skill_title": "茸茸盾牌",
   "partner_skill_description": "發動後，牠會化身為裝備在玩家身上的盾牌。 將牠分派到，牠就有機會掉落。",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -28042,6 +28322,7 @@
   "partner_skill_title": "歸去來兮",
   "partner_skill_description": "發動後可以移動至最近的據點。 無法在地下城裡使用。",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -28172,6 +28453,7 @@
    ],
    "source_passive": "AttackUp_Dragon_PartnerSkill_1"
   },
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -28291,6 +28573,7 @@
   "partner_skill_title": "翠龍的慈愛",
   "partner_skill_description": "可騎在牠的背上在空中飛行。 騎乘期間玩家的攻擊會轉變為，且攻擊力提升5%。",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -28409,6 +28692,7 @@
   "partner_skill_title": "長袖啦啦隊員",
   "partner_skill_description": "若牠在隊伍中，其他隊伍帕魯的夥伴技能冷卻時間縮短10%。（不可疊加）",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -28527,6 +28811,7 @@
   "partner_skill_title": "滾滾沙灘球",
   "partner_skill_description": "若牠在隊伍中，帕魯的防禦力提升15%。（不可疊加）",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -28645,6 +28930,7 @@
   "partner_skill_title": "不見之眼",
   "partner_skill_description": "若牠在隊伍中，會使玩家不容易被敵人發現。（不可疊加）",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -28753,6 +29039,7 @@
   "partner_skill_title": "靈蛇之智",
   "partner_skill_description": "若牠在隊伍中，會為玩家的攻擊附加2點異常狀態值。（不可疊加）",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -28871,6 +29158,7 @@
   "partner_skill_title": "孔雀迅捷",
   "partner_skill_description": "若牠在隊伍中，受到白真雪雀釋放的冷氣影響，玩家會更專注，武器重新裝彈的速度提升20%。（不可疊加）",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -28999,6 +29287,7 @@
   "partner_skill_title": "暴雪衝擊",
   "partner_skill_description": "可騎在牠的背上移動。 騎乘期間牠還能揮下的大錘進行攻擊。",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -29127,6 +29416,7 @@
   "partner_skill_title": "工蜂",
   "partner_skill_description": "將牠分派到，牠就有機會掉落。 若牠在隊伍中，的攻擊力將會提升。",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -29245,6 +29535,7 @@
   "partner_skill_title": "水流扳機",
   "partner_skill_description": "發動後，布偶鯊會將力量分給玩家，讓玩家的攻擊轉變為，且攻擊力提升%。",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -29364,6 +29655,17 @@
   "partner_skill_title": "炎炎收納間",
   "partner_skill_description": "若牠在隊伍中，粉粉布偶鯊會幫忙分擔負重，背包內武器的重量減輕60%，且玩家和帕魯以攻擊命中敵方弱點時的傷害提升25%。（不可疊加）",
   "partner_buff": null,
+  "weakness_buff": {
+   "element": "fire",
+   "values_by_star": [
+    0.25,
+    0.27,
+    0.3,
+    0.34,
+    0.4
+   ],
+   "source_passive": "ElementBoostWeakness_Fire_PartnerSkill_1"
+  },
   "activity_effects": [
    {
     "effect_type": "ItemWeightReduction",
@@ -29497,6 +29799,7 @@
   "partner_skill_title": "橫綱風範",
   "partner_skill_description": "可騎在牠的背上移動。 若牠在隊伍中，玩家和帕魯受到的傷害減輕15%，且不會陷入狀態。（不可疊加）",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -29615,6 +29918,7 @@
   "partner_skill_title": "炎之翼",
   "partner_skill_description": "可騎在牠的背上在空中飛行。 朱雀的移動速度，會隨著隊伍中其他帕魯的數量提升，每隻增加5%。",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 5,
@@ -29733,6 +30037,7 @@
   "partner_skill_title": "水之翼",
   "partner_skill_description": "可騎在牠的背上在空中飛行。 清雀的移動速度，會隨著隊伍中其他帕魯的數量提升，每隻增加5%。",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -29851,6 +30156,7 @@
   "partner_skill_title": "糖果甜心",
   "partner_skill_description": "將牠分派到，牠就有機會掉落。 若牠在據點裡，據點帕魯的的減少幅度將會-10%。（不可疊加）",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -29969,6 +30275,7 @@
   "partner_skill_title": "苦澀甜心",
   "partner_skill_description": "將牠分派到，牠就有機會掉落。 若牠在據點裡，據點帕魯的的減少幅度將會-15%。（不可疊加）",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -30087,6 +30394,7 @@
   "partner_skill_title": "斬骨斷肉",
   "partner_skill_description": "發動後，鞘刀魚會化身為玩家的刀（：）。 若不及時解除，鞘刀魚將陷入瀕死狀態。 發動居合斬後同樣會陷入瀕死狀態。",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -30206,6 +30514,7 @@
   "partner_skill_title": "煉骨斷肉",
   "partner_skill_description": "發動後，煉刃魚會化身為玩家的刀（：）。 若不及時解除，煉刃魚將陷入瀕死狀態。 發動居合斬後同樣會陷入瀕死狀態。",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 3,
@@ -30324,6 +30633,7 @@
   "partner_skill_title": "尖刺刺運輸",
   "partner_skill_description": "若牠在隊伍中，的重量會減輕80%。（不可疊加）",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [
    {
     "effect_type": "ItemWeightReduction",
@@ -30458,6 +30768,17 @@
   "partner_skill_title": "亮閃閃運輸",
   "partner_skill_description": "若牠在隊伍中，和的重量將減輕80%，且玩家和帕魯以攻擊命中敵方弱點時的傷害提升25%。（不可疊加）",
   "partner_buff": null,
+  "weakness_buff": {
+   "element": "earth",
+   "values_by_star": [
+    0.25,
+    0.27,
+    0.3,
+    0.34,
+    0.4
+   ],
+   "source_passive": "ElementBoostWeakness_Earth_PartnerSkill_1"
+  },
   "activity_effects": [
    {
     "effect_type": "ItemWeightReduction",
@@ -30591,6 +30912,7 @@
   "partner_skill_title": "潛影怪鳥",
   "partner_skill_description": "可騎在牠的背上在空中飛行。 若牠在隊伍中，玩家和帕魯對狀態的敵人造成的傷害將提升50%。（不可疊加）",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -30719,6 +31041,7 @@
   "partner_skill_title": "天雷",
   "partner_skill_description": "可騎在牠的背上在空中飛行。 騎乘期間玩家的攻擊會轉變為，且攻擊力提升5%。 迅雷鳥的移動速度，會隨著隊伍中其他帕魯的數量提升，每隻增加5%。",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -30837,6 +31160,7 @@
   "partner_skill_title": "天霰",
   "partner_skill_description": "可騎在牠的背上在空中飛行。 騎乘期間玩家的攻擊會轉變為，且攻擊力提升5%。 疾霜鳥的移動速度，會隨著隊伍中其他帕魯的數量提升，每隻增加5%。",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -30985,6 +31309,7 @@
   "partner_skill_title": "雷靂躍行",
   "partner_skill_description": "可騎在牠的背上在空中飛行。 騎乘期間可以進行2段跳躍。 霹靂犬的移動速度，會隨著隊伍中其他帕魯的數量提升，每隻增加5%。",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -31123,6 +31448,7 @@
   "partner_skill_title": "霜躍疾行",
   "partner_skill_description": "可騎在牠的背上移動。 騎乘期間可以進行2段跳躍。 若牠在隊伍中，帕魯的防禦力會提升15%。（不可疊加）",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -31266,6 +31592,7 @@
    "stack_kind": "BulletHit_StackBuff",
    "max_stacks": 30
   },
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -31384,6 +31711,7 @@
   "partner_skill_title": "電動按摩式孵蛋",
   "partner_skill_description": "可騎在牠的背上在空中飛行。 若牠在據點裡，帕魯蛋的孵化速度加快20%。（不可疊加）",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -31502,6 +31830,7 @@
   "partner_skill_title": "森巴舞步",
   "partner_skill_description": "可騎在牠的背上移動。 在草地上移動時，移動速度會提高155%。",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -31631,6 +31960,7 @@
   "partner_skill_title": "呼喚風暴的深海龍",
   "partner_skill_description": "可騎在牠的背上在水上移動。 若牠在隊伍中，玩家和帕魯對狀態的敵人造成的傷害將提升50%。（不可疊加）",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -31760,6 +32090,7 @@
   "partner_skill_title": "呼喚風暴的熔岩龍",
   "partner_skill_description": "可騎在牠的背上移動。 若牠在隊伍中，能讓熔岩傷害無效化，且玩家和帕魯對狀態的敵人造成的傷害將提升50%。（不可疊加）",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 7,
@@ -31878,6 +32209,7 @@
   "partner_skill_title": "巨舌纏繞",
   "partner_skill_description": "若牠在隊伍中，玩家進行翻滾或滑步動作時，顎莉絲會捲起旋風攻擊接觸到的敵人（ / 威力: 40）。（不可疊加）",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -31986,6 +32318,7 @@
   "partner_skill_title": "大地淨化",
   "partner_skill_description": "若牠在隊伍中，擊倒帕魯時的道具掉落量增加40%。（不可疊加） 將牠分派到，牠就有機會掉落各式各樣的種子。",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -32105,6 +32438,7 @@
   "partner_skill_title": "貪食礦石之獸",
   "partner_skill_description": "可騎在牠的背上移動。 若牠在隊伍中，所有礦石種類的重量會減輕30%。（不可疊加）",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [
    {
     "effect_type": "ItemWeightReduction",
@@ -32239,6 +32573,7 @@
   "partner_skill_title": "貪食冰霜之獸",
   "partner_skill_description": "可騎在牠的背上移動。 若牠在隊伍中，所有礦石種類的重量會減輕35%。（不可疊加）",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [
    {
     "effect_type": "ItemWeightReduction",
@@ -32373,6 +32708,7 @@
   "partner_skill_title": "熔岩霸主",
   "partner_skill_description": "可騎在牠的背上移動。 流焰龍的攻擊力，會隨著隊伍中其他或帕魯的數量提升，每隻增加4%。",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 5,
@@ -32492,6 +32828,17 @@
   "partner_skill_title": "寒冰霸主",
   "partner_skill_description": "可騎在牠的背上移動。 若牠在隊伍中，玩家和帕魯以攻擊命中敵方弱點時的傷害將提升25%。（不可疊加）",
   "partner_buff": null,
+  "weakness_buff": {
+   "element": "ice",
+   "values_by_star": [
+    0.25,
+    0.27,
+    0.3,
+    0.34,
+    0.4
+   ],
+   "source_passive": "ElementBoostWeakness_Ice_PartnerSkill_1"
+  },
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -32621,6 +32968,7 @@
   "partner_skill_title": "扭扭鼬鼬",
   "partner_skill_description": "可騎在牠的背上移動。 騎乘期間玩家的攻擊會轉變為，且攻擊力提升5%。",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -32740,6 +33088,7 @@
   "partner_skill_title": "燒鼬鼬",
   "partner_skill_description": "可騎在牠的背上移動。 騎乘期間玩家的攻擊會轉變為，且攻擊力提升5%。",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 4,
@@ -32858,6 +33207,7 @@
   "partner_skill_title": "黑暗中的閃亮利爪",
   "partner_skill_description": "發動後會以攻擊鎖定的目標敵人。 此帕魯使用的的威力將提升至倍。 若牠在隊伍中，玩家的近戰武器攻擊速度提升15%。（不可疊加）",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -32976,6 +33326,7 @@
   "partner_skill_title": "冰結利爪",
   "partner_skill_description": "發動後會以攻擊鎖定的目標敵人。 此帕魯使用的的威力將提升至倍。 若牠在隊伍中，玩家的近戰武器攻擊速度提升15%。（不可疊加）",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -33094,6 +33445,7 @@
   "partner_skill_title": "未知入侵者",
   "partner_skill_description": "可騎在牠的背上移動。 若牠在隊伍中，玩家使用能量武器時的傷害提升10%。（不可疊加）",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -33212,6 +33564,7 @@
   "partner_skill_title": "淨化的祝福",
   "partner_skill_description": "可騎在牠的背上移動。 淨世鹿的攻擊力和移動速度，會隨著隊伍中其他帕魯的數量提升，每隻增加2%。 若牠在隊伍中，非戰鬥時每秒玩家與隊伍帕魯的生命值恢復0.15%。（不可疊加）",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -33342,6 +33695,7 @@
    ],
    "source_passive": "ActiveOtomoATK_UP_LifeDrain_PartnerSkill_1"
   },
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -33460,6 +33814,7 @@
   "partner_skill_title": "神秘纏絲者",
   "partner_skill_description": "發動後會以攻擊鎖定的目標敵人。 此帕魯使用的的威力將提升至倍。 將牠分派到，牠就有機會製造出。",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -33578,6 +33933,7 @@
   "partner_skill_title": "神秘纏金絲者",
   "partner_skill_description": "若牠在隊伍中，帕魯的防禦力會提升15%。（不可疊加） 將牠分派到，牠就有機會製作。",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -33696,6 +34052,7 @@
   "partner_skill_title": "埃癸斯之盾",
   "partner_skill_description": "可騎在牠的背上移動。 若牠在隊伍中，玩家的護盾開始修復的等待時間縮短30%，且護盾受到的傷害減少65%。（不可疊加）",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -33824,6 +34181,7 @@
   "partner_skill_title": "獵龍者",
   "partner_skill_description": "若牠在隊伍中，擊倒帕魯時的道具掉落量增加40%。（不可疊加）",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -33952,6 +34310,7 @@
   "partner_skill_title": "爆碎鐵腕",
   "partner_skill_description": "若牠在隊伍中，攻擊擊中弱點部位時，下次擊中弱點部位的攻擊威力提升30%。（不可疊加）",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -34070,6 +34429,7 @@
   "partner_skill_title": "空中鞦韆",
   "partner_skill_description": "若牠在隊伍中，會改變滑翔傘的性能。 滑翔期間能夠緩緩上升。",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -34188,6 +34548,7 @@
   "partner_skill_title": "寒空鞦韆",
   "partner_skill_description": "若牠在隊伍中，會改變滑翔傘的性能。 滑翔期間能夠緩緩上升。",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -34306,6 +34667,7 @@
   "partner_skill_title": "鋼鐵衛士模式",
   "partner_skill_description": "發動後會以鋼鐵般的意志，在一定時間內提高泰鋒的攻擊力%，防禦力%。",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -34424,6 +34786,7 @@
   "partner_skill_title": "鐵血衛士模式",
   "partner_skill_description": "發動後會以鋼鐵般的意志，在一定時間內提高丹烽的攻擊力%，防禦力%。",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 5,
@@ -34554,6 +34917,7 @@
    ],
    "source_passive": "AttackUp_Dark_PartnerSkill_1"
   },
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -34684,6 +35048,7 @@
    ],
    "source_passive": "AttackUp_Normal_PartnerSkill_1"
   },
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -34699,6 +35064,567 @@
    "cool": 0,
    "transport": 0,
    "monster_farm": 2
+  }
+ },
+ {
+  "pal_dev_name": "YakushimaBoss001",
+  "pal_name": "克蘇魯之眼",
+  "is_pal": true,
+  "is_available_ingame": true,
+  "is_boss": false,
+  "is_tower_boss": false,
+  "elements": [
+   "暗屬性"
+  ],
+  "stats": {
+   "hp": 110,
+   "melee_attack": 100,
+   "shot_attack": 105,
+   "defense": 95
+  },
+  "active_skills": [
+   {
+    "id": "Unique_Yakushima_EyeTossin",
+    "name": "凝視突擊",
+    "power": 300,
+    "cool_down_time": 15.0,
+    "category": "Melee",
+    "element_type": "Dark",
+    "level_learned": 1,
+    "is_disabled_data": false
+   },
+   {
+    "id": "Unique_Yakushima_SummonServant",
+    "name": "召喚僕從",
+    "power": 300,
+    "cool_down_time": 10.0,
+    "category": "Shot",
+    "element_type": "Dark",
+    "level_learned": 2,
+    "is_disabled_data": false
+   }
+  ],
+  "partner_skill_title": "進擊的克蘇魯之眼",
+  "partner_skill_description": "發動後，克蘇魯之眼會向前方突進並攻擊鎖定的敵人。",
+  "partner_buff": null,
+  "weakness_buff": null,
+  "activity_effects": [],
+  "work_suitability": {
+   "emit_flame": 0,
+   "watering": 0,
+   "seeding": 0,
+   "generate_electricity": 0,
+   "handcraft": 0,
+   "collection": 0,
+   "deforest": 0,
+   "mining": 0,
+   "oil_extraction": 0,
+   "product_medicine": 0,
+   "cool": 0,
+   "transport": 4,
+   "monster_farm": 0
+  }
+ },
+ {
+  "pal_dev_name": "YakushimaBoss001_Small",
+  "pal_name": "惡魔眼",
+  "is_pal": true,
+  "is_available_ingame": true,
+  "is_boss": false,
+  "is_tower_boss": false,
+  "elements": [
+   "暗屬性"
+  ],
+  "stats": {
+   "hp": 105,
+   "melee_attack": 100,
+   "shot_attack": 110,
+   "defense": 95
+  },
+  "active_skills": [
+   {
+    "id": "Unique_YakushimaBoss001_Small_DemonEyeCharge",
+    "name": "眼球突擊",
+    "power": 60,
+    "cool_down_time": 1.0,
+    "category": "Melee",
+    "element_type": "Dark",
+    "level_learned": 1,
+    "is_disabled_data": false
+   }
+  ],
+  "partner_skill_title": "惡魔的視野",
+  "partner_skill_description": "若牠在隊伍中，帕魯的攻擊力會提升15%。（不可疊加）",
+  "partner_buff": {
+   "target": "pal_attack",
+   "element": "dark",
+   "mechanic": "flat",
+   "values_by_star": [
+    0.15,
+    0.17,
+    0.2,
+    0.24,
+    0.3
+   ],
+   "source_passive": "AttackUp_Dark_PartnerSkill_1"
+  },
+  "weakness_buff": null,
+  "activity_effects": [],
+  "work_suitability": {
+   "emit_flame": 0,
+   "watering": 0,
+   "seeding": 0,
+   "generate_electricity": 0,
+   "handcraft": 0,
+   "collection": 0,
+   "deforest": 0,
+   "mining": 0,
+   "oil_extraction": 0,
+   "product_medicine": 0,
+   "cool": 0,
+   "transport": 1,
+   "monster_farm": 0
+  }
+ },
+ {
+  "pal_dev_name": "YakushimaMonster001",
+  "pal_name": "綠史萊姆",
+  "is_pal": true,
+  "is_available_ingame": true,
+  "is_boss": false,
+  "is_tower_boss": false,
+  "elements": [
+   "草屬性"
+  ],
+  "stats": {
+   "hp": 65,
+   "melee_attack": 100,
+   "shot_attack": 70,
+   "defense": 80
+  },
+  "active_skills": [
+   {
+    "id": "Unique_YakushimaMonster001_SlimePress_Leaf",
+    "name": "史萊姆重壓（草）",
+    "power": 50,
+    "cool_down_time": 1.0,
+    "category": "Melee",
+    "element_type": "Leaf",
+    "level_learned": 1,
+    "is_disabled_data": false
+   }
+  ],
+  "partner_skill_title": "史萊姆之軀",
+  "partner_skill_description": "可騎在牠的背上移動。 騎乘期間可高高躍起。",
+  "partner_buff": null,
+  "weakness_buff": null,
+  "activity_effects": [],
+  "work_suitability": {
+   "emit_flame": 0,
+   "watering": 0,
+   "seeding": 0,
+   "generate_electricity": 0,
+   "handcraft": 0,
+   "collection": 0,
+   "deforest": 0,
+   "mining": 0,
+   "oil_extraction": 0,
+   "product_medicine": 0,
+   "cool": 0,
+   "transport": 1,
+   "monster_farm": 0
+  }
+ },
+ {
+  "pal_dev_name": "YakushimaMonster001_Blue",
+  "pal_name": "藍史萊姆",
+  "is_pal": true,
+  "is_available_ingame": true,
+  "is_boss": false,
+  "is_tower_boss": false,
+  "elements": [
+   "水屬性"
+  ],
+  "stats": {
+   "hp": 70,
+   "melee_attack": 100,
+   "shot_attack": 70,
+   "defense": 80
+  },
+  "active_skills": [
+   {
+    "id": "Unique_YakushimaMonster001_SlimePress_Water",
+    "name": "史萊姆重壓（水）",
+    "power": 50,
+    "cool_down_time": 1.0,
+    "category": "Melee",
+    "element_type": "Water",
+    "level_learned": 1,
+    "is_disabled_data": false
+   }
+  ],
+  "partner_skill_title": "史萊姆之軀",
+  "partner_skill_description": "可騎在牠的背上移動。 騎乘期間可高高躍起。",
+  "partner_buff": null,
+  "weakness_buff": null,
+  "activity_effects": [],
+  "work_suitability": {
+   "emit_flame": 0,
+   "watering": 0,
+   "seeding": 0,
+   "generate_electricity": 0,
+   "handcraft": 0,
+   "collection": 0,
+   "deforest": 0,
+   "mining": 0,
+   "oil_extraction": 0,
+   "product_medicine": 0,
+   "cool": 0,
+   "transport": 1,
+   "monster_farm": 0
+  }
+ },
+ {
+  "pal_dev_name": "YakushimaMonster001_Pink",
+  "pal_name": "夜明史萊姆",
+  "is_pal": true,
+  "is_available_ingame": true,
+  "is_boss": false,
+  "is_tower_boss": false,
+  "elements": [
+   "無屬性"
+  ],
+  "stats": {
+   "hp": 80,
+   "melee_attack": 100,
+   "shot_attack": 75,
+   "defense": 85
+  },
+  "active_skills": [
+   {
+    "id": "Unique_YakushimaMonster001_SlimePress_Normal",
+    "name": "史萊姆重壓（無）",
+    "power": 50,
+    "cool_down_time": 1.0,
+    "category": "Melee",
+    "element_type": "Normal",
+    "level_learned": 1,
+    "is_disabled_data": false
+   }
+  ],
+  "partner_skill_title": "史萊姆之軀",
+  "partner_skill_description": "可騎在牠的背上移動。 騎乘期間可高高躍起。",
+  "partner_buff": null,
+  "weakness_buff": null,
+  "activity_effects": [],
+  "work_suitability": {
+   "emit_flame": 0,
+   "watering": 0,
+   "seeding": 0,
+   "generate_electricity": 0,
+   "handcraft": 0,
+   "collection": 0,
+   "deforest": 0,
+   "mining": 0,
+   "oil_extraction": 0,
+   "product_medicine": 0,
+   "cool": 0,
+   "transport": 1,
+   "monster_farm": 0
+  }
+ },
+ {
+  "pal_dev_name": "YakushimaMonster001_Purple",
+  "pal_name": "紫史萊姆",
+  "is_pal": true,
+  "is_available_ingame": true,
+  "is_boss": false,
+  "is_tower_boss": false,
+  "elements": [
+   "暗屬性"
+  ],
+  "stats": {
+   "hp": 75,
+   "melee_attack": 100,
+   "shot_attack": 70,
+   "defense": 80
+  },
+  "active_skills": [
+   {
+    "id": "Unique_YakushimaMonster001_SlimePress_Dark",
+    "name": "史萊姆重壓（暗）",
+    "power": 50,
+    "cool_down_time": 1.0,
+    "category": "Melee",
+    "element_type": "Dark",
+    "level_learned": 1,
+    "is_disabled_data": false
+   }
+  ],
+  "partner_skill_title": "史萊姆之軀",
+  "partner_skill_description": "可騎在牠的背上移動。 騎乘期間可高高躍起。",
+  "partner_buff": null,
+  "weakness_buff": null,
+  "activity_effects": [],
+  "work_suitability": {
+   "emit_flame": 0,
+   "watering": 0,
+   "seeding": 0,
+   "generate_electricity": 0,
+   "handcraft": 0,
+   "collection": 0,
+   "deforest": 0,
+   "mining": 0,
+   "oil_extraction": 0,
+   "product_medicine": 0,
+   "cool": 0,
+   "transport": 1,
+   "monster_farm": 0
+  }
+ },
+ {
+  "pal_dev_name": "YakushimaMonster001_Rainbow",
+  "pal_name": "彩虹史萊姆",
+  "is_pal": true,
+  "is_available_ingame": true,
+  "is_boss": false,
+  "is_tower_boss": false,
+  "elements": [
+   "無屬性"
+  ],
+  "stats": {
+   "hp": 105,
+   "melee_attack": 100,
+   "shot_attack": 95,
+   "defense": 105
+  },
+  "active_skills": [
+   {
+    "id": "Unique_YakushimaMonster001_SlimePress_Rainbow",
+    "name": "史萊姆重壓（彩虹）",
+    "power": 100,
+    "cool_down_time": 1.0,
+    "category": "Melee",
+    "element_type": "Normal",
+    "level_learned": 1,
+    "is_disabled_data": false
+   }
+  ],
+  "partner_skill_title": "史萊姆之軀",
+  "partner_skill_description": "可騎在牠的背上移動。 騎乘期間可高高躍起。",
+  "partner_buff": null,
+  "weakness_buff": null,
+  "activity_effects": [],
+  "work_suitability": {
+   "emit_flame": 0,
+   "watering": 0,
+   "seeding": 0,
+   "generate_electricity": 0,
+   "handcraft": 0,
+   "collection": 0,
+   "deforest": 0,
+   "mining": 0,
+   "oil_extraction": 0,
+   "product_medicine": 0,
+   "cool": 0,
+   "transport": 1,
+   "monster_farm": 0
+  }
+ },
+ {
+  "pal_dev_name": "YakushimaMonster001_Red",
+  "pal_name": "紅史萊姆",
+  "is_pal": true,
+  "is_available_ingame": true,
+  "is_boss": false,
+  "is_tower_boss": false,
+  "elements": [
+   "火屬性"
+  ],
+  "stats": {
+   "hp": 70,
+   "melee_attack": 100,
+   "shot_attack": 75,
+   "defense": 85
+  },
+  "active_skills": [
+   {
+    "id": "Unique_YakushimaMonster001_SlimePress_Fire",
+    "name": "史萊姆重壓（火）",
+    "power": 50,
+    "cool_down_time": 1.0,
+    "category": "Melee",
+    "element_type": "Fire",
+    "level_learned": 1,
+    "is_disabled_data": false
+   }
+  ],
+  "partner_skill_title": "史萊姆之軀",
+  "partner_skill_description": "可騎在牠的背上移動。 騎乘期間可高高躍起。",
+  "partner_buff": null,
+  "weakness_buff": null,
+  "activity_effects": [],
+  "work_suitability": {
+   "emit_flame": 0,
+   "watering": 0,
+   "seeding": 0,
+   "generate_electricity": 0,
+   "handcraft": 0,
+   "collection": 0,
+   "deforest": 0,
+   "mining": 0,
+   "oil_extraction": 0,
+   "product_medicine": 0,
+   "cool": 0,
+   "transport": 1,
+   "monster_farm": 0
+  }
+ },
+ {
+  "pal_dev_name": "YakushimaMonster002",
+  "pal_name": "附魔劍",
+  "is_pal": true,
+  "is_available_ingame": true,
+  "is_boss": false,
+  "is_tower_boss": false,
+  "elements": [
+   "無屬性"
+  ],
+  "stats": {
+   "hp": 95,
+   "melee_attack": 100,
+   "shot_attack": 105,
+   "defense": 90
+  },
+  "active_skills": [
+   {
+    "id": "Unique_YakushimaMonster002_SwordCharge",
+    "name": "劍舞衝鋒",
+    "power": 80,
+    "cool_down_time": 1.0,
+    "category": "Melee",
+    "element_type": "Normal",
+    "level_learned": 1,
+    "is_disabled_data": false
+   }
+  ],
+  "partner_skill_title": "附魔",
+  "partner_skill_description": "若牠在隊伍中，擊倒帕魯時的道具掉落量增加40%。（不可疊加）",
+  "partner_buff": null,
+  "weakness_buff": null,
+  "activity_effects": [],
+  "work_suitability": {
+   "emit_flame": 0,
+   "watering": 0,
+   "seeding": 0,
+   "generate_electricity": 0,
+   "handcraft": 0,
+   "collection": 0,
+   "deforest": 1,
+   "mining": 0,
+   "oil_extraction": 0,
+   "product_medicine": 0,
+   "cool": 0,
+   "transport": 0,
+   "monster_farm": 0
+  }
+ },
+ {
+  "pal_dev_name": "YakushimaMonster003",
+  "pal_name": "洞穴蝙蝠",
+  "is_pal": true,
+  "is_available_ingame": true,
+  "is_boss": false,
+  "is_tower_boss": false,
+  "elements": [
+   "無屬性"
+  ],
+  "stats": {
+   "hp": 65,
+   "melee_attack": 100,
+   "shot_attack": 75,
+   "defense": 80
+  },
+  "active_skills": [
+   {
+    "id": "Unique_YakushimaMonster003_BatCharge",
+    "name": "蝙蝠襲擊",
+    "power": 70,
+    "cool_down_time": 1.0,
+    "category": "Melee",
+    "element_type": "Normal",
+    "level_learned": 1,
+    "is_disabled_data": false
+   }
+  ],
+  "partner_skill_title": "支援蝙蝠",
+  "partner_skill_description": "若牠在隊伍中，就會出現在玩家身邊。 牠會自動前去拾取附近的道具。",
+  "partner_buff": null,
+  "weakness_buff": null,
+  "activity_effects": [],
+  "work_suitability": {
+   "emit_flame": 0,
+   "watering": 0,
+   "seeding": 0,
+   "generate_electricity": 0,
+   "handcraft": 0,
+   "collection": 1,
+   "deforest": 0,
+   "mining": 0,
+   "oil_extraction": 0,
+   "product_medicine": 0,
+   "cool": 0,
+   "transport": 0,
+   "monster_farm": 0
+  }
+ },
+ {
+  "pal_dev_name": "YakushimaMonster003_Purple",
+  "pal_name": "夜明蝙蝠",
+  "is_pal": true,
+  "is_available_ingame": true,
+  "is_boss": false,
+  "is_tower_boss": false,
+  "elements": [
+   "無屬性"
+  ],
+  "stats": {
+   "hp": 80,
+   "melee_attack": 100,
+   "shot_attack": 80,
+   "defense": 95
+  },
+  "active_skills": [
+   {
+    "id": "Unique_YakushimaMonster003_BatCharge",
+    "name": "蝙蝠襲擊",
+    "power": 70,
+    "cool_down_time": 1.0,
+    "category": "Melee",
+    "element_type": "Normal",
+    "level_learned": 1,
+    "is_disabled_data": false
+   }
+  ],
+  "partner_skill_title": "支援蝙蝠",
+  "partner_skill_description": "若牠在隊伍中，就會出現在玩家身邊。 牠會自動前去拾取附近的道具。",
+  "partner_buff": null,
+  "weakness_buff": null,
+  "activity_effects": [],
+  "work_suitability": {
+   "emit_flame": 0,
+   "watering": 0,
+   "seeding": 0,
+   "generate_electricity": 0,
+   "handcraft": 0,
+   "collection": 1,
+   "deforest": 0,
+   "mining": 0,
+   "oil_extraction": 0,
+   "product_medicine": 0,
+   "cool": 0,
+   "transport": 0,
+   "monster_farm": 0
   }
  },
  {
@@ -34812,6 +35738,7 @@
   "partner_skill_title": "雪山巨人",
   "partner_skill_description": "可騎在牠的背上移動。 若牠在據點裡，其他據點帕魯的工作適應性等級+1。（不可疊加）",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,
@@ -34940,6 +35867,7 @@
   "partner_skill_title": "南方巨人",
   "partner_skill_description": "可騎在牠的背上移動。 若牠在隊伍中，玩家和帕魯受到的傷害減輕15%，並且不會陷入狀態。（不可疊加）",
   "partner_buff": null,
+  "weakness_buff": null,
   "activity_effects": [],
   "work_suitability": {
    "emit_flame": 0,

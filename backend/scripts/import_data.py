@@ -6,7 +6,7 @@
 自 backend/data/source/ 全量匯入:
 - 一般帕魯(Q-D1:is_pal 且 is_available_ingame 且非 is_boss;
   排除中文名佔位與無可用技能的條目)
-- 9 屬性與內建 81 筆克制表(考據自 palworld.wiki.gg:克制 2x、被克 0.5x)
+- 9 屬性與內建 81 筆克制表(1.0:克制 1.5x、抵抗 0.66x)
 - 主動技能與習得等級、工作適性
 - 夥伴技能:加成型明細取人工 overlay 檔 partner_skill_buffs.json(Q-D2),
   其餘依描述關鍵字判為 riding 或 other
@@ -42,6 +42,7 @@ from app.models import (  # noqa: E402
     PartnerSkill,
     PartnerSkillActivityEffect,
     PartnerSkillBuffTier,
+    PartnerSkillWeaknessTier,
     TypeMatchup,
     WorkType,
 )
@@ -50,8 +51,8 @@ SOURCE_DIR = BACKEND_ROOT / "data" / "source"
 SOURCE_LABEL = "本機解包 raw_v1 經 convert_raw.py 轉換(Pal-Windows.pak 2026-07-15)"
 GAME_VERSION = "1.0(2026-07)"
 
-# 疊層型夥伴技能以「保守的實戰估計層數」計(非理論滿疊),避免無腦高估疊層帕魯:
-# - 命中疊層(BulletHit,如波魯傑克斯):持續射擊可維持,估上限的 40%
+# 疊層型夥伴技能依觸發難度換算:
+# - 命中疊層(BulletHit,如波魯傑克斯):持續造成傷害即可穩定疊滿,按實際上限計
 # - 擊殺疊層(DefeatEnemy,如焰煌):打單一頭目通常只殺 1 隻,估 1 層
 # 至少 1 層,且不超過實際上限。上限未知時退回 STACK_FALLBACK_CAP。
 STACK_FALLBACK_CAP = 30
@@ -60,7 +61,9 @@ STACK_FALLBACK_CAP = 30
 def expected_stacks(stack_kind: str | None, cap: int) -> int:
     if stack_kind == "DefeatEnemy_StackBuff":
         return 1  # 對單一目標的戰鬥,擊殺數極少
-    # 命中型與其他:上限的 40%
+    if stack_kind == "BulletHit_StackBuff":
+        return cap  # 命中即可疊加,以穩定滿層計
+    # 未識別的疊層機制仍採保守估計,避免直接高估。
     return max(1, min(cap, round(cap * 0.4)))
 
 # 9 屬性:code 取資料集 dev_name 小寫,name_zh 取資料集中文名去掉「屬性」
@@ -76,7 +79,7 @@ ELEMENTS = [
     ("dragon", "龍"),
 ]
 
-# 克制關係(攻擊方 code → 防禦方 code):克制 2x,反向被克 0.5x,其餘 1x
+# 克制關係(攻擊方 code → 防禦方 code):克制 1.5x,反向抵抗 0.66x,其餘 1x
 STRONG_AGAINST = [
     ("fire", "leaf"),
     ("fire", "ice"),
@@ -240,7 +243,7 @@ def run_import(
         for atk_code, _ in ELEMENTS:
             for def_code, _ in ELEMENTS:
                 pair = (atk_code, def_code)
-                multiplier = "2.00" if pair in strong else "0.50" if pair in weak else "1.00"
+                multiplier = "1.50" if pair in strong else "0.66" if pair in weak else "1.00"
                 session.add(TypeMatchup(
                     attacker_element_id=elements[atk_code].id,
                     defender_element_id=elements[def_code].id,
@@ -324,6 +327,16 @@ def run_import(
                 for eff in src.get("activity_effects", [])
                 for star, value in enumerate(eff["values_by_star"])
             ]
+            # 克制增傷(條件型):與一般加成分開存放,不進 buff_tiers
+            weakness = src.get("weakness_buff")
+            if weakness and weakness.get("element") in elements:
+                partner.weakness_element_id = elements[weakness["element"]].id
+                partner.weakness_tiers = [
+                    PartnerSkillWeaknessTier(
+                        star_level=star, buff_value=Decimal(str(value))
+                    )
+                    for star, value in enumerate(weakness["values_by_star"])
+                ]
             session.add(partner)
 
             for work_code, _ in WORK_TYPES:
