@@ -6,7 +6,7 @@ import ActivitySkills from './components/ActivitySkills'
 import PalSelectPage from './pages/PalSelectPage'
 
 const TABS = [
-  { id: 'team', label: '配隊推薦' },
+  { id: 'team', label: '戰鬥加成' },
   { id: 'activity', label: '活動夥伴技能' },
 ]
 
@@ -55,10 +55,10 @@ function App() {
               </span>
               <div className="leading-tight">
                 <h1 className="bg-gradient-to-r from-emerald-300 to-cyan-300 bg-clip-text text-base font-extrabold tracking-tight text-transparent sm:text-lg">
-                  幻獸帕魯配隊最佳化
+                  幻獸帕魯夥伴技能速查
                 </h1>
                 <p className="hidden text-[11px] text-slate-500 sm:block">
-                  Palworld Team Optimizer
+                  Palworld Partner Skill Finder
                 </p>
               </div>
             </div>

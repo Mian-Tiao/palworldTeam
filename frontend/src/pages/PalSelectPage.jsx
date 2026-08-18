@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 
 import { useElements, usePals } from '../api/pals'
 import { useRecommendTeams } from '../api/recommendations'
+import BuffMatrix from '../components/BuffMatrix'
 import ConditionPanel from '../components/ConditionPanel'
 import ElementBadge from '../components/ElementBadge'
 import { elementAccent } from '../components/elementVisuals'
@@ -95,24 +96,29 @@ function TeamBar({ selected, onRemove, onClear, onSubmit, canSubmit, isPending, 
               查看結果
             </button>
           )}
+          {/* 輸出估算已降級為輔助功能:主要資訊是加成速查(P-16) */}
           <button
             type="button"
             onClick={onSubmit}
             disabled={!canSubmit || isPending}
-            title={!canSubmit ? '請先選至少 1 隻固定成員' : undefined}
-            className={`rounded-lg px-4 py-1.5 text-sm font-bold transition ${
+            title={
+              !canSubmit
+                ? '請先選至少 1 隻固定成員'
+                : '粗略輸出估算,僅供同條件比較,非實機傷害'
+            }
+            className={`rounded-lg border px-3 py-1.5 text-sm transition ${
               canSubmit && !isPending
-                ? 'bg-gradient-to-r from-emerald-400 to-cyan-400 text-slate-950 shadow-lg shadow-emerald-500/20 hover:brightness-110'
-                : 'cursor-not-allowed bg-slate-700 text-[var(--muted)]'
+                ? 'border-[var(--border-strong)] text-[var(--text-2)] hover:border-white/30 hover:text-[var(--text)]'
+                : 'cursor-not-allowed border-[var(--border)] text-[var(--muted)]'
             }`}
           >
             {isPending ? (
               <span className="flex items-center gap-1.5">
                 <span className="h-3 w-3 animate-spin rounded-full border-2 border-slate-500 border-t-transparent" />
-                計算中…
+                估算中…
               </span>
             ) : (
-              '開始計算'
+              '輸出估算(實驗性)'
             )}
           </button>
         </div>
@@ -469,6 +475,13 @@ export default function PalSelectPage() {
           onLevelChange={setLevel}
           starLevel={starLevel}
           onStarLevelChange={setStarLevel}
+        />
+
+        {/* 主要內容:加成速查(隨選取即時更新,數值來自遊戲被動表) */}
+        <BuffMatrix
+          fixedPals={selected}
+          starLevel={starLevel}
+          targetElements={targetElements}
         />
 
         {recommend.isError && <ErrorBox error={recommend.error} onRetry={submit} />}
