@@ -2,7 +2,7 @@
 
 規則(project-memory):
 - 隊伍上限 5(Q-1 結案);固定成員(使用者喜愛帕魯)必定入隊,其餘名額補滿
-- 依隊伍總輸出(成員 total_dps 之和)由高到低排序
+- 依固定成員輸出由高到低排序;相同時才以整隊輸出排序
 - 夥伴技能 team_buff 全隊生效(P-2 的 attack_buff_rate 規則)
 
 演算法:窮舉「pal_attack 加成提供者」子集(加成型帕魯數量少,Q-D2),
@@ -63,10 +63,16 @@ class TeamResult:
     members: tuple[TeamMemberResult, ...]
     active_buffs: tuple[ActiveBuff, ...]
     total_dps: float = field(init=False)
+    fixed_total_dps: float = field(init=False)
 
     def __post_init__(self) -> None:
         object.__setattr__(
             self, "total_dps", sum(m.damage.total_dps for m in self.members)
+        )
+        object.__setattr__(
+            self,
+            "fixed_total_dps",
+            sum(m.damage.total_dps for m in self.members if m.is_fixed),
         )
 
 
@@ -113,8 +119,9 @@ def recommend_teams(
         rate = attack_buff_rate(candidate.pal, buffs)
         return base_dps[candidate.pal.dev_name] * (1 + rate)
 
-    # 窮舉提供者子集,記錄 (總輸出, 隊伍成員名單)
-    scored: list[tuple[float, tuple[str, ...]]] = []
+    # 窮舉提供者子集。第一排序鍵是使用者固定成員的輸出;
+    # 整隊輸出只用來打破固定成員分數相同的平手。
+    scored: list[tuple[float, float, tuple[str, ...]]] = []
     for k in range(0, min(free_slots, len(providers)) + 1):
         for subset in combinations(providers, k):
             buffs = fixed_buffs + [_pal_attack_buff(c) for c in subset]
@@ -123,14 +130,17 @@ def recommend_teams(
                 fillers, key=lambda c: buffed_dps(c, buffs), reverse=True
             )[:fill_count]
             team = fixed + list(subset) + best_fillers
-            total = sum(buffed_dps(c, buffs) for c in team)
-            scored.append((total, tuple(c.pal.dev_name for c in team)))
+            fixed_total = sum(buffed_dps(c, buffs) for c in fixed)
+            team_total = sum(buffed_dps(c, buffs) for c in team)
+            scored.append(
+                (fixed_total, team_total, tuple(c.pal.dev_name for c in team))
+            )
 
-    scored.sort(key=lambda item: item[0], reverse=True)
+    scored.sort(key=lambda item: (item[0], item[1]), reverse=True)
 
     # 對前 top_n 隊伍以完整計算器重算,產出逐技能拆解
     results = []
-    for _total, dev_names in scored[:top_n]:
+    for _fixed_total, _team_total, dev_names in scored[:top_n]:
         team = [by_name[dn] for dn in dev_names]
         team_buffs = [c.team_buff for c in team if c.team_buff is not None]
         members = tuple(

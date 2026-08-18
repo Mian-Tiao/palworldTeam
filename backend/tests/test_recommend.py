@@ -51,13 +51,31 @@ class TestRecommendTeams:
         names = {m.damage.pal.dev_name for m in best.members}
         assert names == {"P0", "P7", "P6", "P5", "P4"}
 
-    def test_teams_sorted_by_total_dps_descending(self):
+    def test_teams_sorted_by_fixed_output_then_team_output(self):
         candidates = [make_candidate(f"P{i}", power=10 * (i + 1)) for i in range(8)]
         teams = recommend_teams(
             candidates, fixed_dev_names=["P0"], level=50, matchups=MATCHUPS,
         )
-        totals = [t.total_dps for t in teams]
-        assert totals == sorted(totals, reverse=True)
+        keys = [(t.fixed_total_dps, t.total_dps) for t in teams]
+        assert keys == sorted(keys, reverse=True)
+
+    def test_buffer_for_fixed_pal_beats_high_damage_filler(self):
+        """推薦目標是提高固定帕魯,不是讓支援位自己打出更高傷害。"""
+        fixed = make_candidate("Fixed", power=100, element="fire")
+        buffer = make_candidate(
+            "Buffer", power=1, element="fire",
+            buff=TeamBuff("pal_attack", "fire", 0.50),
+        )
+        selfish_damage = make_candidate("Selfish1000", power=1000, element="water")
+        best = recommend_teams(
+            [fixed, buffer, selfish_damage], fixed_dev_names=["Fixed"],
+            level=50, matchups=MATCHUPS, team_size=2,
+        )[0]
+
+        assert {m.damage.pal.dev_name for m in best.members} == {"Fixed", "Buffer"}
+        assert best.fixed_total_dps == pytest.approx(
+            next(m.damage.total_dps for m in best.members if m.is_fixed)
+        )
 
     def test_buffer_chosen_when_synergy_beats_raw_power(self):
         """火系加成者(自身威力 10)+ 火系主攻(200)勝過純堆威力(90)。
@@ -114,4 +132,7 @@ class TestRecommendTeams:
         for team in teams:
             assert team.total_dps == pytest.approx(
                 sum(m.damage.total_dps for m in team.members)
+            )
+            assert team.fixed_total_dps == pytest.approx(
+                sum(m.damage.total_dps for m in team.members if m.is_fixed)
             )

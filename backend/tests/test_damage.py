@@ -1,4 +1,4 @@
-"""傷害計算器單元測試(P-2)。
+"""1.0 純被動相對輸出計算器單元測試(P-12)。
 
 對照值皆為依 project-memory「已確認的業務規則(傷害公式)」手算的結果。
 純函式測試,不需要 client fixture 與資料庫。
@@ -23,11 +23,11 @@ from app.services.damage import (
 
 # 測試用克制表片段(完整 81 筆由資料庫提供,計算器只查字典)
 MATCHUPS = {
-    ("water", "fire"): 2.0,
-    ("fire", "water"): 0.5,
-    ("fire", "leaf"): 2.0,
-    ("fire", "ice"): 2.0,
-    ("normal", "dark"): 0.5,
+    ("water", "fire"): 1.5,
+    ("fire", "water"): 0.66,
+    ("fire", "leaf"): 1.5,
+    ("fire", "ice"): 1.5,
+    ("normal", "dark"): 0.66,
 }
 
 
@@ -83,14 +83,14 @@ class TestEnemyDefense:
 
 class TestMultipliers:
     def test_single_element_advantage(self):
-        assert type_multiplier("water", ("fire",), MATCHUPS) == 2.0
+        assert type_multiplier("water", ("fire",), MATCHUPS) == 1.5
 
     def test_disadvantage(self):
-        assert type_multiplier("fire", ("water",), MATCHUPS) == 0.5
+        assert type_multiplier("fire", ("water",), MATCHUPS) == 0.66
 
     def test_dual_element_multiplies(self):
-        # 火技能對(草、冰)雙屬性:2×2 = 4(最高 4×)
-        assert type_multiplier("fire", ("leaf", "ice"), MATCHUPS) == 4.0
+        # 火技能對(草、冰)雙屬性:1.5×1.5 = 2.25
+        assert type_multiplier("fire", ("leaf", "ice"), MATCHUPS) == 2.25
 
     def test_unknown_pair_defaults_to_one(self):
         assert type_multiplier("water", ("dragon",), MATCHUPS) == 1.0
@@ -132,10 +132,10 @@ class TestTeamBuff:
 
 class TestSkillDamage:
     def test_hand_computed_reference_case(self):
-        """完整公式手算對照:
-        水帕魯(shot 70)Lv50 以水技能(威力 100)打火目標,防禦 400:
-        攻擊值 = 362;傷害 = 1.1×((1.5×50+20)×100×362÷400)÷15 ×2(克制)×1.2(STAB)
-                = 1.1×(95×100×362÷400)÷15×2.4 = 1513.16
+        """1.0 相對輸出模型手算對照:
+        水帕魯(shot 70)Lv50 以水技能(威力 100)打火目標,參考防禦 400:
+        攻擊值 = 362;單次分數 = 0.8×sqrt(51)×100×362÷400×1.5×1.2
+                                = 930.6709528
         """
         pal = make_pal()
         result = skill_damage(
@@ -143,20 +143,20 @@ class TestSkillDamage:
             matchups=MATCHUPS, target_elements=("fire",),
         )
         assert result.base_attack_value == 362
-        assert result.type_multiplier == 2.0
+        assert result.type_multiplier == 1.5
         assert result.stab_multiplier == 1.2
-        assert result.damage_per_hit == pytest.approx(1513.16)
-        assert result.dps == pytest.approx(151.316)  # 冷卻 10 秒
+        assert result.damage_per_hit == pytest.approx(930.6709528)
+        assert result.dps == pytest.approx(93.06709528)  # 冷卻 10 秒
 
-    def test_melee_skill_uses_melee_stat(self):
+    def test_melee_category_still_uses_visible_attack_stat(self):
         pal = make_pal()  # shot 70, melee 80
         result = skill_damage(
             pal, make_skill(category="Melee"), level=50, defense=400.0,
             matchups=MATCHUPS,
         )
-        # FLOOR(100 + 80×0.075×50) = 400
-        assert result.attack_stat_used == 80
-        assert result.base_attack_value == 400
+        # 1.0 的 Melee 是技能行為分類,傷害仍讀顯示攻擊 shot_attack_stat。
+        assert result.attack_stat_used == 70
+        assert result.base_attack_value == 362
 
     def test_buff_multiplies_attack_value(self):
         pal = make_pal()
@@ -208,7 +208,7 @@ class TestCalculatePalDamage:
         generic = calculate_pal_damage(pal, level=50, matchups=MATCHUPS)
         vs_boss = calculate_pal_damage(pal, level=50, matchups=MATCHUPS, target=boss)
         assert vs_boss.enemy_defense == pytest.approx(398.75)
-        # 對火頭目有 2× 克制,且防禦略低於常數 400 → 輸出必高於通用計算
+        # 對火頭目有 1.5× 克制,且防禦略低於常數 400 → 輸出必高於通用計算
         assert vs_boss.total_dps > generic.total_dps
 
     def test_team_buff_raises_output(self):

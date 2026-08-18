@@ -1,15 +1,17 @@
-"""傷害計算器(P-2;FR-4、FR-5)。
+"""1.0 純被動相對輸出計算器(P-12;FR-4、FR-5)。
 
-實作 doc/project-memory.md「已確認的業務規則(傷害公式,Q-6/Q-D3 結案)」:
+本模組服務的是「同等級、同目標條件下比較哪個隊伍輸出較高」,不是預測
+遊戲畫面會跳出的精確傷害數字。已確認的比較因子如下:
 
-- 傷害 = 1.1 × ((1.5×等級 + 20) × 技能威力 × 攻擊值 ÷ 敵方防禦) ÷ 15
-- 攻擊值 = FLOOR(100 + 攻擊種族值 × 0.075 × 等級);依技能 category
-  (Shot/Melee)選用 shot_attack 或 melee_attack 種族值
-- 屬性克制:克制 2×、被克 0.5×,雙屬性相乘;同屬性技能加成(STAB)1.2×
-- 敵方防禦:指定頭目 50 + 防禦種族值 × 0.075 × 等級;未指定時為常數
-- 技能輸出:自「習得等級 ≤ 所選等級」的技能取加權 DPS 最高 3 個,總輸出為三者之和
-- 夥伴技能:僅 team_buff 型;同類加成相加後乘上攻擊值
-- 隨機浮動 ±10% 取期望值,不納入
+- 基礎攻擊值 = FLOOR(100 + shot_attack_stat × 0.075 × 等級)
+- 1.0 帕魯技能傷害率 0.8,等級係數 sqrt(等級 + 1)
+- 屬性克制 1.5×、抵抗 0.66×,雙屬性逐項相乘;STAB 1.2×
+- 技能每秒分數 = 單次分數 ÷ 冷卻,取最高 3 個技能相加
+- 只納入常駐 pal_attack 夥伴技能;騎乘、主動發動、玩家武器與隨機個體
+  被動不納入
+
+多段命中數、招式動畫時間、命中率與引擎最終減傷未完整建模,因此輸出欄位
+沿用既有 API 名稱 damage_per_hit / dps 以維持相容,介面一律標示為「分數」。
 
 純函式模組:不依賴 FastAPI 與資料庫(AGENTS.md services 規範),
 輸入輸出皆為本模組定義的 dataclass,由呼叫端(推薦引擎/API)自快取轉換。
@@ -26,6 +28,9 @@ DEFAULT_ENEMY_DEFENSE = 400.0
 EQUIPPED_SKILL_LIMIT = 3
 
 STAB_MULTIPLIER = 1.2
+
+# Palworld 1.0 帕魯技能的共通傷害率。
+PAL_SKILL_DAMAGE_RATE = 0.8
 
 
 @dataclass(frozen=True)
@@ -77,16 +82,16 @@ class TargetSpec:
 
 @dataclass(frozen=True)
 class SkillDamage:
-    """單一技能的傷害拆解(P-6 結果呈現的透明依據)。"""
+    """單一技能的相對輸出拆解(P-6 結果呈現的透明依據)。"""
 
     skill: SkillSpec
-    attack_stat_used: int  # 依 category 選用的種族值
+    attack_stat_used: int  # 1.0 主動技能一律使用 shot_attack_stat
     base_attack_value: int  # FLOOR(100 + 種族值×0.075×等級)
     buffed_attack_value: float  # 乘上夥伴技能加成後
     type_multiplier: float  # 屬性克制(雙屬性相乘)
     stab_multiplier: float  # 同屬性加成 1.2 或 1.0
-    damage_per_hit: float
-    dps: float  # damage_per_hit ÷ 冷卻秒數
+    damage_per_hit: float  # 相容欄位:介面顯示為「單次分數」
+    dps: float  # 相容欄位:介面顯示為「每秒分數」
 
 
 @dataclass(frozen=True)
@@ -123,7 +128,7 @@ def type_multiplier(
     target_elements: tuple[str, ...],
     matchups: dict[tuple[str, str], float],
 ) -> float:
-    """屬性克制倍率:對目標每個屬性的倍率相乘(雙屬性最高 4×、最低 0.25×)。
+    """屬性克制倍率:對目標每個屬性的倍率相乘(雙克制 2.25×)。
 
     matchups 鍵為 (攻擊屬性 code, 防禦屬性 code);查無對應時視為 1.0。
     """
@@ -138,20 +143,26 @@ def stab_multiplier(skill_element: str, pal_elements: tuple[str, ...]) -> float:
     return STAB_MULTIPLIER if skill_element in pal_elements else 1.0
 
 
-def attack_buff_rate(pal: PalSpec, team_buffs: list[TeamBuff]) -> float:
-    """套用到此帕魯的夥伴技能加成合計(同類加成相加)。
+def buff_applies_to(buff: TeamBuff, pal_elements: tuple[str, ...]) -> bool:
+    """此加成是否對某帕魯生效(加成矩陣與傷害計算共用,避免兩邊規則漂移)。
 
     只計 buff_target = pal_attack;buff_element 有值時僅對含該屬性的帕魯生效。
     player_attack 型加成的是玩家武器輸出,不影響帕魯傷害,不納入。
     """
-    total = 0.0
-    for buff in team_buffs:
-        if buff.buff_target != "pal_attack":
-            continue
-        if buff.buff_element is not None and buff.buff_element not in pal.elements:
-            continue
-        total += buff.buff_value
-    return total
+    if buff.buff_target != "pal_attack":
+        return False
+    if buff.buff_element is not None and buff.buff_element not in pal_elements:
+        return False
+    return True
+
+
+def attack_buff_rate(pal: PalSpec, team_buffs: list[TeamBuff]) -> float:
+    """套用到此帕魯的夥伴技能加成合計(同類加成相加)。"""
+    return sum(
+        buff.buff_value
+        for buff in team_buffs
+        if buff_applies_to(buff, pal.elements)
+    )
 
 
 def skill_damage(
@@ -163,8 +174,11 @@ def skill_damage(
     target_elements: tuple[str, ...] = (),
     buff_rate: float = 0.0,
 ) -> SkillDamage:
-    """單一技能的傷害拆解。"""
-    stat = pal.shot_attack_stat if skill.category == "Shot" else pal.melee_attack_stat
+    """單一技能的相對輸出拆解。
+
+    category 是招式行為(遠程/近戰)資料,不再拿來切換攻擊種族值。
+    """
+    stat = pal.shot_attack_stat
     base_atk = attack_value(stat, level)
     buffed_atk = base_atk * (1 + buff_rate)
 
@@ -172,7 +186,11 @@ def skill_damage(
     s_mult = stab_multiplier(skill.element, pal.elements)
 
     damage = (
-        1.1 * ((1.5 * level + 20) * skill.power * buffed_atk / defense) / 15
+        PAL_SKILL_DAMAGE_RATE
+        * math.sqrt(level + 1)
+        * skill.power
+        * buffed_atk
+        / defense
         * t_mult
         * s_mult
     )
@@ -195,11 +213,11 @@ def calculate_pal_damage(
     target: TargetSpec | None = None,
     team_buffs: list[TeamBuff] | None = None,
 ) -> PalDamageResult:
-    """一隻帕魯對目標的總輸出:
+    """一隻帕魯對目標的總相對輸出:
 
     1. 過濾「習得等級 ≤ 所選等級」的技能
     2. 逐技能計算傷害拆解
-    3. 取加權 DPS 最高的至多 3 個(遊戲裝備上限),總輸出為三者 DPS 之和
+    3. 取每秒分數最高的至多 3 個(遊戲裝備上限),總輸出為三者之和
     """
     defense = enemy_defense(target)
     target_elements = target.elements if target is not None else ()

@@ -14,6 +14,18 @@ def test_list_pals_returns_all_seeded(client):
     assert isinstance(first["attack"], int)
 
 
+def test_list_attack_matches_model_input(client):
+    """清單卡的「攻擊」必須等於輸出模型實際使用的 shot_attack_stat,
+    不可為 max(shot, melee),否則使用者依卡片挑選會與計算結果不符。"""
+    listing = client.get("/api/pals").json()["data"]
+    for summary in listing:
+        detail = client.get(f"/api/pals/{summary['id']}").json()["data"]
+        assert summary["attack"] == detail["shot_attack_stat"], (
+            f"{summary['name_zh']} 卡片攻擊 {summary['attack']} "
+            f"≠ 模型使用的 {detail['shot_attack_stat']}"
+        )
+
+
 def test_search_by_chinese_name(client):
     """TC-002:搜尋回傳名稱含關鍵字的帕魯,不多不少。"""
     resp = client.get("/api/pals", params={"search": "棉悠悠"})
@@ -98,7 +110,7 @@ def test_get_pal_detail_team_buff_fields(client):
 
 
 def test_get_pal_detail_stack_buff(client):
-    """波魯傑克斯(1.0):命中疊層,以保守實戰估計層數計(非理論滿疊)。"""
+    """波魯傑克斯(1.0):命中疊層可穩定累積,按 30 層滿疊計。"""
     listing = client.get("/api/pals", params={"search": "波魯傑克斯"}).json()
     pal = client.get(f"/api/pals/{listing['data'][0]['id']}").json()["data"]
     partner = pal["partner_skill"]
@@ -107,9 +119,9 @@ def test_get_pal_detail_stack_buff(client):
     assert partner["buff_element"] is None
     assert partner["buff_mechanic"] == "stack"
     assert partner["buff_max_stacks"] == 30
-    # 命中型估上限 40% = 12 層;每層 1%(0星)/5%(4星)→ 12% / 60%(非滿疊 150%)
-    assert partner["buff_tiers"][0] == 0.12
-    assert partner["buff_tiers"][4] == 0.6
+    # 每層 1%(0星)/5%(4星) × 30 層 → 30% / 150%
+    assert partner["buff_tiers"][0] == 0.3
+    assert partner["buff_tiers"][4] == 1.5
 
 
 def test_get_pal_not_found_returns_404(client):

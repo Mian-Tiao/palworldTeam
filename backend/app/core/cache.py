@@ -71,6 +71,7 @@ def load_cache(session: Session) -> DataCache:
             selectinload(Pal.elements),
             selectinload(Pal.skill_links).selectinload(PalActiveSkill.skill),
             selectinload(Pal.partner_skill).selectinload(PartnerSkill.buff_tiers),
+            selectinload(Pal.partner_skill).selectinload(PartnerSkill.weakness_tiers),
             selectinload(Pal.partner_skill).selectinload(
                 PartnerSkill.activity_effects
             ),
@@ -120,6 +121,14 @@ def load_cache(session: Session) -> DataCache:
                     buff_mechanic=partner.buff_mechanic,
                     buff_max_stacks=partner.buff_max_stacks,
                     buff_tiers=[float(t.buff_value) for t in partner.buff_tiers],
+                    weakness_element=(
+                        elements_by_id[partner.weakness_element_id].code
+                        if partner.weakness_element_id is not None
+                        else None
+                    ),
+                    weakness_tiers=[
+                        float(t.buff_value) for t in partner.weakness_tiers
+                    ],
                     description=partner.effect_raw,
                 )
                 if partner is not None

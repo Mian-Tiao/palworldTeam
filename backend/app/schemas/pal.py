@@ -33,7 +33,10 @@ class PartnerSkillOut(BaseModel):
     buff_mechanic: str | None  # flat / stack
     buff_max_stacks: int | None
     buff_tiers: list[float]  # 專注 0~4 星的有效加成分數(team_buff 才有,否則空)
-    description: str | None
+    # 克制增傷(條件型):以此屬性攻擊剋制的敵人時才生效,與上方常駐加成分開
+    weakness_element: str | None = None
+    weakness_tiers: list[float] = []
+    description: str | None = None
 
 
 class WorkSuitabilityOut(BaseModel):

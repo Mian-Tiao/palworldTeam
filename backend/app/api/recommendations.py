@@ -1,5 +1,7 @@
 """隊伍推薦端點(P-3;FR-2、FR-4、FR-5)。資料一律讀記憶體快取,即算即回不落地。"""
 
+import re
+
 from fastapi import APIRouter, Request
 
 from app.core.cache import DataCache
@@ -10,6 +12,20 @@ from app.services.damage import PalSpec, SkillSpec, TargetSpec, TeamBuff, enemy_
 from app.services.recommend import CandidatePal, TeamResult, recommend_teams
 
 router = APIRouter(tags=["recommendations"])
+
+
+_ATTACK_PERCENT_IN_DESCRIPTION = re.compile(
+    r"(攻擊力(?:與防禦力)?(?:會|將)?提升)\s*(?:\d+(?:\.\d+)?)?%"
+)
+
+
+def _mechanic_description(description: str | None, is_counted: bool) -> str | None:
+    """計入模型的原始描述只保留機制,避免無星模板數值誤導目前星級。"""
+    if not description or not is_counted:
+        return description
+    return _ATTACK_PERCENT_IN_DESCRIPTION.sub(
+        r"\1（數值見上方目前星級）", description
+    ).replace("提升%", "提升（數值見上方目前星級）")
 
 
 def _to_candidate(pal: PalDetailOut, star_level: int) -> CandidatePal:
@@ -37,7 +53,8 @@ def _to_candidate(pal: PalDetailOut, star_level: int) -> CandidatePal:
     if (
         partner is not None
         and partner.effect_type == "team_buff"
-        and partner.buff_target
+        and partner.buff_target == "pal_attack"
+        and partner.buff_mechanic in ("flat", "stack")
         and star_level < len(partner.buff_tiers)
     ):
         buff = TeamBuff(
@@ -48,9 +65,65 @@ def _to_candidate(pal: PalDetailOut, star_level: int) -> CandidatePal:
     return CandidatePal(pal=spec, team_buff=buff)
 
 
-def _serialize_team(team: TeamResult, pals_by_dev_name: dict[str, PalDetailOut]) -> dict:
+def _serialize_partner_skill(
+    pal: PalDetailOut, team: TeamResult, star_level: int
+) -> dict | None:
+    """序列化成員的夥伴技能,並標出是否真的提高固定帕魯輸出。"""
+    partner = pal.partner_skill
+    if partner is None:
+        return None
+
+    active = next(
+        (b for b in team.active_buffs if b.provider_dev_name == pal.dev_name),
+        None,
+    )
+    applies_to_fixed = []
+    if active is not None:
+        applies_to_fixed = [
+            member.damage.pal.name_zh
+            for member in team.members
+            if member.is_fixed
+            and (
+                active.buff.buff_element is None
+                or active.buff.buff_element in member.damage.pal.elements
+            )
+        ]
+
+    current_value = None
+    if active is not None:
+        current_value = active.buff.buff_value
+    elif star_level < len(partner.buff_tiers):
+        current_value = partner.buff_tiers[star_level]
+
+    return {
+        "name_zh": partner.name_zh,
+        "description": _mechanic_description(
+            partner.description, active is not None
+        ),
+        "description_note": (
+            "遊戲機制文字採無星模板；加成數值以上方目前星級為準。"
+            if active is not None
+            else None
+        ),
+        "effect_type": partner.effect_type,
+        "buff_target": partner.buff_target,
+        "buff_element": partner.buff_element,
+        "buff_mechanic": partner.buff_mechanic,
+        "buff_max_stacks": partner.buff_max_stacks,
+        "current_buff_value": current_value,
+        "is_counted": active is not None,
+        "applies_to_fixed_pal_names": applies_to_fixed,
+    }
+
+
+def _serialize_team(
+    team: TeamResult,
+    pals_by_dev_name: dict[str, PalDetailOut],
+    star_level: int,
+) -> dict:
     return {
         "total_dps": team.total_dps,
+        "fixed_total_dps": team.fixed_total_dps,
         "members": [
             {
                 "pal": {
@@ -61,6 +134,9 @@ def _serialize_team(team: TeamResult, pals_by_dev_name: dict[str, PalDetailOut])
                         e.model_dump()
                         for e in pals_by_dev_name[m.damage.pal.dev_name].elements
                     ],
+                    "partner_skill": _serialize_partner_skill(
+                        pals_by_dev_name[m.damage.pal.dev_name], team, star_level
+                    ),
                 },
                 "is_fixed": m.is_fixed,
                 "total_dps": m.damage.total_dps,
@@ -139,8 +215,14 @@ def create_team_recommendations(request: Request, body: RecommendationRequest) -
 
     pals_by_dev_name = {p.dev_name: p for p in cache.pals}
     return {
-        "data": {"teams": [_serialize_team(t, pals_by_dev_name) for t in teams]},
+        "data": {
+            "teams": [
+                _serialize_team(t, pals_by_dev_name, body.star_level) for t in teams
+            ]
+        },
         "meta": {
+            "calculation_mode": "palworld_1_0_passive_relative_score",
+            "optimization_target": "fixed_pals_output",
             "level": body.level,
             "star_level": body.star_level,
             "target_elements": list(target_elements),

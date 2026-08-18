@@ -22,9 +22,9 @@ def test_matchup_multipliers_are_correct(client):
         (m["attacker"], m["defender"]): m["multiplier"]
         for m in body["data"]["matchups"]
     }
-    assert table[("water", "fire")] == 2.0
-    assert table[("fire", "water")] == 0.5
-    assert table[("dark", "normal")] == 2.0
+    assert table[("water", "fire")] == 1.5
+    assert table[("fire", "water")] == 0.66
+    assert table[("dark", "normal")] == 1.5
     assert table[("normal", "normal")] == 1.0
 
 

@@ -8,7 +8,7 @@ def _pal_id(client, name):
 
 
 def test_recommendation_success(client):
-    """TC-005:每隊皆含固定成員、人數 = 5、依總傷害由高到低排序。"""
+    """TC-005:每隊皆含固定成員、人數 = 5、依相對輸出由高到低排序。"""
     fixed = [_pal_id(client, "棉悠悠"), _pal_id(client, "碧海龍")]
     resp = client.post(
         "/api/team-recommendations",
@@ -19,20 +19,29 @@ def test_recommendation_success(client):
     teams = body["data"]["teams"]
     assert len(teams) >= 1
 
-    totals = [t["total_dps"] for t in teams]
-    assert totals == sorted(totals, reverse=True)
+    fixed_totals = [t["fixed_total_dps"] for t in teams]
+    assert fixed_totals == sorted(fixed_totals, reverse=True)
 
     for team in teams:
         assert len(team["members"]) == 5
         fixed_ids = {m["pal"]["id"] for m in team["members"] if m["is_fixed"]}
         assert fixed_ids == set(fixed)
+        assert all("partner_skill" in m["pal"] for m in team["members"])
 
     assert body["meta"]["level"] == 50
     assert body["meta"]["target_elements"] == ["fire"]
+    assert body["meta"]["calculation_mode"] == "palworld_1_0_passive_relative_score"
+    assert body["meta"]["optimization_target"] == "fixed_pals_output"
+    assert all(
+        buff["buff_target"] == "pal_attack"
+        and buff["buff_mechanic"] in ("flat", "stack")
+        for team in teams
+        for buff in team["active_buffs"]
+    )
 
 
 def test_breakdown_is_verifiable(client):
-    """TC-006 精神:成員 DPS 合計=隊伍總傷害;技能 DPS=單發傷害÷冷卻。"""
+    """TC-006 精神:成員分數合計=隊伍分數;每秒分數=單次分數÷冷卻。"""
     fixed = [_pal_id(client, "棉悠悠")]
     resp = client.post(
         "/api/team-recommendations",
@@ -41,6 +50,9 @@ def test_breakdown_is_verifiable(client):
     team = resp.json()["data"]["teams"][0]
     assert team["total_dps"] == pytest.approx(
         sum(m["total_dps"] for m in team["members"])
+    )
+    assert team["fixed_total_dps"] == pytest.approx(
+        sum(m["total_dps"] for m in team["members"] if m["is_fixed"])
     )
     for member in team["members"]:
         assert member["total_dps"] == pytest.approx(
@@ -55,7 +67,7 @@ def test_breakdown_is_verifiable(client):
 
 
 def test_fire_target_favors_water_attackers(client):
-    """對火目標,最佳隊伍應包含水系輸出(克制 2×)。"""
+    """對火目標,最佳隊伍應包含水系輸出(克制 1.5×)。"""
     fixed = [_pal_id(client, "棉悠悠")]
     resp = client.post(
         "/api/team-recommendations",
@@ -78,20 +90,63 @@ def test_generic_target_works_without_target(client):
     assert resp.json()["meta"]["star_level"] == 4  # 預設滿星
 
 
+def test_uncounted_partner_skill_is_explained(client):
+    """非帕魯攻擊型夥伴技能仍回傳說明,但不得標成已計入。"""
+    fixed = [_pal_id(client, "棉悠悠")]
+    team = client.post(
+        "/api/team-recommendations",
+        json={"fixed_pal_ids": fixed, "level": 50},
+    ).json()["data"]["teams"][0]
+    member = next(m for m in team["members"] if m["is_fixed"])
+    passive = member["pal"]["partner_skill"]
+
+    assert passive["effect_type"] == "other"
+    assert passive["is_counted"] is False
+    assert passive["current_buff_value"] is None
+    assert passive["applies_to_fixed_pal_names"] == []
+    assert passive["description_note"] is None
+
+
 def test_star_level_scales_buff(client):
     """星級提高 → 夥伴技能加成變強 → 帕魯攻擊加成%上升。"""
     fixed = [_pal_id(client, "波魯傑克斯")]
 
-    def buff_rate(star):
+    def response(star):
         body = client.post(
             "/api/team-recommendations",
             json={"fixed_pal_ids": fixed, "level": 50, "star_level": star},
         ).json()
-        provider = body["data"]["teams"][0]["members"][0]  # 固定成員=波魯傑克斯
-        return provider["attack_buff_rate"]
+        return body["data"]["teams"][0]
 
-    # 0 星滿疊 30%(自身 stack)、4 星滿疊 150%;星級越高加成越大
-    assert buff_rate(4) > buff_rate(0) > 0
+    # 波魯傑克斯是固定成員,其命中疊層必須進入實際推薦加成清單。
+    for star, expected in ((0, 0.3), (4, 1.5)):
+        team = response(star)
+        orsek_buff = next(
+            b for b in team["active_buffs"] if b["provider_name_zh"] == "波魯傑克斯"
+        )
+        assert orsek_buff["buff_mechanic"] == "stack"
+        assert orsek_buff["buff_max_stacks"] == 30
+        assert orsek_buff["buff_value"] == pytest.approx(expected)
+        orsek_member = next(
+            m for m in team["members"] if m["pal"]["name_zh"] == "波魯傑克斯"
+        )
+        passive = orsek_member["pal"]["partner_skill"]
+        assert passive["is_counted"] is True
+        assert passive["current_buff_value"] == pytest.approx(expected)
+        assert passive["buff_mechanic"] == "stack"
+        assert passive["buff_max_stacks"] == 30
+        assert passive["applies_to_fixed_pal_names"] == ["波魯傑克斯"]
+        assert "提升1%" not in passive["description"]
+        assert "數值見上方目前星級" in passive["description"]
+        assert "無星模板" in passive["description_note"]
+
+        lifedrain_member = next(
+            m for m in team["members"] if m["pal"]["name_zh"] == "織夜鹿"
+        )
+        lifedrain = lifedrain_member["pal"]["partner_skill"]
+        assert lifedrain["is_counted"] is True
+        assert "提升%" not in lifedrain["description"]
+        assert "數值見上方目前星級" in lifedrain["description"]
     assert client.post(
         "/api/team-recommendations",
         json={"fixed_pal_ids": fixed, "level": 50, "star_level": 5},
