@@ -1,0 +1,13 @@
+# Render Blueprint — 一鍵建立正式環境服務
+# 用法:Render 後台 → New → Blueprint → 連接此 GitHub repo,Render 會讀取本檔。
+# 免費層:無流量時服務會休眠,首次喚醒約需 30~60 秒(冷啟動),屬正常現象。
+
+services:
+  - type: web
+    name: palworld-partner-skill-finder
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    plan: free
+    region: singapore          # 亞洲節點,對台灣延遲較低;可改 oregon 等
+    healthCheckPath: /api/health
+    autoDeploy: true           # push 到預設分支即自動重新部署

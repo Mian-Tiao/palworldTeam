@@ -1,0 +1,19 @@
+# 不進 Docker build context(縮小體積、避免把本機產物帶進 image)
+**/.venv
+**/venv
+**/__pycache__
+**/*.py[cod]
+**/node_modules
+frontend/dist
+*.db
+*.sqlite
+*.sqlite3
+.git
+.github
+.pytest_cache
+backend/tests
+.claude
+.env
+.env.*
+doc
+*.md

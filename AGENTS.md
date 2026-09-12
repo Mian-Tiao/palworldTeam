@@ -20,11 +20,12 @@
 | 前端 | React + Vite,TanStack Query,Tailwind CSS |
 | ORM/遷移 | SQLAlchemy 2.x + Alembic |
 | 本地開發資料庫 | SQLite |
-| 正式環境 | Render.com(免費層)+ Render PostgreSQL |
+| 正式環境 | Render.com(免費層,Docker runtime);資料庫為 image build 階段重建的 SQLite |
 
-**本地 SQLite、正式 PostgreSQL 的差異規則**:
+**資料庫規則**(2026-09-12 起改用 SQLite;原訂 Render PostgreSQL,見 project-memory):
 
-- 資料庫存取一律透過 SQLAlchemy ORM,**禁止**使用僅單一資料庫支援的專有 SQL 語法或原生 SQL 字串
+- app 執行期**完全唯讀**(啟動載入記憶體快取),資料由 `pals.json` 經匯入腳本重建;正式環境於 Docker build 階段跑 `alembic upgrade head` + `import_data.py` 建出 SQLite,故無需持久化資料庫服務(免費、不過期)
+- 為保留未來換回 PostgreSQL 的彈性:資料庫存取一律透過 SQLAlchemy ORM,**禁止**使用僅單一資料庫支援的專有 SQL 語法或原生 SQL 字串
 - 連線字串由環境變數 `DATABASE_URL` 提供,程式碼零修改切換環境
 - Schema 變更一律透過 Alembic 遷移,禁止手動改表
 

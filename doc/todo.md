@@ -288,14 +288,17 @@
   - [x] pytest 86 例通過;前端 lint/build 乾淨;桌機/手機瀏覽器實測無 console 錯誤、無溢出
 
 ### [T-9] 部署設定(Render)
-- 狀態:Todo
+- 狀態:設定完成待上線(2026-09-12);程式與設定就緒,剩使用者在 Render 後台連接 repo
 - 優先級:中
 - 對應需求:成功標準 3(朋友可用網址直接使用)
 - 相依:T-6
-- 描述:Render Web Service(免費層)+ Render PostgreSQL;build 流程含前端打包與 Alembic 遷移;`DATABASE_URL` 於 Render 後台設定;GitHub 推送自動部署
+- 描述:改採 **Render Docker web service(免費層)+ SQLite 於 build 階段重建**(取代原訂 PostgreSQL,見 project-memory 2026-09-12)。多階段 Dockerfile:Node 打包前端 → Python 執行後端,單一服務同供 API 與靜態前端
+- 產出檔案:`Dockerfile`(多階段)、`.dockerignore`、`render.yaml`(Blueprint)
+- 本機驗證:全新 SQLite 跑 `alembic upgrade head` + `import_data.py` 成功(298 帕魯 / 8 克制增傷)
 - 驗收條件:
-  - [ ] 正式網址可開啟前端並成功呼叫 `/api/health`
-  - [ ] 無任何機密出現在程式碼或 build log
+  - [x] build 流程含前端打包與 Alembic 遷移(Dockerfile 多階段;本機 dry-run 通過)
+  - [x] 無任何機密出現在程式碼或設定檔(SQLite 無連線密碼;`.env` 仍在 .gitignore)
+  - [ ] 正式網址可開啟前端並成功呼叫 `/api/health`(待使用者於 Render 連接 repo 部署後確認)
 
 ### [T-10] 推薦端點速率限制
 - 狀態:Todo
