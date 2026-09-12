@@ -288,7 +288,7 @@
   - [x] pytest 86 例通過;前端 lint/build 乾淨;桌機/手機瀏覽器實測無 console 錯誤、無溢出
 
 ### [T-9] 部署設定(Render)
-- 狀態:設定完成待上線(2026-09-12);程式與設定就緒,剩使用者在 Render 後台連接 repo
+- 狀態:Done(2026-09-12);已上線 https://palworld-partner-skill-finder.onrender.com
 - 優先級:中
 - 對應需求:成功標準 3(朋友可用網址直接使用)
 - 相依:T-6
@@ -298,7 +298,7 @@
 - 驗收條件:
   - [x] build 流程含前端打包與 Alembic 遷移(Dockerfile 多階段;本機 dry-run 通過)
   - [x] 無任何機密出現在程式碼或設定檔(SQLite 無連線密碼;`.env` 仍在 .gitignore)
-  - [ ] 正式網址可開啟前端並成功呼叫 `/api/health`(待使用者於 Render 連接 repo 部署後確認)
+  - [x] 正式網址可開啟前端並成功呼叫 `/api/health`(已驗證:298 帕魯載入、加成矩陣與克制增傷正常、零 console 錯誤)
 
 ### [T-10] 推薦端點速率限制
 - 狀態:Todo
