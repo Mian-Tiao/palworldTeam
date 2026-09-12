@@ -1,9 +1,47 @@
-import { useState } from 'react'
+import { Fragment, useState } from 'react'
 
 import { useBuffMatrix } from '../api/buffMatrix'
 import ElementBadge from './ElementBadge'
 
 const pct = (v) => `+${Math.round(v * 100)}%`
+const STAR_LABEL = ['無星', '1★', '2★', '3★', '4★']
+
+// 展開後的夥伴技能細節:各星級加成階梯 + 機制 + 清理後的遊戲說明
+function BuffDetail({ buff, starLevel }) {
+  return (
+    <div className="space-y-3 rounded-lg bg-slate-950/40 p-3 ring-1 ring-white/5">
+      <div>
+        <div className="mb-1.5 text-xs text-[var(--muted)]">各星級加成(專注等級,標示為你目前選的星級)</div>
+        <div className="flex flex-wrap gap-1.5">
+          {(buff.buff_tiers ?? []).map((v, i) => (
+            <span
+              key={i}
+              className={`rounded px-2 py-1 text-xs tabular-nums ring-1 ${
+                i === starLevel
+                  ? 'bg-amber-400/15 font-semibold text-amber-200 ring-amber-400/40'
+                  : 'text-[var(--text-2)] ring-[var(--border)]'
+              }`}
+            >
+              {STAR_LABEL[i]} +{Math.round(v * 100)}%
+            </span>
+          ))}
+        </div>
+      </div>
+      <div className="flex flex-wrap gap-x-4 gap-y-1 text-xs text-[var(--text-2)]">
+        <span>作用範圍:{buff.buff_element ? `${ELEMENT_ZH[buff.buff_element] ?? buff.buff_element}系帕魯` : '全體帕魯'}</span>
+        <span>
+          機制:
+          {buff.buff_mechanic === 'stack'
+            ? `疊層加成${buff.buff_max_stacks ? `(上限 ${buff.buff_max_stacks} 層,採實戰估計)` : ''}`
+            : '常駐固定加成'}
+        </span>
+      </div>
+      {buff.description && (
+        <p className="text-xs leading-relaxed text-[var(--muted)]">{buff.description}</p>
+      )}
+    </div>
+  )
+}
 
 // 摘要:直接告訴使用者這次到底有沒有得選
 function Summary({ meta, buffers }) {
@@ -123,6 +161,7 @@ export default function BuffMatrix({ fixedPals, starLevel, targetElements = [] }
     starLevel,
     targetElements,
   )
+  const [expandedKey, setExpandedKey] = useState(null)
 
   if (isPending) {
     return <p className="py-6 text-center text-[var(--muted)]">查詢加成中…</p>
@@ -173,7 +212,7 @@ export default function BuffMatrix({ fixedPals, starLevel, targetElements = [] }
           <table className="w-full min-w-[520px] text-sm">
             <thead>
               <tr className="border-b border-[var(--border)] text-xs text-[var(--muted)]">
-                <th className="py-2 pr-3 text-left font-medium">加成來源</th>
+                <th className="py-2 pr-3 text-left font-medium">加成來源<span className="font-normal text-[var(--muted)]"> · 點列可展開細節</span></th>
                 <th className="px-2 py-2 text-right font-medium">加成</th>
                 {cols.map((c) => (
                   <th key={c.id} className="px-2 py-2 text-center font-medium">
@@ -184,45 +223,69 @@ export default function BuffMatrix({ fixedPals, starLevel, targetElements = [] }
               </tr>
             </thead>
             <tbody>
-              {buffers.map((b) => (
-                <tr key={`${b.pal.id}-${b.partner_skill_name}`} className="border-b border-white/5">
-                  <td className="py-2 pr-3">
-                    <div className="flex flex-wrap items-center gap-1.5">
-                      <span className="font-medium text-[var(--text)]">{b.pal.name_zh}</span>
-                      {b.pal.elements.map((e) => (
-                        <ElementBadge key={e.code} code={e.code} nameZh={e.name_zh} />
-                      ))}
-                      {b.already_fixed && (
-                        <span className="rounded bg-emerald-400/10 px-1.5 py-0.5 text-[10px] text-emerald-300 ring-1 ring-emerald-400/30">
-                          已在隊上
-                        </span>
-                      )}
-                    </div>
-                    <div className="mt-0.5 text-xs text-[var(--muted)]">
-                      {b.partner_skill_name}
-                      {b.buff_element ? '(限定屬性)' : '(全體)'}
-                      {b.buff_mechanic === 'stack' &&
-                        `,疊層${b.buff_max_stacks ? ` 上限 ${b.buff_max_stacks}` : ''}`}
-                    </div>
-                  </td>
-                  <td className="px-2 py-2 text-right tabular-nums font-semibold text-amber-300">
-                    {pct(b.buff_value)}
-                  </td>
-                  {cols.map((c) => {
-                    const hit = b.applies_to_pal_ids.includes(c.id)
-                    return (
-                      <td
-                        key={c.id}
-                        className={`px-2 py-2 text-center tabular-nums ${
-                          hit ? 'font-semibold text-emerald-300' : 'text-[var(--muted)]'
-                        }`}
-                      >
-                        {hit ? pct(b.buff_value) : '—'}
+              {buffers.map((b) => {
+                const key = `${b.pal.id}-${b.partner_skill_name}`
+                const open = expandedKey === key
+                const toggle = () => setExpandedKey(open ? null : key)
+                return (
+                  <Fragment key={key}>
+                    <tr
+                      className="cursor-pointer border-b border-white/5 hover:bg-white/[0.03]"
+                      role="button"
+                      tabIndex={0}
+                      aria-expanded={open}
+                      onClick={toggle}
+                      onKeyDown={(ev) => {
+                        if (ev.key === 'Enter' || ev.key === ' ') { ev.preventDefault(); toggle() }
+                      }}
+                    >
+                      <td className="py-2 pr-3">
+                        <div className="flex flex-wrap items-center gap-1.5">
+                          <span className="text-[var(--muted)]">{open ? '▾' : '▸'}</span>
+                          <span className="font-medium text-[var(--text)]">{b.pal.name_zh}</span>
+                          {b.pal.elements.map((e) => (
+                            <ElementBadge key={e.code} code={e.code} nameZh={e.name_zh} />
+                          ))}
+                          {b.already_fixed && (
+                            <span className="rounded bg-emerald-400/10 px-1.5 py-0.5 text-[10px] text-emerald-300 ring-1 ring-emerald-400/30">
+                              已在隊上
+                            </span>
+                          )}
+                        </div>
+                        <div className="mt-0.5 pl-5 text-xs text-[var(--muted)]">
+                          {b.partner_skill_name}
+                          {b.buff_element ? '(限定屬性)' : '(全體)'}
+                          {b.buff_mechanic === 'stack' &&
+                            `,疊層${b.buff_max_stacks ? ` 上限 ${b.buff_max_stacks}` : ''}`}
+                        </div>
                       </td>
-                    )
-                  })}
-                </tr>
-              ))}
+                      <td className="px-2 py-2 text-right font-semibold tabular-nums text-amber-300">
+                        {pct(b.buff_value)}
+                      </td>
+                      {cols.map((c) => {
+                        const hit = b.applies_to_pal_ids.includes(c.id)
+                        return (
+                          <td
+                            key={c.id}
+                            className={`px-2 py-2 text-center tabular-nums ${
+                              hit ? 'font-semibold text-emerald-300' : 'text-[var(--muted)]'
+                            }`}
+                          >
+                            {hit ? pct(b.buff_value) : '—'}
+                          </td>
+                        )
+                      })}
+                    </tr>
+                    {open && (
+                      <tr>
+                        <td colSpan={2 + cols.length} className="px-2 pb-3">
+                          <BuffDetail buff={b} starLevel={starLevel} />
+                        </td>
+                      </tr>
+                    )}
+                  </Fragment>
+                )
+              })}
             </tbody>
           </table>
         </div>

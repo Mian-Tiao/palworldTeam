@@ -4,6 +4,8 @@
 不做任何傷害估算。資料一律讀記憶體快取。
 """
 
+import re
+
 from fastapi import APIRouter, Request
 
 from app.core.cache import DataCache
@@ -18,6 +20,17 @@ from app.services.buff_matrix import (
 from app.services.damage import TeamBuff
 
 router = APIRouter(tags=["buff-matrix"])
+
+# 遊戲原始說明的攻擊 % 是「專注1階」模板值,與所選星級可能不符(見 project-memory P-15);
+# 展開細節以「各星級階梯」為準,說明文字中的該數字改為指向階梯,並去掉牧場掉落雜訊句。
+_ATTACK_PCT = re.compile(r"(提升)\s*\d+(?:\.\d+)?%")
+
+
+def _clean_desc(text: str | None) -> str | None:
+    if not text:
+        return text
+    text = text.split("將牠分派到")[0].strip()
+    return _ATTACK_PCT.sub(r"\1（見各星級數值）", text)
 
 
 def _to_matrix_pal(pal: PalDetailOut) -> MatrixPal:
@@ -126,6 +139,11 @@ def create_buff_matrix(request: Request, body: BuffMatrixRequest) -> dict:
                     "applies_to_pal_ids": list(e.applies_to_pal_ids),
                     "affected_count": e.affected_count,
                     "already_fixed": e.pal.pal_id in fixed_ids,
+                    # 展開細節用:各星級加成階梯(0~4)與清理後的遊戲說明
+                    "buff_tiers": cache.pals_by_id[e.pal.pal_id].partner_skill.buff_tiers,
+                    "description": _clean_desc(
+                        cache.pals_by_id[e.pal.pal_id].partner_skill.description
+                    ),
                 }
                 for e in matrix.buffers
             ],

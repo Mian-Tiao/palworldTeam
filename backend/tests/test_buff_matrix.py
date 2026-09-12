@@ -163,6 +163,17 @@ class TestBuffMatrixApi:
         for b in body["data"]["buffers"]:
             assert pid in b["applies_to_pal_ids"]
 
+    def test_buffer_includes_detail_fields(self, client):
+        """展開細節用:每個加成須附各星級階梯,說明不得殘留誤導的模板百分比。"""
+        listing = client.get("/api/pals", params={"search": "水靈兒"}).json()
+        pid = listing["data"][0]["id"]
+        body = client.post("/api/buff-matrix", json={"fixed_pal_ids": [pid]}).json()
+        water = next(b for b in body["data"]["buffers"] if b["pal"]["name_zh"] == "水靈兒")
+        assert water["buff_tiers"] == [0.15, 0.17, 0.2, 0.24, 0.3]
+        assert "將牠分派到" not in (water["description"] or "")  # 牧場掉落雜訊已去除
+        import re
+        assert not re.search(r"提升\s*\d+%", water["description"] or "")  # 模板%已清除
+
     def test_star_level_changes_values(self, client):
         listing = client.get("/api/pals", params={"search": "啼卡爾"}).json()
         pid = listing["data"][0]["id"]
